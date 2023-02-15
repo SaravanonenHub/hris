@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using API.Dtos.MasterDtos;
+using API.Errors;
+using AutoMapper;
+using Core.Entities.Employees;
+using Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace API.Controllers
+{
+
+    public class TeamController : BaseApiController
+    {
+        private readonly IMasterRepository _service;
+        private readonly IEmployeeRepository _empService;
+        private readonly IMapper _mapper;
+
+        public TeamController(IMasterRepository service, IMapper mapper, IEmployeeRepository empService = null)
+        {
+            _service = service;
+            _mapper = mapper;
+            _empService = empService;
+        }
+        [HttpGet("teams")]
+        public async Task<IReadOnlyList<Team>> GetTeams()
+        {
+            var results = await _service.GetTeamesAsync();
+            return results;
+        }
+        [HttpGet("team/{id}")]
+        public async Task<ActionResult<Team>> GetTeamById(int Id)
+        {
+            var result = await _service.GetTeamById(Id);
+            if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
+
+            return Ok(result);
+        }
+        [HttpPost("team")]
+        public async Task<ActionResult<Team>> CreateShift(TeamDto teamDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var alreadyExist = await _service.GetTeamByName(teamDto.TeamName);
+                if (alreadyExist != null)
+                {
+                    return BadRequest(new ApiResponse(400, "Team name already exist!"));
+                }
+                var _team = _mapper.Map<TeamDto, Team>(teamDto);
+                var _department = await _service.GetDepartmentById(teamDto.DepartmentId);
+                _team.Department = _department;
+                var details = new List<TeamDetails>();
+                foreach (var detail in teamDto.TeamDetails)
+                {
+                    var _role = await _service.GetUserRoleById(detail.RoleId);
+                    var _emp = await _empService.GetEmployeeById(detail.EmployeeId);
+                    var teamDetail = new TeamDetails(_team, _emp, _role);
+                    details.Add(teamDetail);
+
+                }
+                _team.TeamDetails = details;
+                var result = await _service.CreateTeam(_team);
+
+
+
+                if (result == null) return BadRequest(new ApiResponse(400, "Problem creating team"));
+
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(new ApiResponse(400, "Model Invalid!"));
+            }
+
+        }
+
+        [HttpPut("team/{Id}")]
+        public async Task<ActionResult<Team>> UpdateTeam(int Id, TeamDto teamDto)
+        {
+            var IsExist = _service.GetTeambyNoTrack(Id).AsEnumerable().SingleOrDefault();
+            if (IsExist != null)
+            {
+                var alreadyExist = await _service.CheckTeamonUpdate(teamDto.TeamName, Id);
+                if (alreadyExist != null)
+                {
+                    return BadRequest(new ApiResponse(400, "Team name already exist!"));
+                }
+                var team = _mapper.Map<TeamDto, Team>(teamDto);
+                team.CreateDate = IsExist.CreateDate;
+                team.LastModifiedDate = DateTime.Now;
+                team.LastModifiedBy = "User";
+                team.Id = Id;
+                var result = await _service.UpdateTeam(team);
+                if (result == null) return BadRequest(new ApiResponse(400, "Problem updating team"));
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
+            }
+        }
+    }
+}
