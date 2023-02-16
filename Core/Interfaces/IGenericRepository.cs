@@ -11,6 +11,7 @@ namespace Core.Interfaces
     {
         Task<T> GetByIdAsync(int id);
         IQueryable<T> GetByIdWithoutTrack(int id);
+        IQueryable<T> GetEntityWithSpecNoTrack(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAllAsync();
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);

@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Dtos.EmployeeDtos;
 using API.Errors;
 using AutoMapper;
 using Core.Entities.Employees;
 using Core.Interfaces;
+using Core.Interfaces.IMaster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,12 +13,14 @@ namespace API.Controllers
     {
         private readonly IEmployeeRepository _service;
         private readonly IMasterRepository _masterService;
+        private readonly ITeamRepository _teamService;
         private readonly IMapper _mapper;
-        public EmployeeController(IEmployeeRepository service, IMapper mapper = null, IMasterRepository masterService = null)
+        public EmployeeController(IEmployeeRepository service, IMapper mapper = null, IMasterRepository masterService = null, ITeamRepository teamService = null)
         {
             _service = service;
             _mapper = mapper;
             _masterService = masterService;
+            _teamService = teamService;
         }
         [HttpGet("employees")]
         public async Task<IReadOnlyList<Employee>> GetEmployees()
@@ -52,8 +51,8 @@ namespace API.Controllers
                 var _division = await _masterService.GetDivisionById(empDto.DivisionID);
                 var _department = await _masterService.GetDepartmentById(empDto.DepartmentID);
                 var _designation = await _masterService.GetDesignationById(empDto.DesignationID);
-                var _team = await _masterService.GetTeamById(empDto.TeamId);
-                var _teamRole = await _masterService.GetUserRoleById(empDto.TeamRoleId);
+                var _team = await _teamService.GetTeamById(empDto.TeamId);
+                var _teamRole = await _teamService.GetUserRoleById(empDto.TeamRoleId);
                 _emp.Branch = _branch;
                 _emp.Division = _division;
                 _emp.Department = _department;

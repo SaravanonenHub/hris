@@ -25,4 +25,23 @@ namespace API.Dtos.MasterDtos
         [Required]
         public int RoleId { get; set; }
     }
+    public class TeamResponseDto
+    {
+        [Required]
+        public string TeamName { get; set; }
+        [Required]
+        public string DisplayName { get; set; }
+        [Required]
+        public int DepartmentId { get; set; }
+        [Required]
+        public IReadOnlyList<TeamDetailsResponseDto> TeamDetails { get; set; }
+    }
+    public class TeamDetailsResponseDto
+    {
+        public int Id { get; set; }
+        [Required]
+        public int EmployeeId { get; set; }
+        [Required]
+        public int RoleId { get; set; }
+    }
 }

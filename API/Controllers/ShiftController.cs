@@ -14,9 +14,9 @@ namespace API.Controllers
 
     public class ShiftController : BaseApiController
     {
-        private readonly IMasterRepository _service;
+        private readonly IShiftRepository _service;
         private readonly IMapper _mapper;
-        public ShiftController(IMasterRepository service, IMapper mapper)
+        public ShiftController(IShiftRepository service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;

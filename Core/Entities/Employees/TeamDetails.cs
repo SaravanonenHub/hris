@@ -25,9 +25,9 @@ namespace Core.Entities.Employees
         {
         }
 
-        public TeamDetails(Team team, Employee employee, TeamRole role)
+        public TeamDetails(int Id, Employee employee, TeamRole role)
         {
-            // Team = team;
+            this.Id = Id;
             Employee = employee;
             Role = role;
         }

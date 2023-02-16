@@ -23,6 +23,8 @@ namespace API.Helpers
             CreateMap<Employee, EmployeeResponseDto>();
             CreateMap<TeamDto, Team>();
             CreateMap<TeamDetailsDto, TeamDetails>();
+            CreateMap<TeamResponseDto, Team>();
+            CreateMap<TeamDetailsResponseDto, TeamDetails>();
         }
 
 

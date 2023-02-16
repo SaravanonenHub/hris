@@ -31,6 +31,10 @@ namespace Infrastructure.Data
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
+        public IQueryable<T> GetEntityWithSpecNoTrack(ISpecification<T> spec)
+        {
+            return ApplySpecificationNoTrack(spec);
+        }
 
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {
@@ -46,7 +50,10 @@ namespace Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
-
+        private IQueryable<T> ApplySpecificationNoTrack(ISpecification<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsNoTracking().AsQueryable(), spec);
+        }
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);

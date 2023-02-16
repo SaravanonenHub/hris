@@ -14,11 +14,11 @@ namespace API.Controllers
 
     public class TeamController : BaseApiController
     {
-        private readonly IMasterRepository _service;
+        private readonly ITeamRepository _service;
         private readonly IEmployeeRepository _empService;
         private readonly IMapper _mapper;
 
-        public TeamController(IMasterRepository service, IMapper mapper, IEmployeeRepository empService = null)
+        public TeamController(ITeamRepository service, IMapper mapper, IEmployeeRepository empService = null)
         {
             _service = service;
             _mapper = mapper;
@@ -56,7 +56,7 @@ namespace API.Controllers
                 {
                     var _role = await _service.GetUserRoleById(detail.RoleId);
                     var _emp = await _empService.GetEmployeeById(detail.EmployeeId);
-                    var teamDetail = new TeamDetails(_team, _emp, _role);
+                    var teamDetail = new TeamDetails(0, _emp, _role);
                     details.Add(teamDetail);
 
                 }
@@ -77,7 +77,7 @@ namespace API.Controllers
         }
 
         [HttpPut("team/{Id}")]
-        public async Task<ActionResult<Team>> UpdateTeam(int Id, TeamDto teamDto)
+        public async Task<ActionResult<Team>> UpdateTeam(int Id, TeamResponseDto teamDto)
         {
             var IsExist = _service.GetTeambyNoTrack(Id).AsEnumerable().SingleOrDefault();
             if (IsExist != null)
@@ -87,13 +87,25 @@ namespace API.Controllers
                 {
                     return BadRequest(new ApiResponse(400, "Team name already exist!"));
                 }
-                var team = _mapper.Map<TeamDto, Team>(teamDto);
-                team.CreateDate = IsExist.CreateDate;
-                team.LastModifiedDate = DateTime.Now;
-                team.LastModifiedBy = "User";
-                team.Id = Id;
-                var result = await _service.UpdateTeam(team);
-                if (result == null) return BadRequest(new ApiResponse(400, "Problem updating team"));
+                var _team = _mapper.Map<TeamResponseDto, Team>(teamDto);
+                var _department = await _service.GetDepartmentById(teamDto.DepartmentId);
+                _team.Department = _department;
+                var details = new List<TeamDetails>();
+                foreach (var detail in teamDto.TeamDetails)
+                {
+                    var _role = await _service.GetUserRoleById(detail.RoleId);
+                    var _emp = await _empService.GetEmployeeById(detail.EmployeeId);
+                    var teamDetail = new TeamDetails(detail.Id, _emp, _role);
+                    details.Add(teamDetail);
+
+                }
+                _team.TeamDetails = details;
+                _team.LastModifiedDate = DateTime.Now;
+                _team.LastModifiedBy = "User";
+                _team.Id = Id;
+                var result = await _service.UpdateTeam(_team);
+                if (result == null) return BadRequest(new ApiResponse(400, "Problem creating team"));
+
                 return Ok(result);
             }
             else

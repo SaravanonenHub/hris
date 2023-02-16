@@ -7,8 +7,7 @@ using API.Errors;
 using Core.Entities.Masters;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using Core.Interfaces;
-using Core.Specifications.MasterSpec;
+using Core.Interfaces.IMaster;
 
 namespace API.Controllers
 {
