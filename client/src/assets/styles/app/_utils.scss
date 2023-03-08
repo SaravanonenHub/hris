@@ -1,0 +1,50 @@
+.card {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    // width: 90%;
+    box-shadow: var(--card-shadow);
+    // border-radius: $borderRadius;
+    // position: relative;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    overflow-y:visible;
+}
+
+.scrollable {
+    // position: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1000;
+    // overflow-x: hidden;
+    max-height: 90vh;
+    padding: 0px 10px;
+    // max-width: 100vw;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+
+.p-toast {
+
+    &.p-toast-top-right,
+    &.p-toast-top-left,
+    &.p-toast-top-center {
+        top: 100px;
+    }
+}
