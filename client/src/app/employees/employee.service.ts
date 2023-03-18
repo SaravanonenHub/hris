@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Employee, IEmployee } from '../domain/models/employee';
 import { IBranch, IDepartment, IDesignation, IDivision, ITeam, Role } from '../domain/models/master';
 
 @Injectable({
@@ -19,6 +20,9 @@ export class EmployeeService {
 
   getEmployeesBase() {
     return this.http.get(this.baseUrl + 'employees');
+  }
+  getEmployeesBaseById(id: number) {
+    return this.http.get<Employee>(`${this.baseUrl}Employee/employee/${id}`);
   }
   getBranches() {
     if (this.braches.length > 0) return of(this.braches);

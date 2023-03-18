@@ -29,7 +29,12 @@
 
 }
 
-
+.required:after {
+    content: " * ";
+    color: #7f0303ed;
+    font-weight: 600;
+    // font-size: 5px;
+}
 
 :host ::ng-deep .p-calendar {
     .p-inputtext {
@@ -67,6 +72,7 @@
 
 .actionFix {
     position: absolute;
+    bottom: 50px;
     // top: 10px;
     // left: 10px;
     background: #fff;
@@ -76,6 +82,18 @@
     // margin-top: 50px;
     bottom: 50px;
     left: 10px;
+}
+
+.country-item {
+    display: flex;
+    align-items: center;
+
+}
+
+.country-item-value {
+    img.flag {
+        width: 17px;
+    }
 }
 
 @media screen and (max-width: 1729px) {
@@ -129,6 +147,7 @@
     & .action {
         // background-color: purple;
         top: 0;
+        bottom: 0;
         margin: 0;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         max-height: 15vh;

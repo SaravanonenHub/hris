@@ -3,7 +3,7 @@ import { IBranch, IDepartment, IDesignation, IDivision, Role, ITeam } from "./ma
 
 export interface IEmployee {
     id?: number;
-    employeeCode?: string;
+    employeeCode: string;
     firstName?: string;
     lastName?: string;
     displayName?: string;
@@ -31,12 +31,14 @@ export class Employee implements IEmployee {
 
     firstName = '';
     lastName = '';
+    employeeCode: string = '';
     branchId: number = 0;
     divisionId: number = 0;
     departmentId: number = 0;
     designationId: number = 0;
     teamId: number = 0
-    roleId: number = 0;
+    teamRoleId: number = 0;
+
     fullName() {
         return this.firstName.concat(this.lastName);
     }

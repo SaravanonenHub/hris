@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Employees;
+using Core.Entities.Identity;
 
 namespace Core.Interfaces
 {
@@ -15,6 +16,7 @@ namespace Core.Interfaces
         Task<IReadOnlyList<Employee>> GetEmployeeDetailsAsync();
         Task<Employee> CheckEmployeeonUpdate(string name, int id);
         Task<Employee> CreateEmployee(Employee emp);
+        // Task<AppUser> CreateUser(AppUser user);
         Task<Employee> UpdateEmployee(Employee emp);
 
 

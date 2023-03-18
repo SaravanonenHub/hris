@@ -1,0 +1,20 @@
+.layout-header {
+    padding: 0;
+    height: 5%;
+    position: fixed;
+    top: 2.75rem;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: black;
+
+    .flex {
+        display: flex;
+        width: 100%;
+    }
+}

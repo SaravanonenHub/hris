@@ -15,7 +15,7 @@ export interface IDepartment {
 }
 export interface IDesignation {
     id: number;
-    departmentName: string;
+    designationName: string;
 }
 export enum Gender {
     Male = 'Male',
@@ -35,10 +35,14 @@ export enum EmployeeNature {
     Contract = 'Contract'
 }
 export enum Role {
-    Admin,
-    Manager,
-    TeamLeader,
-    Member
+    Admin = 1,
+    Manager = 2,
+    TeamLeader = 3,
+    Member = 4,
+}
+export enum OptionalSaturday {
+    Y = 'YES',
+    N = 'NO'
 }
 export interface ITeam {
     id: number;

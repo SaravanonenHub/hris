@@ -5,6 +5,7 @@ import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
 import { faUser, faBell, faBookmark } from '@fortawesome/free-regular-svg-icons'
+import { AccountService } from './account/account.service';
 @Component({
     selector: 'app-topbar',
     template: `
@@ -26,12 +27,17 @@ import { faUser, faBell, faBookmark } from '@fortawesome/free-regular-svg-icons'
                     <fa-icon [icon]="faBookmark"></fa-icon>
                 </a>
                 
-               
+               <ng-container *ngIf="accountService.currentUser$ | async as user">
                 <a class="menu-button" (click)="onMenuButtonClick($event)">
-                    <span>Saravanan Nanjundan</span>
-                    <fa-icon [icon]="faUser"></fa-icon>
-                </a>
-               
+                        <span>{{user.displayName}}</span>
+                        <fa-icon [icon]="faUser"></fa-icon>
+                    </a>
+               </ng-container>
+               <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+                    <a class="btn btn-outline-secondary me-2">
+                        LogIn
+                    </a>
+                </ng-container>
             </div>
             
             <!-- <div class="app-theme" [pTooltip]="config.theme!" tooltipPosition="bottom">
@@ -118,7 +124,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     scrollListener: any;
 
-    constructor(private router: Router, private configService: AppConfigService) { }
+    constructor(private router: Router, private configService: AppConfigService, public accountService: AccountService) { }
 
     ngOnInit() {
         this.config = this.configService.config;

@@ -945,13 +945,14 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
 .p-dropdown-panel {
   background: #ffffff;
   color: #495057;
-  border: 0 none;
+  border: 2 black;
   border-radius: 6px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .p-dropdown-panel .p-dropdown-header {
-  padding: 0.75rem 1.25rem;
+  /* padding: 0.75rem 1.25rem; */
+  padding: 0.75rem 0.75rem;
   border-bottom: 1px solid #dee2e6;
   color: #343a40;
   background: #f8f9fa;
@@ -995,7 +996,8 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
-  padding: 0.75rem 1.25rem;
+  /* padding: 0.75rem 1.25rem; */
+  padding: 0 1.75rem;
   color: #495057;
   background: transparent;
 }

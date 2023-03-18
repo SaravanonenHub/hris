@@ -2,12 +2,14 @@
 <div class="layout-wrapper {{config.dark ? 'layout-wrapper-dark' : 'layout-wrapper-light'}}"
     [ngClass]="{'layout-news-active': ''}">
     <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
+    <app-section-header></app-section-header>
     <!-- <app-config></app-config> -->
     <app-menu (menuButtonClick)="onMaskClick()" [active]="menuActive"></app-menu>
     <!-- <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}"></div> -->
 
     <div class="layout-content" (click)="onMaskClick()">
         <div class="layout-content-inner h-full">
+            <app-alert></app-alert>
             <router-outlet></router-outlet>
         </div>
         <app-footer></app-footer>

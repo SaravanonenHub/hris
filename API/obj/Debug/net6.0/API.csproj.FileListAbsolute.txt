@@ -66,3 +66,10 @@ D:\PROJECTS\ANGULAR2\HRIS\API\obj\Debug\net6.0\API.pdb
 D:\PROJECTS\ANGULAR2\HRIS\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\AutoMapper.dll
 D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\PROJECTS\ANGULAR2\HRIS\API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll

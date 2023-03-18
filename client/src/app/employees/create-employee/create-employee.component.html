@@ -16,63 +16,111 @@
 </div>
 <div class="content-section implementation">
     <div class="card">
-        <form [formGroup]="employeeForm">
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
             <div class="form-layout">
                 <div class="form-layout content">
                     <h5>Base Details</h5>
                     <div class="grid p-fluid formgrid md:ml-2">
                         <div class="field col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">First Name</label>
-                                <input id="username1" class="field-flex field-input" type="username"
-                                    placeholder="first name" aria-describedby="username1-help" pInputText />
-
-                            </div>
-                            <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Last Name</label>
-                                <input id="username1" class="field-flex field-input" type="username"
-                                    placeholder="last name" aria-describedby="username1-help" pInputText />
-
-                            </div>
-                            <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Employee Code</label>
-                                <input id="username1" class="field-flex field-input" type="username"
-                                    placeholder="machine code" aria-describedby="username1-help" pInputText />
-
-                            </div>
-
-                            <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Birth Date</label>
-                                <!-- <input id="username1" class="field-flex field-input" type="username" placeholder="machine code"
-                                aria-describedby="username1-help" pInputText /> -->
-                                <p-calendar [showIcon]="false" inputId=" icon"></p-calendar>
-
-                            </div>
-                            <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Gender</label>
-                                <div class="field-radiobutton">
-                                    <p-radioButton name="gender" [(ngModel)]="gender"
-                                        style="width: 5px; margin: 0 0.5rem;" value="Male"
-                                        inputId="Male"></p-radioButton>
-                                    <label for="Male"
-                                        [style]="{'font-size': '0.75rem','font-weight':'Bold' ,'margin': '0 1rem'}">Male</label>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">First Name</label>
                                 </div>
-                                <div class="field-radiobutton">
-                                    <p-radioButton name="gender" [(ngModel)]="gender"
-                                        style="width: 5px; margin: 0 0.5rem;" value="Female"
-                                        inputId="Female"></p-radioButton>
-                                    <label for="Female"
-                                        [style]="{'font-size': '0.75rem','font-weight':'Bold','margin': '0 1rem'}">Female</label>
+
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName="firstName" placeholder="firstname"
+                                        pInputText />
+                                </div>
+                                <div *ngIf="f.firstName.errors && f.firstName.touched">
+                                    <span>First Name is required</span>
+                                </div>
+
+                            </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Last Name</label>
+                                </div>
+
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName="lastName" placeholder="lastname"
+                                        pInputText />
+                                </div>
+
+
+                            </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Employee ID</label>
+                                </div>
+
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName="employeeCode" placeholder="employeeCode"
+                                        pInputText />
+                                </div>
+
+                            </div>
+
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Birth Date</label>
+                                </div>
+
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId=" icon"
+                                        formControlName="birthDate" dateFormat="dd/mm/yy"
+                                        dataType="string"></p-calendar>
+                                </div>
+
+
+                            </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Gender</label>
+                                </div>
+
+                                <div class="col-12 md:col-3">
+                                    <div class="field-radiobutton">
+                                        <p-radioButton name="gender" formControlName="gender" value="Male"
+                                            inputId="Male"></p-radioButton>
+                                        <label for="Male">Male</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 md:col-3">
+                                    <div class="field-radiobutton">
+                                        <p-radioButton name="gender" formControlName="gender" value="Female"
+                                            inputId="Female"></p-radioButton>
+                                        <label for="Female">Female</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Email ID</label>
+                                </div>
+
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName="emailId" placeholder="employeeCode"
+                                        pInputText />
                                 </div>
 
                             </div>
                         </div>
                         <div class="field col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
-                            <div class="field-flex" style="border-style: dashed; height: 100px; width: 100px;">
-
+                            <div class="field-flex" style="height: 100px; width: 100px;">
+                                <ng-container *ngIf="this.selectedImage">
+                                    <p-image src={{this.selectedImage.src}} alt="Image" width="100px"
+                                        height="100px"></p-image>
+                                </ng-container>
+                                <!-- <p-image src="{{imageUrl}}" alt="Image" width="100px" height="100px"></p-image> -->
                             </div>
                             <div class="field-flex">
-
+                                <!-- <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*"
+                                    (onUpload)="onBasicUploadAuto($event)" [auto]="true"
+                                    chooseLabel="Browse"></p-fileUpload> -->
+                                <input #imageInput type="file" accept="image/*"
+                                    (change)="onBasicUploadAuto(imageInput)" />
                             </div>
 
                         </div>
@@ -82,76 +130,138 @@
                     <div class="grid p-fluid formgrid md:ml-2">
                         <div class="col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
                             <div id='dddl' class="field-flex">
-                                <label for="username1" class="field-flex field-label">Department</label>
-                                <p-dropdown [options]="branches" formControlName="branchId" optionLabel="branchName"
-                                    optionValue="id" placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Department</label>
+                                </div>
+
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown [options]="departments" [filter]="true" filterBy="departmentName"
+                                        [showClear]="true" placeholder="Select a Department"
+                                        formControlName="departmentId" optionLabel="departmentName" optionValue="id">
+                                        <ng-template pTemplate="selectedItem" let-item>
+                                            <div class="country-item">
+                                                <div>{{item.departmentName}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-department pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{department.departmentName}}</div>
+                                            </div>
+
+
+                                        </ng-template>
+                                    </p-dropdown>
+                                    <!-- <p-dropdown [options]="departments" formControlName="departmentId"
+                                        optionLabel="departmentName" optionValue="id"
+                                        placeholder="Select Department"></p-dropdown> -->
+                                </div>
+
 
                             </div>
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Division</label>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Division</label>
+                                </div>
 
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown styleClass='field-flex field-input' [options]="divisions"
+                                        formControlName="divisionId" optionLabel="divisionName" optionValue="id"
+                                        placeholder="Select Division"></p-dropdown>
 
-                            </div>
-                            <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Designation</label>
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                </div>
 
                             </div>
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Branch</label>
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Designation</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown styleClass='field-flex field-input' [options]="designations"
+                                        formControlName="designationId" optionLabel="designationName" optionValue="id"
+                                        placeholder="Select Designation"></p-dropdown>
+
+                                </div>
+
+                            </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Branch</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown styleClass='field-flex field-input' [options]="branches"
+                                        formControlName="branchId" optionLabel="branchName" optionValue="id"
+                                        placeholder="Select Branch"></p-dropdown>
+                                </div>
+
 
                             </div>
 
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Team</label>
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Team</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown styleClass='field-flex field-input' [options]="teams"
+                                        formControlName="teamId" optionLabel="teamName" optionValue="id"
+                                        placeholder="Select Team"></p-dropdown>
+                                </div>
+
 
                             </div>
 
                         </div>
                         <div class="col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Join Date</label>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Join Date</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId=" icon"
+                                        formControlName="joinDate" dateFormat="dd/mm/yy" dataType="string"></p-calendar>
+                                </div>
                                 <!-- <input id="username1" class="field-flex field-input" type="username" placeholder="machine code"
                                 aria-describedby="username1-help" pInputText /> -->
-                                <p-calendar [showIcon]="false" inputId=" icon"></p-calendar>
+
 
                             </div>
                             <div id='dddl' class="field-flex">
-                                <label for="username1" class="field-flex field-label">Role</label>
-                                <p-dropdown [options]="branches" formControlName="branchId" optionLabel="branchName"
-                                    optionValue="id" placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Role</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown [options]="roles" optionLabel="label" optionValue="value"
+                                        placeholder="Select Role" formControlName="teamRoleId"></p-dropdown>
+                                </div>
 
                             </div>
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Qualification</label>
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label for="username1">Qualification</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName='qualification' placeholder="qualification"
+                                        pInputText />
+                                </div>
                             </div>
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Nature of Employee</label>
-
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Nature of Employee</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown [options]="natureOfEmployees" formControlName="employeeNature"
+                                        optionLabel="label" optionValue="value"
+                                        placeholder="Select Nature"></p-dropdown>
+                                </div>
 
                             </div>
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Optional Saturday</label>
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Optional Saturday</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown [options]="optionalSaturday" optionLabel="label" optionValue="value"
+                                        placeholder="Select Option" formControlName="optionalSaturday"></p-dropdown>
+                                </div>
 
                             </div>
                             <!-- <div class="field-flex">
@@ -169,27 +279,33 @@
                     <div class="grid p-fluid formgrid md:ml-2">
                         <div class="col-12 md:col-6 md:mb-0 lg:col-4 lg:mb-0">
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Martial Status</label>
-                                <p-dropdown [options]="branches" formControlName="branchId" optionLabel="branchName"
-                                    optionValue="id" placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label for="username1">Martial Status</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-dropdown [options]="martialStatuses" formControlName="martialStatus"
+                                        optionLabel="label" optionValue="value" placeholder="Select..."></p-dropdown>
+                                </div>
 
                             </div>
 
                         </div>
                         <div class="col-12 md:col-6 md:mb-0 lg:col-4 lg:mb-0">
                             <div class="field-flex">
-                                <label for="username1" class="field-flex field-label">Blood Group</label>
-
-                                <p-dropdown styleClass='field-flex field-input' [options]="branches"
-                                    formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                    placeholder="Select Branch"></p-dropdown>
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label for="username1">Blood Group</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName="bloodGroup" placeholder="bloodgroup"
+                                        pInputText />
+                                </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-layout action">
-                    <button pButton pRipple type="submit" label="Save" (click)="onSubmit()"></button>
+                    <button pButton pRipple type="submit" label="Save"></button>
                 </div>
             </div>
         </form>

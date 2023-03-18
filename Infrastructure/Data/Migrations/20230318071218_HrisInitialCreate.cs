@@ -5,10 +5,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class HrisInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AppUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "T_BRANCH",
                 columns: table => new
@@ -270,39 +296,6 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "T_APPUSER",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserRoleId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    IsActive = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true, defaultValue: "Y"),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_T_APPUSER", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_T_APPUSER_T_EMPLOYEE_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "T_EMPLOYEE",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_T_APPUSER_T_USER_ROLE_UserRoleId",
-                        column: x => x.UserRoleId,
-                        principalTable: "T_USER_ROLE",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "T_EMPLOYEE_EXPERIANCE",
                 columns: table => new
                 {
@@ -394,9 +387,9 @@ namespace Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -417,19 +410,8 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_T_TEAM_DETAILS_T_TEAM_TeamId",
                         column: x => x.TeamId,
                         principalTable: "T_TEAM",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_T_APPUSER_EmployeeId",
-                table: "T_APPUSER",
-                column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_T_APPUSER_UserRoleId",
-                table: "T_APPUSER",
-                column: "UserRoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_T_DEPARTMENT_DivisionId",
@@ -512,7 +494,7 @@ namespace Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "T_APPUSER");
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
                 name: "T_EMPLOYEE_EXPERIANCE");
@@ -527,10 +509,10 @@ namespace Infrastructure.Data.Migrations
                 name: "T_TEAM_DETAILS");
 
             migrationBuilder.DropTable(
-                name: "T_USERLEVEL");
+                name: "T_USER_ROLE");
 
             migrationBuilder.DropTable(
-                name: "T_USER_ROLE");
+                name: "T_USERLEVEL");
 
             migrationBuilder.DropTable(
                 name: "T_SHIFT");

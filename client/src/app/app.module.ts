@@ -18,23 +18,25 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppTopBarComponent } from './app.topbar.component';
 import { AppConfigService } from './service/appconfigservice';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TestComponent } from './test/test.component';
-import { TestOneComponent } from './test-one/test-one.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http'
 import { InputTextModule } from 'primeng/inputtext';
+
+import { CommonModule } from '@angular/common';
+import { EmployeeService } from './employees/employee.service';
 import { EmployeesModule } from './employees/employees.module';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
     AppMainComponent,
     AppFooterComponent,
     AppMenuComponent,
-    AppTopBarComponent,
-    TestComponent,
-    TestOneComponent
+    AppTopBarComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     AutoCompleteModule,
@@ -50,9 +52,10 @@ import { EmployeesModule } from './employees/employees.module';
     RadioButtonModule,
     CalendarModule,
     SplitterModule,
-    EmployeesModule
+    CoreModule,
+    SharedModule
   ],
-  providers: [AppConfigService],
+  providers: [AppConfigService, EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,7 +13,7 @@ namespace Infrastructure.Data
 {
     public class HRISContext : DbContext
     {
-        public HRISContext(DbContextOptions options) : base(options)
+        public HRISContext(DbContextOptions<HRISContext> options) : base(options)
         {
         }
 

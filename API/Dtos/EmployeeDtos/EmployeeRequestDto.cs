@@ -29,9 +29,9 @@ namespace API.Dtos.EmployeeDtos
         public string Qualification { get; set; }
         [Required]
         public string Status { get; set; }
-        public DateTimeOffset BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public int Age { get; set; }
-        public DateTimeOffset JoinDate { get; set; }
+        public DateTime JoinDate { get; set; }
         [Required]
         public string EmailID { get; set; }
         [Required]
@@ -48,6 +48,8 @@ namespace API.Dtos.EmployeeDtos
         public int TeamId { get; set; }
         [Required]
         public int TeamRoleId { get; set; }
+
+        public IFormFile EmpImage { get; set; }
     }
     public class EmployeeResponseDto
     {
@@ -57,6 +59,13 @@ namespace API.Dtos.EmployeeDtos
         public string LastName { get; set; }
         public string DisplayName { get; set; }
         public string ImagePath { get; set; }
+        public int BranchId { get; set; }
+        public int DivisionId { get; set; }
+        public int DepartmentId { get; set; }
+        public int DesignationId { get; set; }
+        public int TeamId { get; set; }
+        public int TeamRoleId { get; set; }
+        public int RoleId { get; set; }
         public BranchDto Branch { get; set; }
         public DivisionDto Division { get; set; }
         //public Division Division { get; set; }
@@ -69,7 +78,7 @@ namespace API.Dtos.EmployeeDtos
         public DateTimeOffset BirthDate { get; set; }
         public int Age { get; set; }
         public DateTimeOffset JoinDate { get; set; }
-        public string EmailID { get; set; }
+        public string EmailId { get; set; }
         public string Gender { get; set; }
         public string BloodGroup { get; set; }
         public string MartialStatus { get; set; }

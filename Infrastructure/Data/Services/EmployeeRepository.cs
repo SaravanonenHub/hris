@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Employees;
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Core.Specifications.EmployeeSpec;
 
@@ -54,12 +55,20 @@ namespace Infrastructure.Data.Services
         public async Task<Employee> CreateEmployee(Employee emp)
         {
             _unitOfWork.Repository<Employee>().Add(emp);
+
             var result = await _unitOfWork.Complete();
             if (result <= 0) return null;
             // return employee
             return emp;
         }
-
+        // public async Task<AppUser> CreateUser(AppUser user)
+        // {
+        //     _unitOfWork.Repository<AppUser>().Add(user);
+        //     var result = await _unitOfWork.Complete();
+        //     if (result <= 0) return null;
+        //     // return branch
+        //     return user;
+        // }
         public async Task<Employee> UpdateEmployee(Employee emp)
         {
             _unitOfWork.Repository<Employee>().Update(emp);
