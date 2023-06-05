@@ -36,8 +36,8 @@ namespace API.Controllers
 
             return new UserDto
             {
-                Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Email = user.UserName,
+                Token = await _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
         }
@@ -53,8 +53,8 @@ namespace API.Controllers
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = _tokenService.CreateToken(user)
+                Email = user.UserName,
+                Token = await _tokenService.CreateToken(user)
             };
             // var user = await _userManager.FindByNameAsync(loginUser.EmployeeCode);
             // if (user == null || await _userManager.CheckPasswordAsync(user, loginUser.Password))

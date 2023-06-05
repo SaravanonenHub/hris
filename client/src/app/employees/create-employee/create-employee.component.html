@@ -1,15 +1,17 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <div class="field-flex">
-            <h5>Create a employee</h5>
+            <span>Create Employee</span>
 
-            <a href="#">
-                <fa-icon [icon]="faCircleXmark"></fa-icon>
+            <a href="#" style="position: absolute; right: 2rem; justify-content: right;">
+                <i class="pi pi-times" style="color: gray"></i>
             </a>
         </div>
+        <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation
+            windows
+            easily that can be shared by multiple actions on the same component.</p>
         <div class="field-flex">
-            <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation windows
-                easily that can be shared by multiple actions on the same component.</p>
+
         </div>
     </div>
 
@@ -216,7 +218,7 @@
                                     <label class="required" for="username1">Join Date</label>
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId=" icon"
+                                    <p-calendar [showIcon]="false" [readonlyInput]="false" inputId=" icon"
                                         formControlName="joinDate" dateFormat="dd/mm/yy" dataType="string"></p-calendar>
                                 </div>
                                 <!-- <input id="username1" class="field-flex field-input" type="username" placeholder="machine code"
@@ -259,8 +261,9 @@
                                     <label class="required" for="username1">Optional Saturday</label>
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown [options]="optionalSaturday" optionLabel="label" optionValue="value"
-                                        placeholder="Select Option" formControlName="optionalSaturday"></p-dropdown>
+                                    <p-dropdown [options]="optionalSaturday" styleClass="showAbove" appendTo="body"
+                                        optionLabel="label" optionValue="value" placeholder="Select Option"
+                                        formControlName="optionalSaturday"></p-dropdown>
                                 </div>
 
                             </div>

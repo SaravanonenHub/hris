@@ -3298,7 +3298,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #343a40;
   border: 1px solid #dee2e6;
   border-width: 1px 0 1px 0;
-  padding: 1rem 1rem;
+  padding: 0.25rem 0rem;
   font-weight: 700;
 }
 
@@ -3313,7 +3313,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 
 .p-datatable .p-datatable-thead>tr>th {
   text-align: left;
-  padding: 1rem 1rem;
+  padding: 0.25rem 0.25rem;
   border: 1px solid #dee2e6;
   border-width: 0 0 1px 0;
   font-weight: 700;
@@ -3324,7 +3324,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 
 .p-datatable .p-datatable-tfoot>tr>td {
   text-align: left;
-  padding: 1rem 1rem;
+  padding: 0.25rem 0.25rem;
   border: 1px solid #dee2e6;
   border-width: 0 0 1px 0;
   font-weight: 700;
@@ -3389,7 +3389,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   text-align: left;
   border: 1px solid #dee2e6;
   border-width: 0 0 1px 0;
-  padding: 1rem 1rem;
+  padding: 0.25rem 0.25rem;
 }
 
 .p-datatable .p-datatable-tbody>tr>td .p-row-toggler,

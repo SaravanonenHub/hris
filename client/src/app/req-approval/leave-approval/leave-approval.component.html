@@ -1,0 +1,129 @@
+<div class="form-wrapper">
+    <section class="form-filter">
+        <h5>Filter</h5>
+    </section>
+    <section class="form-content">
+        <div class="feature-intro">
+            <div class="field-flex">
+                <span>Employee List</span>
+
+                <a href="#" style="position: absolute; right: 2rem; justify-content: right;">
+                    <i class="pi pi-times" style="color: gray"></i>
+                </a>
+            </div>
+            <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation
+                windows
+                easily that can be shared by multiple actions on the same component.</p>
+            <div class="field-flex">
+
+            </div>
+        </div>
+        <div class="flex align-items-center justify-content-start">
+
+
+        </div>
+        <p-table #emp [value]="leaveRequests" [(selection)]="selectedRequest" selectionMode="single" dataKey="id"
+            [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [paginator]="true">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <a routerLink="./leave-add">
+                        <i class="pi pi-plus" style="color: green;font-size: 1rem"></i>
+                        <span class="ml-2 font-bold">Create</span>
+                    </a>
+                    <a (click)="onEdit()"
+                        [ngClass]="{disabled: selectedRequest == null || undefined, enabled:selectedRequest !== null}">
+                        <i class="pi pi-user-edit" style="color: orange;font-size: 1rem"></i>
+                        <span class="ml-2 font-bold">Edit</span>
+                    </a>
+
+                    <a routerLink="./personal-add"
+                        [ngClass]="{disabled: selectedRequest == null || undefined, enabled:selectedRequest !== null}"
+                        routerLink="./personal-add">
+                        <i class="pi pi-book" style="color: dimgrey;font-size: 1rem"></i>
+                        <span class="ml-2 font-bold">Detail</span>
+                    </a>
+                    <!-- <p-button (click)="onEdit()" [disabled]="selectedEmployee == null || undefined ? true : false"
+                        styleClass="p-button-sm p-button-outlined">
+                        <i class="pi pi-user-edit" style="width: 1.5rem"></i>
+                        <span class="ml-2 font-bold">Edit</span>
+                    </p-button> -->
+                    <!-- <p-button styleClass="p-button-sm p-button-outlined">
+                        <i class="pi pi-user-edit" style="color: blue;width: 1.5rem"></i>
+                        <span class="ml-2 font-bold">Edit</span>
+                    </p-button> -->
+                    <span class=" p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                    <th pSortableColumn="code" style="width:10%">Code
+                        <p-columnFilter type="text" field="employeeCode" display="menu">
+                        </p-columnFilter><p-sortIcon field="employeeCode"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="name" style="width:20%">Name
+                        <p-columnFilter type="text" field="displayName" display="menu">
+                        </p-columnFilter><p-sortIcon field="displayName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="department" style="width:10%">Department
+                        <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
+                        <p-sortIcon field="toDate"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="designation" style="width:20%">From Date
+                        <p-columnFilter type="text" field="fromDate" display="menu"></p-columnFilter>
+                        <p-sortIcon field="fromDate"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="leaveType" style="width:20%">To Date
+                        <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
+                        <p-sortIcon field="toDate"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="leaveType" style="width:10%">Days
+                        <p-columnFilter type="text" field="days" display="menu"></p-columnFilter>
+                        <p-sortIcon field="days"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="leaveType" style="width:20%">Leave Type
+                        <p-columnFilter type="text" field="leaveType" display="menu"></p-columnFilter>
+                        <p-sortIcon field="leaveType"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="leaveType" style="width:10%">Session
+                        <p-columnFilter type="text" field="session" display="menu"></p-columnFilter>
+                        <p-sortIcon field="session"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="leaveType" style="width:10%">Status
+                        <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                        <p-sortIcon field="status"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-request>
+                <tr [pSelectableRow]="request">
+
+                    <td>{{request.employee.employeeCode}}</td>
+                    <td>{{request.employee.displayName}}</td>
+                    <td>{{request.employee.department.departmentName}}</td>
+                    <td>{{request.fromDate}}</td>
+                    <td>{{request.toDate}}</td>
+                    <td>{{request.days}}</td>
+                    <td>{{request.leaveType}}</td>
+                    <td>{{request.session}}</td>
+                    <td>{{request.status}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No employees found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <hr>
+    </section>
+</div>
+<p>leave-requests works!</p>
+<a routerLink="./leave-add">
+    <i class="pi pi-plus" style="color: dimgrey;font-size: 1rem"></i>
+    <span class="ml-2 font-bold">Add</span>
+</a>

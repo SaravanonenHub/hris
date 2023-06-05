@@ -1,55 +1,137 @@
-<div class="content-section introduction">
-    <div class="app-demoactions flex align-items-center justify-content-end h-full">
-        <a href="#">
-            <fa-icon [icon]="faCircleXmark"></fa-icon>
-        </a>
-    </div>
-    <div class="feature-intro">
-        <h1>ConfirmDialog</h1>
-        <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation windows
-            easily that can be shared by multiple actions on the same component.</p>
-    </div>
+<div class="form-wrapper">
+
+    <section class="form-filter">
+        <h5>Filter</h5>
+        <div style="margin-top: 5rem;">
+            <h5>Employee Status</h5>
+            <p-listbox [options]="statuses" [group]="false" [listStyle]="{ 'max-height': '250px' }">
+                <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center">
+                        <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-listbox>
+
+            <h5>Employee Nature</h5>
+            <p-listbox [options]="natureOfEmployees" [group]="false" [listStyle]="{ 'max-height': '250px' }">
+                <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center">
+                        <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-listbox>
+
+            <h5>Filter by Deparment</h5>
+            <p-listbox [options]="divisions" [checkbox]="true" [multiple]="true" [filter]="false"
+                [showToggleAll]="false" optionLabel="divisionName" [listStyle]="{ 'max-height': '250px' }">
+
+            </p-listbox>
+        </div>
+
+    </section>
+    <section class="form-content">
+        <div class="feature-intro">
+            <div class="field-flex">
+                <span>Employee List</span>
+
+                <a href="#" style="position: absolute; right: 2rem; justify-content: right;">
+                    <i class="pi pi-times" style="color: gray"></i>
+                </a>
+            </div>
+            <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation
+                windows
+                easily that can be shared by multiple actions on the same component.</p>
+            <div class="field-flex">
+
+            </div>
+        </div>
+        <div class="flex align-items-center justify-content-start">
+
+
+        </div>
+        <p-table #emp [value]="employees" [(selection)]="selectedEmployee" selectionMode="single" dataKey="employeeCode"
+            [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [paginator]="true"
+            [globalFilterFields]="['displayName', 'employeeCode', 'department', 'designation','status']">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <a routerLink="./personal-add">
+                        <i class="pi pi-plus" style="color: green;font-size: 1rem"></i>
+                        <span class="ml-2 font-bold">Create</span>
+                    </a>
+                    <a (click)="onEdit()"
+                        [ngClass]="{disabled: selectedEmployee == null || undefined, enabled:selectedEmployee !== null}">
+                        <i class="pi pi-user-edit" style="color: orange;font-size: 1rem"></i>
+                        <span class="ml-2 font-bold">Edit</span>
+                    </a>
+
+                    <a routerLink="./personal-add"
+                        [ngClass]="{disabled: selectedEmployee == null || undefined, enabled:selectedEmployee !== null}">
+                        <i class="pi pi-book" style="color: dimgrey;font-size: 1rem"></i>
+                        <span class="ml-2 font-bold">Detail</span>
+                    </a>
+                    <!-- <p-button (click)="onEdit()" [disabled]="selectedEmployee == null || undefined ? true : false"
+                        styleClass="p-button-sm p-button-outlined">
+                        <i class="pi pi-user-edit" style="width: 1.5rem"></i>
+                        <span class="ml-2 font-bold">Edit</span>
+                    </p-button> -->
+                    <!-- <p-button styleClass="p-button-sm p-button-outlined">
+                        <i class="pi pi-user-edit" style="color: blue;width: 1.5rem"></i>
+                        <span class="ml-2 font-bold">Edit</span>
+                    </p-button> -->
+                    <span class=" p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="emp.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="employeeCode" style="width:20%">Code
+                        <p-columnFilter type="text" field="employeeCode" display="menu"></p-columnFilter>
+                        <p-sortIcon field="employeeCode"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="displayName" style="width:20%">Name
+                        <p-columnFilter type="text" field="displayName" display="menu"></p-columnFilter>
+                        <p-sortIcon field="displayName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="department" style="width:20%">Department
+                        <p-columnFilter type="text" field="department" display="menu"></p-columnFilter>
+                        <p-sortIcon field="department"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="designation" style="width:20%">Quantity
+                        <p-columnFilter type="text" field="designation" display="menu"></p-columnFilter>
+                        <p-sortIcon field="designation"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="status" style="width:20%">Price
+                        <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                        <p-sortIcon field="status"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-employee>
+                <tr [pSelectableRow]="employee">
+                    <td>{{employee.employeeCode}}</td>
+                    <td>{{employee.displayName}}</td>
+                    <td>{{employee.department}}</td>
+                    <td>{{employee.designation}}</td>
+                    <td>{{employee.status}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5">No employees found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <hr>
+    </section>
 
 </div>
 <div class="content-section implementation">
-    <div class="flex align-items-center justify-content-start">
-        <a routerLink="./personal-add" class="menu-button">
-            <fa-icon [icon]="faPlusSquare"></fa-icon>
-            <span>Add</span>
-        </a>
-        <a href="#" class="menu-button">
-            <fa-icon [icon]="faCircleXmark"></fa-icon>
-            <span>Manage</span>
-        </a>
-        <a href="#" class="menu-button">
-            <fa-icon [icon]="faCircleXmark"></fa-icon>
-            <span>Details</span>
-        </a>
-    </div>
-    <p-table [value]="products1">
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon>
-                </th>
-                <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon>
-                </th>
-                <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon>
-                </th>
-                <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon>
-                </th>
-                <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>{{product.code}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.quantity}}</td>
-                <td>{{product.price | currency: 'USD'}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-    <hr>
+
+
+
+
 </div>

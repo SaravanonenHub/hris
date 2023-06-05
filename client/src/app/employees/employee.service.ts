@@ -16,13 +16,19 @@ export class EmployeeService {
   designations: IDesignation[] = [];
   roles: Role[] = [];
   teams: ITeam[] = [];
+  employees: IEmployee[] = [];
   constructor(private http: HttpClient) { }
 
   getEmployeesBase() {
-    return this.http.get(this.baseUrl + 'employees');
+    return this.http.get<IEmployee[]>(this.baseUrl + 'Employee/employees').pipe(
+      map(data => this.employees = data)
+    );;
   }
   getEmployeesBaseById(id: number) {
     return this.http.get<Employee>(`${this.baseUrl}Employee/employee/${id}`);
+  }
+  getEmployeesBaseByCode(code: string) {
+    return this.http.get<IEmployee>(`${this.baseUrl}Employee/employeebyCode/${code}`);
   }
   getBranches() {
     if (this.braches.length > 0) return of(this.braches);

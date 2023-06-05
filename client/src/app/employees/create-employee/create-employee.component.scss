@@ -6,6 +6,11 @@
     justify-content: start;
     margin-bottom: 0.5rem;
 
+    span {
+        font-weight: 600;
+        font-size: large;
+    }
+
     &.field-label {
         width: 40%;
         margin: 0;

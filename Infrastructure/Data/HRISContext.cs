@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Entities.Actions;
 using Core.Entities.Employees;
+using Core.Entities.Entries;
 using Core.Entities.Identity;
 using Core.Entities.Masters;
+using Core.Entities.Notify;
 using Infrastructure.Data.Config;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,8 +35,11 @@ namespace Infrastructure.Data
         public DbSet<EmployeePersonalInfo> EmployeePersonalInfos { get; set; }
         public DbSet<EmployeeExperienceInfo> EmployeeExperienceInfos { get; set; }
 
-        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<LeaveType> LeaveType { get; set; }
+        public DbSet<Leave> Leave { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<LeaveAction> LeaveActions { get; set; }
+        public DbSet<NotifyProps> NotifyProps { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
@@ -66,6 +72,9 @@ namespace Infrastructure.Data
 
             modelBuilder.ApplyConfiguration(new EmployeeFluentConfig());
             modelBuilder.ApplyConfiguration(new ShiftFluentConfig());
+            modelBuilder.ApplyConfiguration(new LeaveFluentConfig());
+            modelBuilder.ApplyConfiguration(new LeaveActionConfig());
+            modelBuilder.ApplyConfiguration(new NotifyConfig());
         }
     }
 }

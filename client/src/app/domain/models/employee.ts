@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { IBranch, IDepartment, IDesignation, IDivision, Role, ITeam } from "./master";
 
 
@@ -14,9 +15,9 @@ export interface IEmployee {
     designation?: IDesignation;
     qualification?: string;
     status?: string;
-    birthDate?: string;
+    birthDate: Date;
     age?: number;
-    joinDate?: string;
+    joinDate: Date;
     emailID?: string;
     gender?: string;
     bloodGroup?: string;
@@ -38,7 +39,19 @@ export class Employee implements IEmployee {
     designationId: number = 0;
     teamId: number = 0
     teamRoleId: number = 0;
-
+    birthDate: Date = new Date();
+    joinDate: Date = new Date();
+    qualification?: string;
+    status?: string;
+    age?: number;
+    emailID?: string;
+    gender?: string;
+    bloodGroup?: string;
+    martialStatus?: string;
+    employeeNature?: string;
+    optionalSaturday?: string;
+    team?: ITeam;
+    teamRole?: Role;
     fullName() {
         return this.firstName.concat(this.lastName);
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos.MasterDtos;
 
 namespace API.Dtos.EmployeeDtos
 {
@@ -10,6 +11,6 @@ namespace API.Dtos.EmployeeDtos
         public int Id { get; set; }
         public string EmployeeCode { get; set; }
         public string DisplayName { get; set; }
-        public string Department { get; set; }
+        public DepartmentDto Department { get; set; }
     }
 }

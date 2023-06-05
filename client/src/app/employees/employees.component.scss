@@ -1,0 +1,146 @@
+.field-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    // margin-bottom: 0.5rem;
+
+    span {
+        font-weight: 600;
+        font-size: large;
+    }
+
+
+    &.field-label {
+        width: 40%;
+        margin: 0;
+    }
+
+    &.field-input {
+        width: 60%;
+        margin: 0;
+    }
+
+    &.field-label-md {
+        width: 20%;
+        margin: 0;
+    }
+
+    &.field-input-md {
+        width: 30%;
+        margin: 0;
+    }
+
+
+}
+
+.flex a {
+    margin-right: 1.25rem;
+}
+
+::ng-deep .layout-wrapper .layout-content .content-section.introduction .feature-intro p {
+    margin-left: 0.25rem;
+    font-size: 1rem;
+    // font-style: italic;
+
+}
+
+.form-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .form-filter {
+        position: absolute;
+        left: 5px;
+        top: 0;
+        height: 100%;
+        background-color: var(--surface-overlay);
+        width: 150px;
+        user-select: none;
+        transition: transform .4s cubic-bezier(.05, .74, .2, .99);
+        display: flex;
+        flex-direction: column;
+        border: inset;
+        background-color: #f5f5f5;
+        // border-right: 1px;
+        border-width: 0 0 0 0;
+        border-color: gray;
+        // opacity: 0.90;
+
+        &.active {
+            transform: translateX(0);
+        }
+    }
+
+    .form-content {
+        margin-left: 170px;
+        // padding-top: 70px;
+        padding-top: 5px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+.list-group-item {
+    cursor: pointer;
+    border: none;
+    // padding: 10px 20px;
+    font-size: 1.1em;
+
+    &.active {
+        border-radius: 10px;
+    }
+
+    &:not(.active):hover {
+        color: #fff;
+        background-color: rgba(233, 84, 32, 0.7);
+        border-radius: 10px;
+    }
+}
+
+h5 {
+    margin: 0;
+}
+
+::ng-deep .p-listbox {
+    background-color: inherit;
+    border: 0;
+    margin-bottom: 1rem;
+}
+
+::ng-deep .p-listbox .p-listbox-list {
+    padding: 0;
+}
+
+::ng-deep .p-listbox .p-listbox-list .p-listbox-item {
+    padding: 0 0.5rem;
+}
+
+::ng-deep .p-input-icon-left>i,
+.p-input-icon-right>i {
+    margin-top: -0.5rem;
+}
+
+.disabled {
+    // Prevent element being interactive / the target of pointer events.
+    pointer-events: none;
+
+    // Additional styles to make it 'look' disabled below
+    opacity: 0;
+}
+
+.enabled {
+
+    pointer-events: auto;
+    cursor: pointer;
+    opacity: 1;
+}
+
+::ng-deep .p-button.p-button-outlined {
+    height: 2.5rem;
+}

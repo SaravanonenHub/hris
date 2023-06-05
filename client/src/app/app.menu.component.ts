@@ -35,16 +35,16 @@ declare let gtag: Function;
                 </p-autoComplete>
             </div> -->
             <div class="layout-menu">
-                <div class="menu-category">General</div>
+                <div class="menu-category">Employee</div>
                 <div class="menu-items">
-                    <a [routerLink]="['employee']" routerLinkActive="router-link-exact-active" (click)="itemClick($event)">Get Started</a>
-                    <a href="https://github.com/primefaces/primeng/wiki/Migration-Guide" (click)="itemClick($event)" target="_blank">Migration Guide</a>
-                    <a [routerLink]="['testOne']" routerLinkActive="router-link-exact-active" (click)="itemClick($event)">Roadmap <span class="p-tag">New</span></a>
+                    <a [routerLink]="['employee']" routerLinkActive="router-link-exact-active" (click)="itemClick($event)">Profiles</a>
+                    <a  [routerLink]="['request']" routerLinkActive="router-link-exact-active" (click)="itemClick($event)">Leave Request</a>
+                    <a [routerLink]="['approval']" routerLinkActive="router-link-exact-active" (click)="itemClick($event)">Leave Approvals<span class="p-tag">New</span></a>
                 </div>
 
                 <div class="menu-category">Configuration</div>
                 <div class="menu-items">
-                    <a [routerLink]="['test']" routerLinkActive="router-link-exact-active">Locale</a>
+                    <a [routerLink]="['request']" routerLinkActive="router-link-exact-active">Locale</a>
                     <a [routerLink]="['overlay']" routerLinkActive="router-link-exact-active">Overlay <span class="p-tag">New</span></a>
                 </div>
 
@@ -101,7 +101,7 @@ export class AppMenuComponent implements OnInit {
 
     routes = [
         {
-            label: 'General',
+            label: 'Employee',
             value: 'general',
             items: [
                 { label: 'Setup', value: '/setup' },

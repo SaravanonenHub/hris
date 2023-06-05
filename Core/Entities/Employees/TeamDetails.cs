@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entities.Notify;
 
 namespace Core.Entities.Employees
 {
@@ -16,6 +17,7 @@ namespace Core.Entities.Employees
         [Required]
         public int HLevel { get; set; }
         public string HasApprovalAuth { get; set; }
+        public IReadOnlyList<NotifyProps> Notifications { get; set; }
 
     }
     [Table("T_TEAM_DETAILS")]

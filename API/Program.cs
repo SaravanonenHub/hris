@@ -4,6 +4,7 @@ using API.Helpers;
 using API.Middleware;
 using Core.Entities.Identity;
 using Infrastructure.Data;
+using Infrastructure.Data.Services.Notify;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -22,6 +22,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 // var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 // builder.Services.AddAuthentication(opt =>
 // {
@@ -63,13 +64,14 @@ app.UseStaticFiles(new StaticFileOptions()
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapHub<BroadcastHub>("/notify");
 app.MapControllers();
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<HRISContext>();
 var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var userManager = services.GetRequiredService<UserManager<AppUser>>();
+var userRole = services.GetRequiredService<RoleManager<AppRole>>();
 var log = services.GetRequiredService<ILogger<Program>>();
 
 try

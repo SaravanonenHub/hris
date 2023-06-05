@@ -4,11 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Errors;
 using API.Helpers;
+using Core.Entities.Actions;
 using Core.Interfaces;
+using Core.Interfaces.IActions;
+using Core.Interfaces.IEntries;
 using Core.Interfaces.IMaster;
 using Infrastructure.Data;
 using Infrastructure.Data.Services;
+using Infrastructure.Data.Services.ActionsRepo;
+using Infrastructure.Data.Services.EntriesRepo;
 using Infrastructure.Data.Services.Master;
+using Infrastructure.Data.Services.Notify;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +36,9 @@ namespace API.Extensions
             services.AddScoped<IMasterRepository, MasterRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<ILeaveService, LeaveService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IActionService<LeaveAction>, ActionService<LeaveAction>>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = actionContext =>
@@ -51,7 +60,7 @@ namespace API.Extensions
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200");
                 });
             });
             return services;

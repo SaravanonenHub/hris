@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Masters;
+using Core.Entities.Notify;
 
 namespace Core.Entities.Employees
 {
@@ -19,6 +20,7 @@ namespace Core.Entities.Employees
         public Department Department { get; set; }
         [Required]
         public IReadOnlyList<TeamDetails> TeamDetails { get; set; }
+        public IReadOnlyList<NotifyProps> Notifications { get; set; }
 
     }
 }

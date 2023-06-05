@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DatePipe, formatDate } from '@angular/common'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { first } from 'rxjs';
 import { EmployeeNature, Gender, IBranch, IDepartment, IDesignation, IDivision, ITeam, MartialStatus, OptionalSaturday, Role } from 'src/app/domain/models/master';
@@ -8,6 +8,8 @@ import { EmployeeService } from '../employee.service';
 import { AlertService } from 'src/app/shared/services/alertService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Employee, IEmployee } from 'src/app/domain/models/employee';
+import { AccountService } from 'src/app/account/account.service';
 class ImageSnippet {
   constructor(public src: string, public file: File) {
 
@@ -16,7 +18,8 @@ class ImageSnippet {
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
-  styleUrls: ['./create-employee.component.scss']
+  styleUrls: ['./create-employee.component.scss'],
+  providers: [DatePipe]
 })
 export class CreateEmployeeComponent {
   faCircleXmark = faXmark;
@@ -58,9 +61,9 @@ export class CreateEmployeeComponent {
     designationId: [0, [Validators.min(1)]],
     qualification: ['', [Validators.required]],
     status: ['Live'],
-    birthDate: [this.datenow.toDateString, [Validators.required]],
+    birthDate: [this.datePipe.transform(this.datenow, 'dd/MM/yyyy'), [Validators.required]],
     age: [0],
-    joinDate: [this.datenow.toDateString, [Validators.required]],
+    joinDate: [this.datePipe.transform(this.datenow, 'dd/MM/yyyy'), [Validators.required]],
     emailId: ['', [Validators.required, Validators.email]],
     gender: ['', [Validators.required]],
     bloodGroup: ['', [Validators.required]],
@@ -71,11 +74,12 @@ export class CreateEmployeeComponent {
     teamRoleId: [0, [Validators.min(1)]],
     empimage: [null]
   })
-  constructor(private fb: FormBuilder, private empService: EmployeeService
-    , private alertService: AlertService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private empService: EmployeeService, private datePipe: DatePipe
+    , private alertService: AlertService, private route: ActivatedRoute, private router: Router
+    , private accountService: AccountService) { }
 
   ngOnInit() {
-    // console.log(this.imageUrl);
+    console.log(this.datePipe.transform(this.datenow, 'dd/MM/yyyy'));
     // this.imageUrl = `${this.imageUrl}default.png`;
     // console.log(Object.values(Role).filter((f) => !isNaN(Number(f))));
     // Object.keys(Role).filter((f) => !isNaN(Number(f))).map((key, value) => (
@@ -96,10 +100,10 @@ export class CreateEmployeeComponent {
 
     if (this.id) {
       this.empService.getEmployeesBaseById(this.id).subscribe(x => {
-        this.employeeForm.patchValue(x);
-        // this.employeeForm.get('birthDate')?.setValue(x.birthDate);
-        // this.employeeForm.get('joinDate')?.setValue(x.joinDate);
-        this.imageUrl = `${this.imageUrl}${x.employeeCode}.png`;
+        debugger;
+        this.patchemp(x);
+
+
         // console.log(`${this.imageUrl}${x.employeeCode}.png`);
         // console.log(this.f.teamRoleId.value);
       })
@@ -109,6 +113,34 @@ export class CreateEmployeeComponent {
 
   get f() {
     return this.employeeForm.controls;
+  }
+  public control(name: string): AbstractControl | null {
+    return this.employeeForm.get(name);
+  }
+  private patchemp(emp: Employee) {
+    debugger;
+    this.control('employeeCode')?.patchValue(emp.employeeCode);
+    this.control('firstName')?.patchValue(emp.firstName);
+    this.control('lastName')?.patchValue(emp.lastName);
+    this.control('displayName')?.patchValue(emp.fullName);
+    this.control('branchId')?.patchValue(emp.branchId);
+    this.control('divisionId')?.patchValue(emp.divisionId);
+    this.control('departmentId')?.patchValue(emp.departmentId);
+    this.control('designationId')?.patchValue(emp.designationId);
+    this.control('qualification')?.patchValue(emp.qualification);
+    this.control('status')?.patchValue(emp.status);
+    this.control('birthDate')?.patchValue(new Date(emp.birthDate));
+    this.control('age')?.patchValue(emp.age);
+    this.control('joinDate')?.patchValue(this.datePipe.transform(new Date(emp.joinDate), 'dd/MM/yyyy'));
+    this.control('emailId')?.patchValue(emp.emailID);
+    this.control('gender')?.patchValue(emp.gender);
+    this.control('bloodGroup')?.patchValue(emp.bloodGroup);
+    this.control('martialStatus')?.patchValue(emp.martialStatus);
+    this.control('employeeNature')?.patchValue(emp.employeeNature);
+    this.control('optionalSaturday')?.patchValue(emp.optionalSaturday);
+    this.control('teamId')?.patchValue(emp.teamId);
+    this.control('teamRoleId')?.patchValue(emp.teamRoleId);
+    this.imageUrl = `${this.imageUrl}${emp.employeeCode}.png`;
   }
   get referencePublicacionValues(): string {
 
@@ -143,13 +175,15 @@ export class CreateEmployeeComponent {
     this.alertService.errorAlert('User saved');
     let result = Object.assign({}, this.f);
     console.log(`Result: ${result}`);
-    // this.employeeForm.get('birthDate')?.setValue()
+    //this.employeeForm.get('birthDate')?.setValue(new Date(this.datepipe.transform(this.date, "dd/MM/yyyy")))
     Object.keys(this.f).forEach((key: any) => {
       const abstractControl = this.employeeForm.get(key);
       // console.log(key, abstractControl?.value)
       this.formData.append(key, abstractControl?.value);
     });
-
+    this.accountService.currentUser$.subscribe(data => {
+      this.formData.append('CreatedBy', data != null ? data.displayName : '')
+    });
     this.empService.create(this.formData)
       .pipe(first())
       .subscribe({
@@ -173,6 +207,7 @@ export class CreateEmployeeComponent {
     reader.addEventListener('load', (event: any) => {
 
       this.selectedImage = new ImageSnippet(event.target.result, file);
+      this.imageUrl = file;
       this.formData.append('image', file, this.f.employeeCode.value!);
     })
     reader.readAsDataURL(file);

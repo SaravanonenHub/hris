@@ -1,5 +1,6 @@
 export interface User {
     email: string;
     displayName: string;
-    token: string
+    token: string;
+
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Employees;
 using Core.Entities.Masters;
+using Core.Entities.Notify;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -54,6 +55,7 @@ namespace Infrastructure.Data.Config
             // modelBuilder.HasOne<EmployeePersonalInfo>(g => g.EmployeePersonalInfo).WithOne(d => d.Employee).OnDelete(DeleteBehavior.Cascade);
             // modelBuilder.HasOne<EmployeeExperienceInfo>(g => g.EmployeeExperienceInfo).WithOne(d => d.Employee).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.HasMany<EmployeeShiftDetails>(g => g.EmployeeShiftDetails).WithOne(d => d.Employee).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.HasMany<NotifyProps>(g => g.Notifications).WithOne(d => d.Employee).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

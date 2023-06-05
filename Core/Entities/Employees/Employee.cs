@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Core.Entities.Masters;
+using Core.Entities.Notify;
 
 namespace Core.Entities.Employees
 {
@@ -62,5 +63,6 @@ namespace Core.Entities.Employees
         public EmployeePersonalInfo EmployeePersonalInfo { get; set; }
         public EmployeeExperienceInfo EmployeeExperienceInfo { get; set; }
         public List<EmployeeShiftDetails> EmployeeShiftDetails { get; set; }
+        public List<NotifyProps> Notifications { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace API.Controllers
                     issuer: "https://localhost:7114",
                     audience: "https://localhost:7114",
                     claims: new List<Claim>(),
-                    expires: DateTime.Now.AddMinutes(5),
+                    expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: signInCredential
                 );
 

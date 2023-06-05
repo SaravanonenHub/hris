@@ -22,6 +22,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@microsoft/signalr": "^7.0.5",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primeng": "^15.2.0",

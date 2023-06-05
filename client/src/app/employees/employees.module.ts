@@ -5,6 +5,8 @@ import { InputTextModule } from 'primeng/inputtext'
 import { ImageModule } from 'primeng/image'
 import { FileUploadModule } from 'primeng/fileupload'
 import { CalendarModule } from 'primeng/calendar'
+import { ListboxModule } from 'primeng/listbox'
+import { CheckboxModule } from 'primeng/checkbox'
 import { RadioButtonModule } from 'primeng/radiobutton'
 import { DropdownModule } from 'primeng/dropdown'
 import { EmployeesRoutingModule } from './employees-routing.module';
@@ -25,7 +27,9 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     TableModule,
     InputTextModule,
+    CheckboxModule,
     CalendarModule,
+    ListboxModule,
     RadioButtonModule,
     DropdownModule,
     ImageModule,

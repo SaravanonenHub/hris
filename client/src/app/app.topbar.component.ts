@@ -3,9 +3,16 @@ import { trigger, style, transition, animate, AnimationEvent } from '@angular/an
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
-import { Subscription } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 import { faUser, faBell, faBookmark } from '@fortawesome/free-regular-svg-icons'
 import { AccountService } from './account/account.service';
+import { NotificationService } from './shared/services/notification.service';
+import { EmployeeService } from './employees/employee.service';
+import { IEmployee } from './domain/models/employee';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
+import { environment } from 'src/environments/environment';
+import { Notify } from './shared/models/notify';
+import { Role } from './domain/models/master';
 @Component({
     selector: 'app-topbar',
     template: `
@@ -22,6 +29,7 @@ import { AccountService } from './account/account.service';
             <div class="flex align-items-center justify-content space-evenly">
                 <a class="menu-button" (click)="onMenuButtonClick($event)">
                     <fa-icon [icon]="faBell"></fa-icon>
+                    <span>{{this.notifyCount}}</span>
                 </a>
                 <a class="menu-button" (click)="onMenuButtonClick($event)">
                     <fa-icon [icon]="faBookmark"></fa-icon>
@@ -33,8 +41,13 @@ import { AccountService } from './account/account.service';
                         <fa-icon [icon]="faUser"></fa-icon>
                     </a>
                </ng-container>
+               <ng-container *ngIf="accountService.currentUser$ | async as user">
+                    <a routerLink = './account/login' class="btn btn-outline-secondary me-2">
+                        LogOut
+                    </a>
+               </ng-container>
                <ng-container *ngIf="(accountService.currentUser$ | async) === null">
-                    <a class="btn btn-outline-secondary me-2">
+                    <a (click)="accountService.logout()" class="btn btn-outline-secondary me-2">
                         LogIn
                     </a>
                 </ng-container>
@@ -121,14 +134,40 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     };
 
     versions: any[] = [];
-
+    empCode?: string;
+    employee?: IEmployee;
+    notifymessage!: string;
+    notifyCount: number = 0;
     scrollListener: any;
-
-    constructor(private router: Router, private configService: AppConfigService, public accountService: AccountService) { }
+    baseUrl = environment.apiUrl;
+    private hubConnectionBuilder!: HubConnection;
+    constructor(private router: Router, private configService: AppConfigService
+        , public accountService: AccountService
+        , private empService: EmployeeService
+        , private notificationService: NotificationService) { }
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
+        this.hubConnectionBuilder = new HubConnectionBuilder().withUrl('https://localhost:7114/notify').configureLogging(LogLevel.Information).build();
+        this.hubConnectionBuilder.start().then(() => console.log('Connection started...')).catch(err => console.log('Error while connect with server'));
+        this.accountService.currentUser$.subscribe((emp) => {
+            console.log(emp);
+            this.empService.getEmployeesBaseByCode(emp?.email!).subscribe((emp) => {
+                console.log(emp.team?.teamName);
+                this.hubConnectionBuilder.on('BrodcastMessage', (result: Notify) => {
+                    console.log(this.notifyCount);
+                    console.log(`${emp.employeeCode};${emp.team?.id}: ${result.team?.teamName}`);
+                    if (result.team?.teamName === 'ETB' && emp.teamRole == Role.Manager) {
+                        this.notifyCount++;
+                        console.log(`${emp.employeeCode}: ${result}`);
+                    }
+
+                })
+            })
+        });
+
+
 
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
@@ -136,6 +175,12 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
                 // this.activeMenuIndex = 0
             }
         });
+        // this.notificationService.notify$.subscribe(() => {
+        //     console.log(`Notify count: ${this.notifyCount}`);
+        //     this.notifyCount++;
+        // });
+
+
 
         this.bindScrollListener();
     }

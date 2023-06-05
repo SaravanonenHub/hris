@@ -22,6 +22,40 @@ namespace Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Core.Entities.Actions.LeaveAction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Action")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActionBy")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ActionDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("LeaveId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeaveId");
+
+                    b.ToTable("T_LEAVE_ACTIONS", (string)null);
+                });
+
             modelBuilder.Entity("Core.Entities.Employees.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -437,60 +471,114 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("T_TEAM_ROLE");
                 });
 
-            modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
+            modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DisplayName")
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("LeaveType")
                         .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Session")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUsers");
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("T_LEAVE", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Entries.LeaveType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("EntitleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("T_LEAVE_TYPE");
                 });
 
             modelBuilder.Entity("Core.Entities.Masters.Branch", b =>
@@ -846,6 +934,77 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("T_USER_ROLE");
                 });
 
+            modelBuilder.Entity("Core.Entities.Notify.NotifyProps", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("TeamRoleId");
+
+                    b.ToTable("T_NOTIFICATION", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Actions.LeaveAction", b =>
+                {
+                    b.HasOne("Core.Entities.Entries.Leave", "Leave")
+                        .WithMany("Actions")
+                        .HasForeignKey("LeaveId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Leave");
+                });
+
             modelBuilder.Entity("Core.Entities.Employees.Employee", b =>
                 {
                     b.HasOne("Core.Entities.Masters.Branch", "Branch")
@@ -971,6 +1130,15 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
+                {
+                    b.HasOne("Core.Entities.Employees.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("Core.Entities.Masters.Department", b =>
                 {
                     b.HasOne("Core.Entities.Masters.Division", "Division")
@@ -982,6 +1150,28 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Division");
                 });
 
+            modelBuilder.Entity("Core.Entities.Notify.NotifyProps", b =>
+                {
+                    b.HasOne("Core.Entities.Employees.Employee", "Employee")
+                        .WithMany("Notifications")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Core.Entities.Employees.Team", "Team")
+                        .WithMany("Notifications")
+                        .HasForeignKey("TeamId");
+
+                    b.HasOne("Core.Entities.Employees.TeamRole", "TeamRole")
+                        .WithMany("Notifications")
+                        .HasForeignKey("TeamRoleId");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Team");
+
+                    b.Navigation("TeamRole");
+                });
+
             modelBuilder.Entity("Core.Entities.Employees.Employee", b =>
                 {
                     b.Navigation("EmployeeExperienceInfo");
@@ -989,11 +1179,25 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("EmployeePersonalInfo");
 
                     b.Navigation("EmployeeShiftDetails");
+
+                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("Core.Entities.Employees.Team", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("TeamDetails");
+                });
+
+            modelBuilder.Entity("Core.Entities.Employees.TeamRole", b =>
+                {
+                    b.Navigation("Notifications");
+                });
+
+            modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
+                {
+                    b.Navigation("Actions");
                 });
 #pragma warning restore 612, 618
         }

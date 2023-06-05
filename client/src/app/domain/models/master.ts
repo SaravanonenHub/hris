@@ -34,6 +34,10 @@ export enum EmployeeNature {
     OnRoll = 'OnRoll',
     Contract = 'Contract'
 }
+export enum Status {
+    Live = "Live",
+    NotWorking = "Not Working"
+}
 export enum Role {
     Admin = 1,
     Manager = 2,

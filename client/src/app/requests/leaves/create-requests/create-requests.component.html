@@ -1,0 +1,88 @@
+<div class="card-holder">
+    <div class="card">
+        <form [formGroup]="leaveReqForm" (ngSubmit)="onSubmit()">
+            <div class="flex justify-content-center align-items-center">
+                <p-button icon="pi pi-angle-left" styleClass="p-button-rounded"></p-button>
+                <h5>Leave Request</h5>
+                <p-button icon="pi pi-check" styleClass="p-button-rounded" type="submit"></p-button>
+
+            </div>
+            <span class="p-float-label">
+                <p-dropdown [options]="leaveTypes" formControlName="leaveType" placeholder="-" optionLabel="label"
+                    optionValue="label" inputId="float-label"></p-dropdown>
+                <label for="float-label">Leave Type</label>
+            </span>
+            <span class="p-float-label">
+                <input pInputText id="balance" formControlName="balance"
+                    style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
+                <label htmlFor="balance">Balance</label>
+            </span>
+            <div class="flex" style="width: 100%;">
+                <span class="p-float-label" style="width: 48%;">
+                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="fromDate"
+                        dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
+                    <label for="calendar">From Date</label>
+                </span>
+                <span style="width: 4%;"></span>
+                <span class="p-float-label" style="width: 48%;">
+                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="toDate"
+                        dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
+                    <label for="calendar">To Date</label>
+                </span>
+            </div>
+
+            <span class="p-float-label">
+                <input pInputText id="days" formControlName="days"
+                    style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
+                <label htmlFor="days">Days</label>
+            </span>
+            <span class="p-float-label">
+                <p-dropdown [options]="sessions" formControlName="session" placeholder="-" optionLabel="label"
+                    optionValue="label" inputId="float-label"></p-dropdown>
+                <label for="float-label">Session</label>
+            </span>
+
+            <p-fileUpload mode="basic" chooseLabel="Attachment" name="demo[]"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000">
+                <ng-template pTemplate="toolbar">
+                    <div class="py-3">Upload 3 Files</div>
+                </ng-template>
+                <ng-template let-file pTemplate="file">
+                    <div>Custom UI to display a file</div>
+                </ng-template>
+                <ng-template pTemplate="content" let-files>
+                    <div>Additional content.</div>
+                </ng-template>
+            </p-fileUpload>
+            <span class="p-float-label">
+                <input pInputText id="reason" formControlName="reason"
+                    style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
+                <label htmlFor="reason">Reason</label>
+            </span>
+
+
+            <!-- <p-calendar formControlName="fromDate">
+                <ng-template pTemplate="date">
+                    <span>test</span>
+                </ng-template>
+                <ng-template pTemplate="date" let-date>
+                    <span
+                        [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
+                </ng-template>
+            </p-calendar> -->
+
+            <!-- <span class="p-float-label">
+                <input pInputText id="username" />
+                <label htmlFor="username">Username</label>
+            </span> -->
+        </form>
+
+
+
+
+
+
+
+
+    </div>
+</div>

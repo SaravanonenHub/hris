@@ -20,6 +20,7 @@ namespace API.Controllers
         private readonly ITeamRepository _teamService;
         private readonly IMapper _mapper;
         public static IWebHostEnvironment _environment;
+
         public EmployeeController(IEmployeeRepository service, IWebHostEnvironment environment, UserManager<AppUser> userManager
         , IMapper mapper = null, IMasterRepository masterService = null, ITeamRepository teamService = null)
         {
@@ -44,6 +45,17 @@ namespace API.Controllers
 
             if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
             var _emp = _mapper.Map<Employee, EmployeeResponseDto>(result);
+
+            return Ok(_emp);
+        }
+        [HttpGet("employeebyCode/{code}")]
+        public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeByCode(string code)
+        {
+            var result = await _service.GetEmployeeById(0, code);
+
+            if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
+            var _emp = _mapper.Map<Employee, EmployeeResponseDto>(result);
+
             return Ok(_emp);
         }
         [HttpPost("create")]
@@ -76,6 +88,7 @@ namespace API.Controllers
 
                 var file = empDto.EmpImage;
                 var folderName = Path.Combine("Resources", "Images");
+
                 // string uploadsFolder = Path.Combine(_environment.WebRootPath, "images");
                 // if (!Directory.Exists(uploadsFolder))
                 // {
@@ -98,6 +111,7 @@ namespace API.Controllers
                 {
                     return BadRequest();
                 }
+
                 var result = await _service.CreateEmployee(_emp);
                 if (result == null)
                 {
@@ -106,15 +120,17 @@ namespace API.Controllers
                 else
                 {
                     // var user = _mapper.Map<AppUser>(empDto);
+
                     var user = new AppUser
                     {
                         UserName = empDto.EmployeeCode,
                         DisplayName = empDto.DisplayName,
                         Email = empDto.EmailID
                     };
+
                     var pwd = "Mil@cr0n_" + empDto.EmployeeCode;
                     var userResult = await _userManager.CreateAsync(user, pwd);
-
+                    var roleResult = await _userManager.AddToRoleAsync(user, _emp.TeamRole.Role);
                     // await _service.CreateUser(appUser);
                 }
 

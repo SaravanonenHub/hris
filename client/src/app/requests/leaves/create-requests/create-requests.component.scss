@@ -1,0 +1,76 @@
+.card-holder {
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    background-color: #eceff1 !important;
+}
+
+.card {
+    position: absolute;
+    left: 50%;
+    width: 690px;
+    transform: translateX(-50%);
+}
+
+@media only screen and (max-width: 689px) {
+    .card {
+        // position: re;
+        // left: 50%;
+        width: 100%;
+        // transform: translateX(-50%);
+    }
+}
+
+::ng-deep .p-dropdown {
+    width: 100%;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+::ng-deep .p-dropdown .p-dropdown-label {
+    background: transparent;
+    border: 0 none;
+    padding-top: 1.25rem;
+    // height: 40px;
+}
+
+
+::ng-deep .p-calendar {
+    width: 100%;
+    margin-bottom: 5px;
+    height: 50px;
+}
+
+.p-float-label .p-inputwrapper-filled~label,
+.p-float-label input.p-filled~label,
+.p-float-label .p-inputwrapper-focus~label,
+.p-float-label input:focus~label {
+
+    top: 1rem;
+    padding-top: 0.25rem;
+}
+
+
+::ng-deep .p-calendar .p-inputtext {
+    height: auto;
+    padding-top: 1.25rem;
+}
+
+.p-float-label>label {
+    left: 0.5rem;
+}
+
+::ng-deep .p-inputtext {
+
+    height: 50px;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+::ng-deep .p-button {
+    border-radius: 0px;
+    background: none;
+    color: #495057;
+    width: 100%;
+}

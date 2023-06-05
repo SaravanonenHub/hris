@@ -23,7 +23,6 @@ export class AppComponent {
   storageKey = 'primeng';
 
   ngOnInit() {
-    debugger;
     this.loadCurrentUser();
     this.config = { theme: 'lara-light-blue', dark: false };
 

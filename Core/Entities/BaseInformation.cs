@@ -20,4 +20,12 @@ namespace Core.Entities
         [MaxLength(15)]
         public string LastModifiedBy { get; set; } = "admin";
     }
+    public class ActionInformation : BaseEntity
+    {
+
+        public DateTime ActionDate { get; set; }
+        [MaxLength(15)]
+        public string ActionBy { get; set; } = "admin";
+
+    }
 }
