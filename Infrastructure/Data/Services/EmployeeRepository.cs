@@ -40,9 +40,10 @@ namespace Infrastructure.Data.Services
             return _unitOfWork.Repository<Employee>().GetByIdWithoutTrack(Id);
         }
 
-        public async Task<IReadOnlyList<Employee>> GetEmployeesAsync()
+        public async Task<IReadOnlyList<Employee>> GetEmployeesAsync(EmployeeWithFilterSpec spec)
         {
-            return await _unitOfWork.Repository<Employee>().ListAllAsync();
+            // var spec = new EmployeeWithFilterSpec();
+            return await _unitOfWork.Repository<Employee>().ListAsync(spec);
         }
         public async Task<IReadOnlyList<EmployeeNature>> GetEmployeeNatureAsync()
         {

@@ -4,7 +4,7 @@
         <h5>Filter</h5>
         <div style="margin-top: 5rem;">
             <h5>Employee Status</h5>
-            <p-listbox [options]="statuses" [group]="false" [listStyle]="{ 'max-height': '250px' }">
+            <p-listbox [options]="statuses" [group]="false" [listStyle]="{ 'max-height': '250px' }" (onChange) = "onStatusChange($event)" >
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                         <span>{{ group.label }}</span>
@@ -100,11 +100,11 @@
                         <p-columnFilter type="text" field="department" display="menu"></p-columnFilter>
                         <p-sortIcon field="department"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="designation" style="width:20%">Quantity
+                    <th pSortableColumn="designation" style="width:20%">Designation
                         <p-columnFilter type="text" field="designation" display="menu"></p-columnFilter>
                         <p-sortIcon field="designation"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="status" style="width:20%">Price
+                    <th pSortableColumn="status" style="width:20%">Status
                         <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
                         <p-sortIcon field="status"></p-sortIcon>
                     </th>
@@ -114,9 +114,9 @@
                 <tr [pSelectableRow]="employee">
                     <td>{{employee.employeeCode}}</td>
                     <td>{{employee.displayName}}</td>
-                    <td>{{employee.department}}</td>
-                    <td>{{employee.designation}}</td>
-                    <td>{{employee.status}}</td>
+                    <td>{{employee.department.departmentName}}</td>
+                    <td>{{employee.designation.designationName}}</td>
+                    <td><p-tag [value]="employee.status" [severity]="getSeverity(employee.status)"></p-tag></td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">

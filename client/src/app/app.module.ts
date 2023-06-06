@@ -8,6 +8,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { RadioButtonModule } from 'primeng/radiobutton'
 import { CalendarModule } from 'primeng/calendar'
 import { SplitterModule } from 'primeng/splitter'
+import {ToastModule} from 'primeng/toast'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { EmployeeService } from './employees/employee.service';
 import { EmployeesModule } from './employees/employees.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { MessageService } from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,9 +55,10 @@ import { SharedModule } from './shared/shared.module';
     CalendarModule,
     SplitterModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    ToastModule
   ],
-  providers: [AppConfigService, EmployeeService],
+  providers: [AppConfigService, EmployeeService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

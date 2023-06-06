@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Employees;
 using Core.Entities.Identity;
+using Core.Specifications.EmployeeSpec;
 
 namespace Core.Interfaces
 {
@@ -11,7 +12,7 @@ namespace Core.Interfaces
     {
         Task<Employee> GetEmployeeById(int Id, string EmpCode = null);
         IQueryable<Employee> GetEmployeeByIdNoTrack(int Id);
-        Task<IReadOnlyList<Employee>> GetEmployeesAsync();
+        Task<IReadOnlyList<Employee>> GetEmployeesAsync(EmployeeWithFilterSpec spec);
         Task<IReadOnlyList<EmployeeNature>> GetEmployeeNatureAsync();
         Task<IReadOnlyList<Employee>> GetEmployeeDetailsAsync();
         Task<Employee> CheckEmployeeonUpdate(string name, int id);

@@ -3,8 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
-import { PrimeNGConfig } from 'primeng/api';
+import { Message, PrimeNGConfig } from 'primeng/api';
 import { AppComponent } from './app.component';
+import {MessageService} from 'primeng/api'
+import { PgmessageService } from './shared/services/pgmessage.service';
 
 declare let gtag: Function;
 
@@ -14,7 +16,7 @@ declare let gtag: Function;
 })
 export class AppMainComponent implements OnInit {
     menuActive?: boolean;
-
+    messages!:Message[];
     newsActive: boolean = true;
 
     config!: AppConfig;
@@ -25,10 +27,15 @@ export class AppMainComponent implements OnInit {
 
     public subscription?: Subscription;
 
-    constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) { }
+    constructor(private router: Router, private configService: AppConfigService
+        , private primengConfig: PrimeNGConfig, public app: AppComponent,private pgMessageService:PgmessageService
+        ,private messageService:MessageService) { }
 
     ngOnInit() {
         this.primengConfig.ripple = true;
+        this.pgMessageService.getEmitter().subscribe((alert) => {
+           this.messageService.add(alert);
+        })
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;

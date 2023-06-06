@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Employee, IEmployee } from 'src/app/domain/models/employee';
 import { AccountService } from 'src/app/account/account.service';
+import { PgmessageService } from 'src/app/shared/services/pgmessage.service';
+import { Message } from 'primeng/api';
 class ImageSnippet {
   constructor(public src: string, public file: File) {
 
@@ -22,6 +24,7 @@ class ImageSnippet {
   providers: [DatePipe]
 })
 export class CreateEmployeeComponent {
+  message! : Message[];
   faCircleXmark = faXmark;
   id?: number;
   gender: string | undefined;
@@ -76,9 +79,10 @@ export class CreateEmployeeComponent {
   })
   constructor(private fb: FormBuilder, private empService: EmployeeService, private datePipe: DatePipe
     , private alertService: AlertService, private route: ActivatedRoute, private router: Router
-    , private accountService: AccountService) { }
+    , private accountService: AccountService, private messageService:PgmessageService) { }
 
   ngOnInit() {
+    this.alertService.successAlert("Records Received");
     console.log(this.datePipe.transform(this.datenow, 'dd/MM/yyyy'));
     // this.imageUrl = `${this.imageUrl}default.png`;
     // console.log(Object.values(Role).filter((f) => !isNaN(Number(f))));
@@ -172,7 +176,7 @@ export class CreateEmployeeComponent {
 
   onSubmit() {
     this.submitted = true;
-    this.alertService.errorAlert('User saved');
+    
     let result = Object.assign({}, this.f);
     console.log(`Result: ${result}`);
     //this.employeeForm.get('birthDate')?.setValue(new Date(this.datepipe.transform(this.date, "dd/MM/yyyy")))
@@ -188,10 +192,17 @@ export class CreateEmployeeComponent {
       .pipe(first())
       .subscribe({
         next: () => {
-          console.log("Success")
+          this.message = [ { severity: 'success', summary: 'Success', detail: 'Message Content' }],
+          this.messageService.setEmitter(this.message);
+          this.employeeForm.reset();
+          //this.alertService.successAlert('User saved');
+          // console.log("Success")
         },
         error: error => {
-          console.log("Error")
+          // this.alertService.errorAlert('User saved');
+          this.message = [ { severity: 'error', summary: 'Error!', detail: error}],
+          this.messageService.setEmitter(this.message);
+          // console.log(error)
         }
       })
 

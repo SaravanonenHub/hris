@@ -9,7 +9,9 @@
 
     <div class="layout-content" (click)="onMaskClick()">
         <div class="layout-content-inner h-full">
-            <app-alert></app-alert>
+            <!-- <app-alert></app-alert> -->
+            <!-- <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages> -->
+            <p-toast></p-toast>
             <router-outlet></router-outlet>
         </div>
         <app-footer></app-footer>

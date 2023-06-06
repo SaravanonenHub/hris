@@ -37,11 +37,7 @@ namespace Infrastructure.Data.Config
             modelBuilder.HasOne<Team>(c => c.Team).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.HasOne<TeamRole>(c => c.TeamRole).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             // modelBuilder.HasOne<EmployeeNature>(c => c.EmployeeNature).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Property(s => s.Status)
-                .HasConversion(
-                    o => o.ToString(),
-                    o => (EmployeeStatus)Enum.Parse(typeof(EmployeeStatus), o)
-                ).IsRequired().HasMaxLength(15);
+            modelBuilder.Property(s => s.Status).IsRequired().HasMaxLength(15);
             modelBuilder.Property(s => s.MartialStatus)
                 .HasConversion(
                     o => o.ToString(),

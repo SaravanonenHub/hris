@@ -21,14 +21,14 @@
     }
 }
 
-::ng-deep .p-dropdown {
+:host ::ng-deep .p-dropdown {
     width: 100%;
     height: 50px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-::ng-deep .p-dropdown .p-dropdown-label {
+:host ::ng-deep .p-dropdown .p-dropdown-label {
     background: transparent;
     border: 0 none;
     padding-top: 1.25rem;
@@ -36,7 +36,7 @@
 }
 
 
-::ng-deep .p-calendar {
+:host ::ng-deep .p-calendar {
     width: 100%;
     margin-bottom: 5px;
     height: 50px;
@@ -52,7 +52,7 @@
 }
 
 
-::ng-deep .p-calendar .p-inputtext {
+:host ::ng-deep .p-calendar .p-inputtext {
     height: auto;
     padding-top: 1.25rem;
 }
@@ -61,14 +61,14 @@
     left: 0.5rem;
 }
 
-::ng-deep .p-inputtext {
+:host ::ng-deep .p-inputtext {
 
     height: 50px;
     font-size: 1.25rem;
     font-weight: 500;
 }
 
-::ng-deep .p-button {
+:host ::ng-deep .p-button {
     border-radius: 0px;
     background: none;
     color: #495057;

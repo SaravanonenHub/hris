@@ -8,6 +8,7 @@ import { CalendarModule } from 'primeng/calendar'
 import { ListboxModule } from 'primeng/listbox'
 import { CheckboxModule } from 'primeng/checkbox'
 import { RadioButtonModule } from 'primeng/radiobutton'
+import {TagModule} from 'primeng/tag'
 import { DropdownModule } from 'primeng/dropdown'
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from './employees.component';
@@ -36,7 +37,9 @@ import { SharedModule } from '../shared/shared.module';
     FileUploadModule,
     EmployeesRoutingModule,
     SharedModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TagModule,
+
   ]
 })
 export class EmployeesModule { }

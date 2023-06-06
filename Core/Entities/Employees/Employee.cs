@@ -5,12 +5,11 @@ using Core.Entities.Notify;
 
 namespace Core.Entities.Employees
 {
-    public enum EmployeeStatus
+    public static class EmployeeStatus
     {
-        [EnumMember(Value = "Live")]
-        Live,
-        [EnumMember(Value = "Not Working")]
-        NotWorking,
+        public static readonly string Live = "Live";
+        public static readonly string NotWorking = "Not Working";
+
 
     }
     public enum EmployeeGender
@@ -44,7 +43,7 @@ namespace Core.Entities.Employees
         public Designation Designation { get; set; }
         [MaxLength(30)]
         public string Qualification { get; set; }
-        public EmployeeStatus Status { get; set; } = EmployeeStatus.Live;
+        public string Status { get; set; } = EmployeeStatus.Live;
         public DateTimeOffset BirthDate { get; set; } = DateTimeOffset.Now;
         public int Age { get; set; }
         public DateTimeOffset JoinDate { get; set; } = DateTimeOffset.Now;

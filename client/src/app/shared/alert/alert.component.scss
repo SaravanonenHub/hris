@@ -1,0 +1,49 @@
+.alert{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 250px;
+    z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
+
+}
+.alert-success {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+  
+  .alert-danger {
+    background-color: #F44336;
+    color: #fff;
+  }
+  
+  .alert-info {
+    background-color: #2196F3;
+    color: #fff;
+  }
+  .alert .btn-close {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .alert .btn-close:hover {
+    opacity: 1;
+  }
+
+  
+  
+  
+  
+  
+  
+  

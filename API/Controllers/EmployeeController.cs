@@ -6,6 +6,7 @@ using Core.Entities.Employees;
 using Core.Entities.Identity;
 using Core.Interfaces;
 using Core.Interfaces.IMaster;
+using Core.Specifications.EmployeeSpec;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +34,10 @@ namespace API.Controllers
             // _userManager = userManager;
         }
         [HttpGet("employees")]
-        public async Task<IReadOnlyList<Employee>> GetEmployees()
+        public async Task<IReadOnlyList<Employee>> GetEmployees([FromQuery] EmployeeSpecParams employeeParams)
         {
-            var results = await _service.GetEmployeesAsync();
+            var spec = new EmployeeWithFilterSpec(employeeParams);
+            var results = await _service.GetEmployeesAsync(spec);
             return results;
         }
         [HttpGet("employee/{id}")]
@@ -130,7 +132,7 @@ namespace API.Controllers
 
                     var pwd = "Mil@cr0n_" + empDto.EmployeeCode;
                     var userResult = await _userManager.CreateAsync(user, pwd);
-                    var roleResult = await _userManager.AddToRoleAsync(user, _emp.TeamRole.Role);
+                    var roleResult = await _userManager.AddToRoleAsync(user, "ADMIN");
                     // await _service.CreateUser(appUser);
                 }
 
