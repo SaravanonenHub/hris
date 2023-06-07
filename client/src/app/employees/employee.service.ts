@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee, IEmployee } from '../domain/models/employee';
 import { IBranch, IDepartment, IDesignation, IDivision, ITeam, Role } from '../domain/models/master';
+import { EmployeeParams } from '../shared/models/employeeParams';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,22 @@ export class EmployeeService {
   roles: Role[] = [];
   teams: ITeam[] = [];
   employees: IEmployee[] = [];
+  filterParam!:EmployeeParams;
   constructor(private http: HttpClient) { }
 
-  getEmployeesBase() {
-    return this.http.get<IEmployee[]>(this.baseUrl + 'Employee/employees').pipe(
+  getEmployeesBase(param:EmployeeParams) {
+    let params = new HttpParams();
+
+    if (param.status !== "") {
+      params = params.append('Status', param.status!);
+    }
+
+    if (param.nature !== "") {
+      params = params.append('EmployeeNature', param.nature!.toString());
+    }
+
+  
+    return this.http.get<IEmployee[]>(this.baseUrl + 'Employee/employees',{params}).pipe(
       map(data => this.employees = data)
     );;
   }

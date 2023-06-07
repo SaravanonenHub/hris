@@ -7,6 +7,7 @@ import { EmployeeService } from './employee.service';
 import { AlertService } from '../shared/services/alertService';
 import {Message} from 'primeng/api'
 import { PgmessageService } from '../shared/services/pgmessage.service';
+import { EmployeeParams } from '../shared/models/employeeParams';
 
 @Component({
   selector: 'app-employees',
@@ -14,7 +15,7 @@ import { PgmessageService } from '../shared/services/pgmessage.service';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
- 
+  empParam: EmployeeParams = {search:"",status:"",nature:""};
   faCircleXmark = faCircleXmark; faPlusSquare = faPlusSquare;
   employees: IEmployee[] = [];
   natureOfEmployees = Object.values(EmployeeNature).map(key => ({ label: EmployeeNature[key], value: key }));;
@@ -28,8 +29,15 @@ export class EmployeesComponent implements OnInit {
     // console.log(Status['NotWorking']);
     this.employeeService.getDivisions().subscribe({
       next: orders => this.divisions = orders
-    })
-    this.employeeService.getEmployeesBase().subscribe({
+    });
+    // console.log(this.empParam);
+    this.getEmployee(this.empParam);
+    
+  }
+  
+  getEmployee(param:EmployeeParams){
+    console.log(param);
+    this.employeeService.getEmployeesBase(param).subscribe({
       next: employees => {
         this.employees = employees;
         
@@ -39,7 +47,6 @@ export class EmployeesComponent implements OnInit {
       }
     
     })
-    
   }
   getSeverity(status: string):any {
     switch (status) {
@@ -54,6 +61,14 @@ export class EmployeesComponent implements OnInit {
     this.router.navigateByUrl(`/employee/personal-edit/${this.selectedEmployee?.id}`);
   }
   onStatusChange(event:any){
+    //this.empParam.status = event.value;
+    console.log(`${event.value}: ${Object.values(Status)[Object.keys(Status).indexOf(event.value as unknown as Status)]}`)
+    this.empParam.status = Object.values(Status)[Object.keys(Status).indexOf(event.value as unknown as Status)];
+    this.getEmployee(this.empParam);
     console.log(event);
+  }
+  onNatureChange(event:any){
+    this.empParam.nature = Object.values(EmployeeNature)[Object.keys(EmployeeNature).indexOf(event.value as unknown as Status)];
+    this.getEmployee(this.empParam);
   }
 }

@@ -1,5 +1,5 @@
 export class EmployeeParams{
-    status?:string;
-    nature?:string;
-    search?:string;
+    status:string="";
+    nature:string="";
+    search:string="";
 }

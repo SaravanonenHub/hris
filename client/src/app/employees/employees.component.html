@@ -13,7 +13,7 @@
             </p-listbox>
 
             <h5>Employee Nature</h5>
-            <p-listbox [options]="natureOfEmployees" [group]="false" [listStyle]="{ 'max-height': '250px' }">
+            <p-listbox [options]="natureOfEmployees" [group]="false" [listStyle]="{ 'max-height': '250px' }" (onChange) = "onNatureChange($event)" >
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                         <span>{{ group.label }}</span>
