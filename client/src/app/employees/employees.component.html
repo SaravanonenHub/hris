@@ -4,7 +4,7 @@
         <h5>Filter</h5>
         <div style="margin-top: 5rem;">
             <h5>Employee Status</h5>
-            <p-listbox [options]="statuses" [group]="false" [listStyle]="{ 'max-height': '250px' }" (onChange) = "onStatusChange($event)" >
+            <p-listbox [options]="statuses" [group]="false" [listStyle]="{ 'max-height': '250px' }" (onClick) = "onStatusChange($event)" >
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                         <span>{{ group.label }}</span>
@@ -13,7 +13,7 @@
             </p-listbox>
 
             <h5>Employee Nature</h5>
-            <p-listbox [options]="natureOfEmployees" [group]="false" [listStyle]="{ 'max-height': '250px' }" (onChange) = "onNatureChange($event)" >
+            <p-listbox [options]="natureOfEmployees" [group]="false" [listStyle]="{ 'max-height': '250px' }" (onClick) = "onNatureChange($event)" >
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                         <span>{{ group.label }}</span>
@@ -22,7 +22,7 @@
             </p-listbox>
 
             <h5>Filter by Deparment</h5>
-            <p-listbox [options]="divisions" [checkbox]="true" [multiple]="true" [filter]="false"
+            <p-listbox [options]="divisions" [checkbox]="true" [multiple]="true" [filter]="false" (onClick) = "onDepartmentChange($event)"
                 [showToggleAll]="false" optionLabel="divisionName" [listStyle]="{ 'max-height': '250px' }">
 
             </p-listbox>

@@ -15,7 +15,7 @@ import { EmployeeParams } from '../shared/models/employeeParams';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-  empParam: EmployeeParams = {search:"",status:"",nature:""};
+  empParam: EmployeeParams = {search:"",status:"",nature:"",departmentIDs:[]};
   faCircleXmark = faCircleXmark; faPlusSquare = faPlusSquare;
   employees: IEmployee[] = [];
   natureOfEmployees = Object.values(EmployeeNature).map(key => ({ label: EmployeeNature[key], value: key }));;
@@ -36,14 +36,14 @@ export class EmployeesComponent implements OnInit {
   }
   
   getEmployee(param:EmployeeParams){
-    console.log(param);
+    // console.log(param);
     this.employeeService.getEmployeesBase(param).subscribe({
       next: employees => {
         this.employees = employees;
         
-        this.alertService.successAlert("Records Received");
+        // this.alertService.successAlert("Records Received");
         
-        console.log(this.employees);
+        // console.log(this.employees);
       }
     
     })
@@ -61,14 +61,40 @@ export class EmployeesComponent implements OnInit {
     this.router.navigateByUrl(`/employee/personal-edit/${this.selectedEmployee?.id}`);
   }
   onStatusChange(event:any){
-    //this.empParam.status = event.value;
-    console.log(`${event.value}: ${Object.values(Status)[Object.keys(Status).indexOf(event.value as unknown as Status)]}`)
-    this.empParam.status = Object.values(Status)[Object.keys(Status).indexOf(event.value as unknown as Status)];
+    this.empParam.status = "";
+    // console.log(`${event.value}: ${Object.values(Status)[Object.keys(Status).indexOf(event.value as unknown as Status)]}`)
+    if(event.value != null){
+      this.empParam.status = Object.values(Status)[Object.keys(Status).indexOf(event.value as unknown as Status)];
+      
+    }
     this.getEmployee(this.empParam);
-    console.log(event);
+    // console.log(event);
   }
   onNatureChange(event:any){
-    this.empParam.nature = Object.values(EmployeeNature)[Object.keys(EmployeeNature).indexOf(event.value as unknown as Status)];
+    this.empParam.nature = "";
+    if(event.value != null){
+      this.empParam.nature = Object.values(EmployeeNature)[Object.keys(EmployeeNature).indexOf(event.value as unknown as Status)];
+      
+    }
+    this.getEmployee(this.empParam);
+  }
+  onDepartmentChange(event:any){
+    const values:IDivision[] = event.value 
+    let departmentIds:string="";
+    const queryParams = values.map(val => val.id);
+    // console.log(`Query Params:${queryParams}`)
+    // if(values.length > 0)
+    // {
+    //   values.forEach(val => {
+    //     if(departmentIds != "") {
+    //       departmentIds = `${departmentIds},${val.id}`
+    //     }
+    //     else{departmentIds = `${val.id}`}
+  
+    //   })
+    // }
+    // console.log(queryParams);
+    this.empParam.departmentIDs = queryParams;
     this.getEmployee(this.empParam);
   }
 }

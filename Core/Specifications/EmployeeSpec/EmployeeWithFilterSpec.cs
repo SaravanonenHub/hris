@@ -38,8 +38,10 @@ namespace Core.Specifications.EmployeeSpec
         public EmployeeWithFilterSpec(EmployeeSpecParams param) : base(x =>
             (string.IsNullOrEmpty(param.Status) || x.Status == param.Status)
             && (string.IsNullOrEmpty(param.EmployeeNature) || x.EmployeeNature == param.EmployeeNature)
+        && (string.IsNullOrEmpty(param.DepartmentId) || param.DepartmentId.Contains(x.Division.Id.ToString()))
         )
         {
+
             AddInclude(x => x.Department);
             AddInclude(x => x.Designation);
             AddInclude(x => x.Branch);

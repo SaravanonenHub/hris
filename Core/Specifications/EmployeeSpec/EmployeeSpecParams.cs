@@ -18,5 +18,7 @@ namespace Core.Specifications.EmployeeSpec
         // }
         public string Status { get; set; }
         public string EmployeeNature { get; set; }
+        // public List<int> DepartmentIds { get; set; }
+        public string DepartmentId { get; set; }
     }
 }
