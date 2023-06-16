@@ -75,6 +75,7 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new LeaveFluentConfig());
             modelBuilder.ApplyConfiguration(new LeaveActionConfig());
             modelBuilder.ApplyConfiguration(new NotifyConfig());
+            modelBuilder.ApplyConfiguration(new TeamDetailsFluentConfig());
         }
     }
 }

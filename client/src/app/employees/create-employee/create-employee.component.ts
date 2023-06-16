@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { DatePipe, formatDate } from '@angular/common'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -23,7 +23,7 @@ class ImageSnippet {
   styleUrls: ['./create-employee.component.scss'],
   providers: [DatePipe]
 })
-export class CreateEmployeeComponent {
+export class CreateEmployeeComponent implements OnInit {
   message! : Message[];
   faCircleXmark = faXmark;
   id?: number;
@@ -38,7 +38,7 @@ export class CreateEmployeeComponent {
   martialStatuses = Object.values(MartialStatus).map(key => ({ label: MartialStatus[key], value: key }));
   natureOfEmployees = Object.values(EmployeeNature).map(key => ({ label: EmployeeNature[key], value: key }));;
 
-  roles = Object.values(Role).filter((f) => !isNaN(Number(f))).map((key, index) => ({
+  roles = Object.keys(Role).map((key, index) => ({
     label: Object.values(Role)[index], value: key
   }));
   optionalSaturday = Object.keys(OptionalSaturday).map((key, value) => ({ label: Object.values(OptionalSaturday)[value], value: key }));;
@@ -74,16 +74,20 @@ export class CreateEmployeeComponent {
     employeeNature: ['', [Validators.required]],
     optionalSaturday: ['Y', [Validators.required]],
     teamId: [0, [Validators.min(1)]],
-    teamRoleId: [0, [Validators.min(1)]],
+    teamRoleId: ['Member', [Validators.min(1)]],
+    multiTeam:[false],
     empimage: [null]
   })
   constructor(private fb: FormBuilder, private empService: EmployeeService, private datePipe: DatePipe
     , private alertService: AlertService, private route: ActivatedRoute, private router: Router
     , private accountService: AccountService, private messageService:PgmessageService) { }
+ 
 
   ngOnInit() {
     this.alertService.successAlert("Records Received");
     console.log(this.datePipe.transform(this.datenow, 'dd/MM/yyyy'));
+    this.employeeForm.get('multiTeam')?.setValue(false, { emitEvent: false })
+    console.log(this.employeeForm.get('multiTeam')?.value)
     // this.imageUrl = `${this.imageUrl}default.png`;
     // console.log(Object.values(Role).filter((f) => !isNaN(Number(f))));
     // Object.keys(Role).filter((f) => !isNaN(Number(f))).map((key, value) => (
@@ -101,7 +105,17 @@ export class CreateEmployeeComponent {
     this.employeeForm.valueChanges.subscribe(() => {
       this.employeeForm.get('displayName')?.setValue(this.referencePublicacionValues, { emitEvent: false })
     })
-
+    this.employeeForm.get('teamRoleId')?.valueChanges.subscribe((value) => {
+      console.log(value);
+      if(value == Role.Manager){
+        this.employeeForm.get('multiTeam')?.setValue(true);
+      }
+      else{
+        this.employeeForm.get('multiTeam')?.setValue(false);
+      }
+      console.log(this.employeeForm.get('multiTeam')?.value);
+    })
+    
     if (this.id) {
       this.empService.getEmployeesBaseById(this.id).subscribe(x => {
         debugger;
@@ -114,7 +128,7 @@ export class CreateEmployeeComponent {
 
     }
   }
-
+ 
   get f() {
     return this.employeeForm.controls;
   }
@@ -231,4 +245,5 @@ export class CreateEmployeeComponent {
     // this.employeeForm.patchValue({ 'birthDate': formatDate(data.target.result, 'short', '') })
     console.log(data)
   }
+  
 }

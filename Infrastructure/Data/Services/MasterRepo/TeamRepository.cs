@@ -137,8 +137,8 @@ namespace Infrastructure.Data.Services
             {
                 var detailSpec = new TeamDetailWithIncludesSpec(deletedDetailId);
                 var teamDetailItem = _unitOfWork.Repository<TeamDetails>().GetEntityWithSpecNoTrack(detailSpec).AsEnumerable().SingleOrDefault();
-
-                _unitOfWork.Repository<TeamDetails>().Delete(teamDetailItem); ;
+                // await _unitOfWork.Repository<TeamDetails>().GetEntityWithSpec(detailSpec);
+                _unitOfWork.Repository<TeamDetails>().Delete(teamDetailItem);
             }
 
             foreach (var orderDetail in Team.TeamDetails)

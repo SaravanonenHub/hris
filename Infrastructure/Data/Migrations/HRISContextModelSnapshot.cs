@@ -169,12 +169,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamRoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BranchId");
@@ -184,10 +178,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("DesignationId");
 
                     b.HasIndex("DivisionId");
-
-                    b.HasIndex("TeamId");
-
-                    b.HasIndex("TeamRoleId");
 
                     b.ToTable("T_EMPLOYEE", (string)null);
                 });
@@ -400,8 +390,32 @@ namespace Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -1031,18 +1045,6 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Employees.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Employees.TeamRole", "TeamRole")
-                        .WithMany()
-                        .HasForeignKey("TeamRoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Branch");
 
                     b.Navigation("Department");
@@ -1050,10 +1052,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Designation");
 
                     b.Navigation("Division");
-
-                    b.Navigation("Team");
-
-                    b.Navigation("TeamRole");
                 });
 
             modelBuilder.Entity("Core.Entities.Employees.EmployeeExperienceInfo", b =>

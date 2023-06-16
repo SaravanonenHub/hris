@@ -83,8 +83,8 @@ namespace API.Controllers
                 _emp.Division = _division;
                 _emp.Department = _department;
                 _emp.Designation = _designation;
-                _emp.Team = _team;
-                _emp.TeamRole = _teamRole;
+                // _emp.Team = _team;
+                // _emp.TeamRole = _teamRole;
 
 
 

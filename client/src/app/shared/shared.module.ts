@@ -1,18 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertComponent } from './alert/alert.component';
+import {DropdownModule} from 'primeng/dropdown'
+import { DepartmentDDLComponent } from './dropdowns/department-ddl/department-ddl.component';
+import { DesignationDDLComponent } from './dropdowns/designation-ddl/designation-ddl.component';
+import { DivisionDDLComponent } from './dropdowns/division-ddl/division-ddl.component';
 
 
 
 @NgModule({
   declarations: [
-    AlertComponent
+    AlertComponent,
+    DepartmentDDLComponent,
+    DesignationDDLComponent,
+    DivisionDDLComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DropdownModule
   ],
   exports: [
-    AlertComponent
+    AlertComponent,
+    DepartmentDDLComponent
   ]
 })
 export class SharedModule { }

@@ -6,8 +6,12 @@ import { ImageModule } from 'primeng/image'
 import { FileUploadModule } from 'primeng/fileupload'
 import { CalendarModule } from 'primeng/calendar'
 import { ListboxModule } from 'primeng/listbox'
+import {MultiSelectModule} from 'primeng/multiselect'
 import { CheckboxModule } from 'primeng/checkbox'
 import { RadioButtonModule } from 'primeng/radiobutton'
+import {MessagesModule} from 'primeng/messages'
+import {MessageModule} from 'primeng/message'
+import {KeyFilterModule} from 'primeng/keyfilter'
 import {TagModule} from 'primeng/tag'
 import { DropdownModule } from 'primeng/dropdown'
 import { EmployeesRoutingModule } from './employees-routing.module';
@@ -39,6 +43,11 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     FontAwesomeModule,
     TagModule,
+    MessagesModule,
+    KeyFilterModule,
+    MessageModule,
+    MultiSelectModule,
+
 
   ]
 })

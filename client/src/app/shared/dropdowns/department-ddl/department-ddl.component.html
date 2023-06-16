@@ -1,0 +1,14 @@
+<p-dropdown [options]="departments" [filter]="true" filterBy="departmentName"
+                                        [showClear]="true" placeholder="Select Department" styleClass="showAbove" appendTo="body"
+                                         optionValue="id" optionLabel="departmentName">
+                                        <ng-template pTemplate="selectedItem" let-item>
+                                            <div class="country-item">
+                                                <div>{{item.departmentName}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-department pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{department.departmentName}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>

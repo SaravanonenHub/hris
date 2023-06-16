@@ -66,8 +66,8 @@ namespace API.Controllers.Entries
                 {
                     Type = "Request",
                     Message = "New Leave approval Request",
-                    Team = _emp.Team,
-                    TeamRole = _emp.TeamRole,
+                    // Team = _emp.Team,
+                    // TeamRole = _emp.TeamRole,
                     Employee = null
 
                 };
@@ -108,8 +108,8 @@ namespace API.Controllers.Entries
             {
                 Type = "Approval",
                 Message = "New Leave approval Approved",
-                Team = request.Employee.Team,
-                TeamRole = request.Employee.TeamRole,
+                // Team = request.Employee.Team,
+                // TeamRole = request.Employee.TeamRole,
                 Employee = null
 
             };

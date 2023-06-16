@@ -67,6 +67,7 @@ namespace Infrastructure.Data
 
         public void Delete(T entity)
         {
+            // _context.Entry<T>(entity).State = EntityState.Detached;
             _context.Set<T>().Remove(entity);
         }
 

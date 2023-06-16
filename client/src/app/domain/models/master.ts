@@ -39,10 +39,10 @@ export enum Status {
     NotWorking = "Not Working"
 }
 export enum Role {
-    Admin = 1,
-    Manager = 2,
-    TeamLeader = 3,
-    Member = 4,
+    Admin = "Admin",
+    Manager = "Manager",
+    TeamLeader = "Team Leader",
+    Member = "Member",
 }
 export enum OptionalSaturday {
     Y = 'YES',

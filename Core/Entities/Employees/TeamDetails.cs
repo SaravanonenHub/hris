@@ -21,7 +21,7 @@ namespace Core.Entities.Employees
 
     }
     [Table("T_TEAM_DETAILS")]
-    public class TeamDetails : BaseEntity
+    public class TeamDetails : BaseInformation
     {
         public TeamDetails()
         {
@@ -32,6 +32,9 @@ namespace Core.Entities.Employees
             this.Id = Id;
             Employee = employee;
             Role = role;
+            // CreateDate = Id > 0 ? createDate : DateTime.Now;
+            // IsActive = "Y";
+            // LastModifiedDate = DateTime.Now;
         }
 
         // [Required]
@@ -41,5 +44,7 @@ namespace Core.Entities.Employees
         public Employee Employee { get; set; }
         [Required]
         public TeamRole Role { get; set; }
+
+
     }
 }

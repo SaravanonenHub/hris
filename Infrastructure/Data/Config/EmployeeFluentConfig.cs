@@ -34,8 +34,8 @@ namespace Infrastructure.Data.Config
             modelBuilder.HasOne<Division>(c => c.Division).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.HasOne<Department>(c => c.Department).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction); ;
             modelBuilder.HasOne<Designation>(c => c.Designation).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction); ;
-            modelBuilder.HasOne<Team>(c => c.Team).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.HasOne<TeamRole>(c => c.TeamRole).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.HasOne<Team>(c => c.Team).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.HasOne<TeamRole>(c => c.TeamRole).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             // modelBuilder.HasOne<EmployeeNature>(c => c.EmployeeNature).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Property(s => s.Status).IsRequired().HasMaxLength(15);
             modelBuilder.Property(s => s.MartialStatus)

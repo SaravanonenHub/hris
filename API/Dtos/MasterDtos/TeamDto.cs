@@ -43,5 +43,7 @@ namespace API.Dtos.MasterDtos
         public int EmployeeId { get; set; }
         [Required]
         public int RoleId { get; set; }
+
+
     }
 }

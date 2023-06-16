@@ -11,7 +11,7 @@ namespace Core.Specifications.MasterSpec
         public TeamDetailWithIncludesSpec(int id) : base(x => x.Id == id)
         {
             AddInclude(x => x.Employee);
-            AddInclude(x => x.Role);
+            // AddInclude(x => x.Role);
         }
         public TeamDetailWithIncludesSpec() : base()
         {

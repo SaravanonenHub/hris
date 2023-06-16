@@ -7,9 +7,9 @@
                 <i class="pi pi-times" style="color: gray"></i>
             </a>
         </div>
-        <p>ConfirmDialog is backed by a service utilizing Observables to display confirmation
+        <small>ConfirmDialog is backed by a service utilizing Observables to display confirmation
             windows
-            easily that can be shared by multiple actions on the same component.</p>
+            easily that can be shared by multiple actions on the same component.</small>
         <div class="field-flex">
 
         </div>
@@ -26,40 +26,44 @@
                         <div class="field col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
                             <div class="field-flex">
                                 <div class="col-12 md:col-4 lg:col-3">
-                                    <label class="required" for="username1">First Name</label>
+                                    <label class="required" for="username1">Employee Name</label>
                                 </div>
 
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName="firstName" placeholder="firstname"
+                                <div class="col-12 md:col-4 lg:col-4">
+                                    <input id="username1" formControlName="firstName" placeholder="First Name"
                                         pInputText />
                                 </div>
-                                <div *ngIf="f.firstName.errors && f.firstName.touched">
-                                    <span>First Name is required</span>
+                                <div class="col-12 md:col-4 lg:col-4">
+                                    <input id="username1" formControlName="lastName" placeholder="Last Name"
+                                        pInputText />
                                 </div>
+                                <ng-container *ngIf="f.firstName.errors && f.firstName.touched">
+                                    <p-message severity="error"></p-message>
+                                </ng-container>
 
                             </div>
-                            <div class="field-flex">
+                            <!-- <div class="field-flex">
                                 <div class="col-12 md:col-4 lg:col-3">
                                     <label class="required" for="username1">Last Name</label>
                                 </div>
 
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName="lastName" placeholder="lastname"
-                                        pInputText />
-                                </div>
+                                
 
 
-                            </div>
+                            </div> -->
                             <div class="field-flex">
                                 <div class="col-12 md:col-4 lg:col-3">
                                     <label class="required" for="username1">Employee ID</label>
                                 </div>
 
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName="employeeCode" placeholder="employeeCode"
+                                <div class="col-12 md:col-6 lg:col-8">
+                                    <input id="username1" formControlName="employeeCode" placeholder="Employee Code"
                                         pInputText />
+                                        
                                 </div>
-
+                                <ng-container class="col-12 md:col-2 lg:col-1" *ngIf="f.employeeCode.errors && f.employeeCode.touched">
+                                    <p-message  severity="error" text="Employee code is required"></p-message>
+                                </ng-container>
                             </div>
 
                             <div class="field-flex">
@@ -103,7 +107,7 @@
                                 </div>
 
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName="emailId" placeholder="employeeCode"
+                                    <input id="username1" formControlName="emailId" placeholder="Email ID"
                                         pInputText />
                                 </div>
 
@@ -131,14 +135,26 @@
                     <h5>Carrier Details</h5>
                     <div class="grid p-fluid formgrid md:ml-2">
                         <div class="col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label class="required" for="username1">Join Date</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <p-calendar [showIcon]="false" [readonlyInput]="false" inputId=" icon"
+                                        formControlName="joinDate" dateFormat="dd/mm/yy" dataType="string"></p-calendar>
+                                </div>
+                                <!-- <input id="username1" class="field-flex field-input" type="username" placeholder="machine code"
+                                aria-describedby="username1-help" pInputText /> -->
+                            </div>
                             <div id='dddl' class="field-flex">
                                 <div class="col-12 md:col-4 lg:col-3">
                                     <label class="required" for="username1">Department</label>
                                 </div>
 
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown [options]="departments" [filter]="true" filterBy="departmentName"
-                                        [showClear]="true" placeholder="Select a Department"
+                                   <app-department-ddl controlName="departmentId"></app-department-ddl>
+                                    <!-- <p-dropdown [options]="departments" [filter]="true" filterBy="departmentName"
+                                        [showClear]="true" placeholder="Select Department" styleClass="showAbove" appendTo="body"
                                         formControlName="departmentId" optionLabel="departmentName" optionValue="id">
                                         <ng-template pTemplate="selectedItem" let-item>
                                             <div class="country-item">
@@ -149,10 +165,8 @@
                                             <div class="country-item">
                                                 <div>{{department.departmentName}}</div>
                                             </div>
-
-
                                         </ng-template>
-                                    </p-dropdown>
+                                    </p-dropdown> -->
                                     <!-- <p-dropdown [options]="departments" formControlName="departmentId"
                                         optionLabel="departmentName" optionValue="id"
                                         placeholder="Select Department"></p-dropdown> -->
@@ -166,9 +180,23 @@
                                 </div>
 
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown styleClass='field-flex field-input' [options]="divisions"
+                                    <!-- <p-dropdown styleClass='field-flex field-input' [options]="divisions"
                                         formControlName="divisionId" optionLabel="divisionName" optionValue="id"
-                                        placeholder="Select Division"></p-dropdown>
+                                        placeholder="Select Division"></p-dropdown> -->
+                                    <p-dropdown [options]="divisions" [filter]="true" filterBy="divisionName"
+                                        [showClear]="true" placeholder="Select Division" styleClass="showAbove" appendTo="body"
+                                        formControlName="divisionId" optionLabel="divisionName" optionValue="id">
+                                        <ng-template pTemplate="selectedItem" let-item>
+                                            <div class="country-item">
+                                                <div>{{item.divisionName}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-division pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{division.divisionName}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
 
                                 </div>
 
@@ -178,10 +206,23 @@
                                     <label class="required" for="username1">Designation</label>
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown styleClass='field-flex field-input' [options]="designations"
+                                    <!-- <p-dropdown styleClass='field-flex field-input' [options]="designations"
                                         formControlName="designationId" optionLabel="designationName" optionValue="id"
-                                        placeholder="Select Designation"></p-dropdown>
-
+                                        placeholder="Select Designation"></p-dropdown> -->
+                                    <p-dropdown [options]="designations" [filter]="true" filterBy="designationName"
+                                        [showClear]="true" placeholder="Select Designation" styleClass="showAbove" appendTo="body"
+                                        formControlName="designationId" optionLabel="designationName" optionValue="id">
+                                        <ng-template pTemplate="selectedItem" let-item>
+                                            <div class="country-item">
+                                                <div>{{item.designationName}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-designation pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{designation.designationName}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
                                 </div>
 
                             </div>
@@ -190,77 +231,107 @@
                                     <label class="required" for="username1">Branch</label>
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown styleClass='field-flex field-input' [options]="branches"
+                                    <!-- <p-dropdown styleClass='field-flex field-input' [options]="branches"
                                         formControlName="branchId" optionLabel="branchName" optionValue="id"
-                                        placeholder="Select Branch"></p-dropdown>
+                                        placeholder="Select Branch"></p-dropdown> -->
+                                    <p-dropdown [options]="branches" [filter]="true" filterBy="branchName"
+                                        [showClear]="true" placeholder="Select Branch" styleClass="showAbove" appendTo="body"
+                                        formControlName="branchId" optionLabel="branchName" optionValue="id">
+                                        <ng-template pTemplate="selectedItem" let-item>
+                                            <div class="country-item">
+                                                <div>{{item.branchName}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-branch pTemplate="item">
+                                            <div class="country-item">
+                                                <div>{{branch.branchName}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
                                 </div>
 
 
                             </div>
-
-                            <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
-                                    <label class="required" for="username1">Team</label>
-                                </div>
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown styleClass='field-flex field-input' [options]="teams"
-                                        formControlName="teamId" optionLabel="teamName" optionValue="id"
-                                        placeholder="Select Team"></p-dropdown>
-                                </div>
-
-
-                            </div>
+                            
 
                         </div>
                         <div class="col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
-                            <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
-                                    <label class="required" for="username1">Join Date</label>
-                                </div>
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <p-calendar [showIcon]="false" [readonlyInput]="false" inputId=" icon"
-                                        formControlName="joinDate" dateFormat="dd/mm/yy" dataType="string"></p-calendar>
-                                </div>
-                                <!-- <input id="username1" class="field-flex field-input" type="username" placeholder="machine code"
-                                aria-describedby="username1-help" pInputText /> -->
-
-
-                            </div>
+                            
                             <div id='dddl' class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
+                                <div class="col-12 md:col-6 lg:col-4">
                                     <label class="required" for="username1">Role</label>
                                 </div>
-                                <div class="col-12 md:col-8 lg:col-9">
+                                <div class="col-12 md:col-6 lg:col-8">
                                     <p-dropdown [options]="roles" optionLabel="label" optionValue="value"
+                                        styleClass="showAbove" appendTo="body"
                                         placeholder="Select Role" formControlName="teamRoleId"></p-dropdown>
                                 </div>
 
                             </div>
+                            <ng-container *ngIf="employeeForm.get('teamRoleId')?.value === 'Manager'; else singleTeam">
+                                
+                                <div class="field-flex">
+                                    <div class="col-12 md:col-6 lg:col-4">
+                                        <label class="required" for="username1">Team Multi</label>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-8">
+                                        <p-multiSelect [options]="teams" 
+                                        formControlName="selectedCities" defaultLabel="Select a City" optionLabel="teamName" optionValue="id"
+                                         display="chip"></p-multiSelect>
+                                        
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-template #singleTeam>
+                                <div class="field-flex">
+                                    <div class="col-12 md:col-6 lg:col-4">
+                                        <label class="required" for="username1">Team</label>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-8">
+                                        <p-dropdown [options]="teams" [filter]="true" filterBy="teamName"
+                                            [showClear]="true" placeholder="Select Team" styleClass="showAbove" appendTo="body"
+                                            formControlName="teamId" optionLabel="teamName" optionValue="id">
+                                            <ng-template pTemplate="selectedItem" let-item>
+                                                <div class="country-item">
+                                                    <div>{{item.teamName}}</div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template let-team pTemplate="item">
+                                                <div class="country-item">
+                                                    <div>{{team.teamName}}</div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            
                             <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
+                                <div class="col-12 md:col-6 lg:col-4">
                                     <label for="username1">Qualification</label>
                                 </div>
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName='qualification' placeholder="qualification"
+                                <div class="col-12 md:col-6 lg:col-8">
+                                    <input id="username1" formControlName='qualification' placeholder="Qualification"
                                         pInputText />
                                 </div>
                             </div>
                             <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
+                                <div class="col-12 md:col-6 lg:col-4">
                                     <label class="required" for="username1">Nature of Employee</label>
                                 </div>
-                                <div class="col-12 md:col-8 lg:col-9">
+                                <div class="col-12 md:col-6 lg:col-8">
                                     <p-dropdown [options]="natureOfEmployees" formControlName="employeeNature"
-                                        optionLabel="label" optionValue="value"
+                                    styleClass="showAbove" appendTo="body"
+                                        optionLabel="label" optionValue="value" styleClass="showAbove" appendTo="body"
                                         placeholder="Select Nature"></p-dropdown>
                                 </div>
 
                             </div>
                             <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
+                                <div class="col-12 md:col-6 lg:col-4">
                                     <label class="required" for="username1">Optional Saturday</label>
                                 </div>
-                                <div class="col-12 md:col-8 lg:col-9">
+                                <div class="col-12 md:col-6 lg:col-8">
                                     <p-dropdown [options]="optionalSaturday" styleClass="showAbove" appendTo="body"
                                         optionLabel="label" optionValue="value" placeholder="Select Option"
                                         formControlName="optionalSaturday"></p-dropdown>
@@ -287,7 +358,7 @@
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
                                     <p-dropdown [options]="martialStatuses" formControlName="martialStatus"
-                                        optionLabel="label" optionValue="value" placeholder="Select..."></p-dropdown>
+                                        optionLabel="label" optionValue="value" placeholder="Select Martial status"></p-dropdown>
                                 </div>
 
                             </div>
@@ -299,7 +370,7 @@
                                     <label for="username1">Blood Group</label>
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName="bloodGroup" placeholder="bloodgroup"
+                                    <input id="username1" formControlName="bloodGroup" placeholder="Blood Group"
                                         pInputText />
                                 </div>
 

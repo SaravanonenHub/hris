@@ -15,8 +15,8 @@ namespace Core.Specifications.EmployeeSpec
             AddInclude(x => x.Designation);
             AddInclude(x => x.Branch);
             AddInclude(x => x.Division);
-            AddInclude(x => x.Team);
-            AddInclude(x => x.TeamRole);
+            // AddInclude(x => x.Team);
+            // AddInclude(x => x.TeamRole);
             AddEnumValue(x => x.Status);
 
         }
@@ -30,8 +30,8 @@ namespace Core.Specifications.EmployeeSpec
             AddInclude(x => x.Designation);
             AddInclude(x => x.Branch);
             AddInclude(x => x.Division);
-            AddInclude(x => x.Team);
-            AddInclude(x => x.TeamRole);
+            // AddInclude(x => x.Team);
+            // AddInclude(x => x.TeamRole);
             // AddInclude(x => x.Department);
         }
 
@@ -46,8 +46,8 @@ namespace Core.Specifications.EmployeeSpec
             AddInclude(x => x.Designation);
             AddInclude(x => x.Branch);
             AddInclude(x => x.Division);
-            AddInclude(x => x.Team);
-            AddInclude(x => x.TeamRole);
+            // AddInclude(x => x.Team);
+            // AddInclude(x => x.TeamRole);
         }
     }
     public class EmployeePersonalWithFilterSpec : BaseSpecification<EmployeePersonalInfo>
