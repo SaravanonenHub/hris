@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 import { AlertComponent } from './alert/alert.component';
 import {DropdownModule} from 'primeng/dropdown'
 import { DepartmentDDLComponent } from './dropdowns/department-ddl/department-ddl.component';
@@ -17,7 +18,9 @@ import { DivisionDDLComponent } from './dropdowns/division-ddl/division-ddl.comp
   ],
   imports: [
     CommonModule,
-    DropdownModule
+    DropdownModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     AlertComponent,
