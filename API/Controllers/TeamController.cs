@@ -30,13 +30,15 @@ namespace API.Controllers
             var results = await _service.GetTeamesAsync();
             return results;
         }
-        [HttpGet("team/{id}")]
-        public async Task<ActionResult<Team>> GetTeamById(int Id)
+        [HttpGet("teamDetail/{id}")]
+        public async Task<ActionResult<TeamDto>> GetTeamById(int Id)
         {
             var result = await _service.GetTeamById(Id);
             if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
+            var _team = _mapper.Map<Team, TeamDto>(result);
 
-            return Ok(result);
+            return Ok(_team);
+            // return Ok(result);
         }
         [HttpPost("team")]
         public async Task<ActionResult<Team>> CreateShift(TeamDto teamDto)

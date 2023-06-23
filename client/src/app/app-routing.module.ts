@@ -22,6 +22,9 @@ const routes: Routes = [{
       , canActivate: [AuthGuard]
       , loadChildren: () => import('./req-approval/req-approval.module').then(m => m.ReqApprovalModule)
     },
+    {
+      path:'teams',loadChildren: () => import('./teams/teams.module').then(m => m.TeamsModule)
+    },
     { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) }
   ]
 }];

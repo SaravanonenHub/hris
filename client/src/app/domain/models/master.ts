@@ -54,6 +54,13 @@ export interface ITeam {
     teamName: string;
     displayName: string
 }
+export interface ITeamwithDetails {
+    id: number;
+    department: IDivision;
+    teamName: string;
+    displayName: string;
+    teamDetails:ITeamDetails[]
+}
 export interface ITeamDetails {
     id: number;
     department: IDivision;

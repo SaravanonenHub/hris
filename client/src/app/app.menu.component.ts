@@ -42,9 +42,9 @@ declare let gtag: Function;
                     <a [routerLink]="['approval']" routerLinkActive="router-link-exact-active" (click)="itemClick($event)">Leave Approvals<span class="p-tag">New</span></a>
                 </div>
 
-                <div class="menu-category">Configuration</div>
+                <div class="menu-category">Master</div>
                 <div class="menu-items">
-                    <a [routerLink]="['request']" routerLinkActive="router-link-exact-active">Locale</a>
+                    <a [routerLink]="['teams']" routerLinkActive="router-link-exact-active">Teams</a>
                     <a [routerLink]="['overlay']" routerLinkActive="router-link-exact-active">Overlay <span class="p-tag">New</span></a>
                 </div>
 
