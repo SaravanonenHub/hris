@@ -40,9 +40,9 @@ namespace API.Dtos.MasterDtos
     {
         public int Id { get; set; }
         [Required]
-        public int EmployeeId { get; set; }
+        public Employee Employee { get; set; }
         [Required]
-        public int RoleId { get; set; }
+        public TeamRole Role { get; set; }
 
 
     }

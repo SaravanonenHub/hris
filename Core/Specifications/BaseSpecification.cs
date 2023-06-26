@@ -20,6 +20,7 @@ namespace Core.Specifications
         public Expression<Func<T, bool>> Criteria { get; }
 
         public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
+        public List<string> IncludeStrings { get; } = new List<string>();
         // public Expression<Func<T, object>> GetEnumValues { get; private set; }
         public Expression<Func<T, object>> OrderBy { get; private set; }
 
@@ -41,7 +42,10 @@ namespace Core.Specifications
         {
             Includes.Add(includeExpression);
         }
-
+        protected void AddInclude(string IncludeString)
+        {
+            IncludeStrings.Add(IncludeString);
+        }
         protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
         {
             OrderBy = orderByExpression;

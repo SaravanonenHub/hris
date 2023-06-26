@@ -45,6 +45,9 @@ namespace API.Helpers
             CreateMap<TeamDto, Team>();
             CreateMap<TeamDetailsDto, TeamDetails>();
 
+            CreateMap<TeamDto, Team>().ReverseMap();
+            CreateMap<TeamDetailsDto, TeamDetails>().ReverseMap();
+
             CreateMap<TeamResponseDto, Team>();
             CreateMap<TeamDetailsResponseDto, TeamDetails>();
 

@@ -31,6 +31,10 @@ namespace Infrastructure.Data
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
+        public async Task<T> GetEntityWithAllIncludesSpec(ISpecification<T> spec, ISpecification<T> spec2)
+        {
+            return await ApplySpecificationCombine(spec, spec2).FirstOrDefaultAsync();
+        }
         public IQueryable<T> GetEntityWithSpecNoTrack(ISpecification<T> spec)
         {
             return ApplySpecificationNoTrack(spec);
@@ -49,6 +53,10 @@ namespace Infrastructure.Data
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
+        }
+        private IQueryable<T> ApplySpecificationCombine(ISpecification<T> spec, ISpecification<T> spec2)
+        {
+            return SpecificationEvaluator<T>.GetQueryCombine(_context.Set<T>().AsQueryable(), spec, spec2);
         }
         private IQueryable<T> ApplySpecificationNoTrack(ISpecification<T> spec)
         {
@@ -75,5 +83,7 @@ namespace Infrastructure.Data
         {
             return _context.Set<T>()?.Where(o => o.Id == id).AsNoTracking().AsQueryable();
         }
+
+
     }
 }

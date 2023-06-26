@@ -30,12 +30,12 @@ namespace API.Controllers
             var results = await _service.GetTeamesAsync();
             return results;
         }
-        [HttpGet("teamDetail/{id}")]
-        public async Task<ActionResult<TeamDto>> GetTeamById(int Id)
+        [HttpGet("team/{id:int}")]
+        public async Task<ActionResult<TeamDto>> GetTeamById(int id)
         {
-            var result = await _service.GetTeamById(Id);
+            var result = await _service.GetTeamById(id);
             if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
-            var _team = _mapper.Map<Team, TeamDto>(result);
+            var _team = _mapper.Map<Team, TeamResponseDto>(result);
 
             return Ok(_team);
             // return Ok(result);
@@ -94,8 +94,8 @@ namespace API.Controllers
                 var details = new List<TeamDetails>();
                 foreach (var detail in teamDto.TeamDetails)
                 {
-                    var _role = await _service.GetUserRoleById(detail.RoleId);
-                    var _emp = await _empService.GetEmployeeById(detail.EmployeeId);
+                    var _role = await _service.GetUserRoleById(detail.Role.Id);
+                    var _emp = await _empService.GetEmployeeById(detail.Employee.Id);
                     var teamDetail = new TeamDetails(detail.Id, _emp, _role);
                     details.Add(teamDetail);
 

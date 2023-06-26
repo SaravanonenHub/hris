@@ -10,11 +10,13 @@ namespace Core.Specifications.MasterSpec
 {
     public class TeamWithDepartmentSpec : BaseSpecification<Team>
     {
-        private readonly TeamDetailWithIncludesSpec _teamDetailsSpec;
+
         public TeamWithDepartmentSpec(int id) : base(x => x.Id == id)
         {
             AddInclude(x => x.Department);
             AddInclude(x => x.TeamDetails);
+            AddInclude($"{nameof(Team.TeamDetails)}.{nameof(TeamDetails.Employee)}");
+            AddInclude($"{nameof(Team.TeamDetails)}.{nameof(TeamDetails.Role)}");
 
 
         }

@@ -17,6 +17,10 @@ export interface IDesignation {
     id: number;
     designationName: string;
 }
+export interface IRole {
+    id: number;
+    role: string;
+}
 export enum Gender {
     Male = 'Male',
     Female = 'Female'
@@ -59,12 +63,12 @@ export interface ITeamwithDetails {
     department: IDivision;
     teamName: string;
     displayName: string;
-    teamDetails:ITeamDetails[]
+    teamDetails: ITeamDetails[]
 }
 export interface ITeamDetails {
     id: number;
     department: IDivision;
     team: ITeam;
     employee: IEmployee
-    teamRole: Role
+    role: Role
 }

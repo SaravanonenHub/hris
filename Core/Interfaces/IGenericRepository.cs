@@ -14,6 +14,7 @@ namespace Core.Interfaces
         IQueryable<T> GetEntityWithSpecNoTrack(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAllAsync();
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
+        Task<T> GetEntityWithAllIncludesSpec(ISpecification<T> spec, ISpecification<T> spec2);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
         Task<int> CountAsync(ISpecification<T> spec);
         void Add(T entity);

@@ -93,6 +93,8 @@ namespace Infrastructure.Data.Services
         public async Task<Team> GetTeamById(int Id)
         {
             var spec = new TeamWithDepartmentSpec(Id);
+            // var detailSpec = new TeamDetailWithIncludesSpec();
+            // var combinedSpec = new ANDSpecification(spec, detailSpec);
             return await _unitOfWork.Repository<Team>().GetEntityWithSpec(spec);
         }
         public async Task<Department> GetDepartmentById(int Id)

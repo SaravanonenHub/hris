@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class TeamService {
   baseUrl = environment.apiUrl;
   teams: ITeam[] = [];
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
   getTeams() {
     if (this.teams.length > 0) return of(this.teams);
 
@@ -18,8 +18,7 @@ export class TeamService {
       map(data => this.teams = data)
     );
   }
-  getTeamDetailsById(teamId:number)
-  {
+  getTeamDetailsById(teamId: number) {
     return this.http.get<ITeamwithDetails>(`${this.baseUrl}Team/team/${teamId}`);
   }
 }
