@@ -3,6 +3,20 @@
         <h5>List of teams</h5>
         <div style="margin-top: 5rem;">
             <p-table [value]="teams" selectionMode="single" [(selection)]="selectedTeam" dataKey="code">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <a routerLink="./create-team">
+                            <i class="pi pi-plus" style="color: green;font-size: 1rem"></i>
+                            <span class="ml-2 font-bold">Create</span>
+                        </a>
+                     
+                        <span class=" p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" 
+                                placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Name</th>
@@ -18,31 +32,72 @@
     </section>
 
     <section class="form-content">
-        <p-dataView #dv [value]="selectedTeamDetails!">
+        <div class="card">
+            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+                    [src]="'https://localhost:7114/Resources/Images/2500.jpg'" [alt]="selectedTeam?.displayName" />
+                <div
+                    class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                        <div class="text-2xl font-bold text-900">{{selectedTeam?.teamName}}
+                        </div>
+                        <!-- <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+                        <div class="flex align-items-center gap-3">
+                            <span class="flex align-items-center gap-2">
+                                <i class="pi pi-tag"></i>
+                                <span class="font-semibold">{{ selectedTeam?.department?.departmentName}}</span>
+                            </span>
+                            <!-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -->
+                        </div>
+                        <p-avatarGroup styleClass="mb-3">
+                            <ng-template ngFor let-item [ngForOf]="selectedTeamDetails" let-i="index" >
+                                <p-avatar [image]="item?.employee?.imagePath!" size="large" shape="circle"></p-avatar>
+                              </ng-template>
+                           
+                            
+                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
+                        </p-avatarGroup>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <p-table [value]="selectedTeamDetails!" [tableStyle]="{'min-width': '60rem'}">
+          
+            <ng-template pTemplate="body" let-detail>
+                <tr>
+                    <!-- <td>{{detail?.employee.displayName}}</td> -->
+                    <td>
+                        <!-- <p-dropdown>
+                            <ng-template pTemplate="dropdownicon">
+                                <img alt="dropdown icon" src="detail?.employee.imagePath">
+                            </ng-template>
+                        </p-dropdown> -->
+                        <div class="inline-block vertical-align-middle">
+                            <!-- <img [alt]="detail?.employee.employeeCode" [src]="detail?.employee.imagePath" width="24" class="vertical-align-middle" /> -->
+                            <p-avatar [image]="detail?.employee.imagePath" styleClass="mr-2" size="xSmall" class="vertical-align-middle" shape="circle"></p-avatar>
+                            <span class="ml-1 mt-1">{{ detail?.employee.displayName }}</span>
+                        </div>
+                        <!-- <img [src]="detail?.employee.imagePath" [alt]="detail?.employee.employeeCode" width="100" class="shadow-4" /> -->
+                    </td>
+                    <td>{{detail?.role?.role}}</td>
+
+                    <!-- <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                    <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td> -->
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    In total there are {{products ? products.length : 0 }} products.
+                </div>
+            </ng-template> -->
+        </p-table>
+        <!-- <p-dataView #dv [value]="selectedTeamDetails!">
             <ng-template let-detail pTemplate="listItem">
                 <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                        <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
-                            [src]="detail?.employee.imagePath" [alt]="detail?.employee.employeeCode" />
-                        <div
-                            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                                <div class="text-2xl font-bold text-900">{{ detail?.employee.displayName}}
-                                </div>
-                                <!-- <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
-                                <div class="flex align-items-center gap-3">
-                                    <span class="flex align-items-center gap-2">
-                                        <i class="pi pi-tag"></i>
-                                        <span class="font-semibold">{{ detail?.role.role}}</span>
-                                    </span>
-                                    <!-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -->
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                   
                 </div>
             </ng-template>
-        </p-dataView>
+        </p-dataView> -->
     </section>
 </div>

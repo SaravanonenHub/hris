@@ -18,6 +18,7 @@ export class TeamListComponent implements OnInit {
   ngOnInit(): void {
     this.service.getTeams().subscribe((data) => {
       this.teams = data;
+      console.log(this.teams);
       this.selectedTeam = this.teams[0];
       if (this.selectedTeam != null) {
         this.service.getTeamDetailsById(this.selectedTeam.id).subscribe((details) => {

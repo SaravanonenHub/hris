@@ -54,7 +54,7 @@ export enum OptionalSaturday {
 }
 export interface ITeam {
     id: number;
-    department: IDivision;
+    department: IDepartment;
     teamName: string;
     displayName: string
 }
