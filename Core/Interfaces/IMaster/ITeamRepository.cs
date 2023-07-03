@@ -17,6 +17,7 @@ namespace Core.Interfaces
         Task<Team> GetTeamByName(string name);
         Task<Team> CheckTeamonUpdate(string name, int id);
         Task<IReadOnlyList<Team>> GetTeamesAsync();
+        Task<IReadOnlyList<TeamDetails>> GetTeamDetailsAsync();
         Task<Team> CreateTeam(Team team);
         Task<Team> UpdateTeam(Team branch);
         #endregion

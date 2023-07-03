@@ -1,1 +1,153 @@
-<p>create-team works!</p>
+<div class="form-wrapper">
+    <section class="form-filter">
+        <h5>List of teams</h5>
+        <div style="margin-top: 5rem;">
+            <p-table [value]="teams" selectionMode="single" dataKey="code">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <a routerLink="./create-team">
+                            <i class="pi pi-plus" style="color: green;font-size: 1rem"></i>
+                            <span class="ml-2 font-bold">Create</span>
+                        </a>
+
+                        <span class=" p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-team>
+                    <tr [pSelectableRow]="team" (mouseover)="op.show($event)" (mouseleave)="op.hide()">
+                        <td>{{team.teamName}}</td>
+                    </tr>
+                    <p-overlayPanel [showTransitionOptions]="'0.40s cubic-bezier(1,1,1,1)'"
+                        [hideTransitionOptions]="'.1s ease-in'" #op>
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg"
+                            alt="product" />
+                    </p-overlayPanel>
+                </ng-template>
+            </p-table>
+        </div>
+    </section>
+
+    <section class="form-content">
+        <div class="card">
+            <h5>Base Details</h5>
+            <div class="grid p-fluid formgrid md:ml-2">
+                <div class="field col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
+                    <div class="field-flex">
+                        <div class="col-12 md:col-4 lg:col-3">
+                            <label class="required" for="username1">Team Name</label>
+                        </div>
+
+                        <div class="col-12 md:col-8 lg:col-8">
+                            <input id="username1" placeholder="Team Name" pInputText />
+                        </div>
+
+                    </div>
+
+                    <div class="field-flex">
+                        <div class="col-12 md:col-4 lg:col-3">
+                            <label class="required" for="username1">Department</label>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-8">
+                            <app-department-ddl></app-department-ddl>
+
+                        </div>
+
+                    </div>
+                    <div class="field-flex">
+                        <div class="col-12 md:col-4 lg:col-3">
+                            <label class="required" for="username1">Select Manager</label>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-8">
+                            <p-dropdown [options]="manger" [filter]="true" filterBy="displayName" [showClear]="true"
+                                placeholder="Select Manager" styleClass="showAbove" appendTo="body"
+                                formControlName="managerId" optionLabel="displayName" (onChange)="addManager($event)">
+                                <ng-template pTemplate="selectedItem" let-item>
+                                    <div class="country-item">
+                                        <div>{{item.displayName}}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-division pTemplate="item">
+                                    <div class="country-item">
+                                        <div>{{division.displayName}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+
+                        </div>
+
+                    </div>
+                    <div class="field-flex">
+                        <div class="col-12 md:col-4 lg:col-3">
+                            <label class="required" for="username1">Select TL</label>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-8">
+                            <p-dropdown [options]="teamLeader" [filter]="true" filterBy="displayName" [showClear]="true"
+                                placeholder="Select Manager" styleClass="showAbove" appendTo="body"
+                                formControlName="teamLeaderId" optionLabel="displayName"
+                                (onChange)="addTeamLeader($event)">
+                                <ng-template pTemplate="selectedItem" let-item>
+                                    <div class="country-item">
+                                        <div>{{item.displayName}}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-division pTemplate="item">
+                                    <div class="country-item">
+                                        <div>{{division.displayName}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+
+                        </div>
+
+                    </div>
+                    <div class="field-flex">
+                        <div class="col-12 md:col-4 lg:col-3">
+                            <label class="required" for="username1">Select Members</label>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-8">
+                            <p-table [value]="members" [scrollable]="true" scrollHeight="400px"
+                                [tableStyle]="{ 'min-width': '50rem' }" selectionMode="multiple"
+                                [(selection)]="selectedEmployees" styleClass="p-datatable-sm"
+                                (onRowSelect)="addMember($event)">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Name</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-emp>
+                                    <tr [pSelectableRow]="emp">
+                                        <td>{{ emp.displayName }}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="5">No employees found.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="grid p-fluid formgrid md:ml-2">
+
+            </div>
+        </div>
+
+    </section>
+</div>

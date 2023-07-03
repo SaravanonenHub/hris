@@ -40,6 +40,18 @@ namespace API.Controllers
             var results = await _service.GetEmployeesAsync(spec);
             return results;
         }
+        [HttpGet("Unassigned")]
+        public async Task<IReadOnlyList<EmployeeCommonDto>> GetUnassignedEmployees()
+        {
+            var teamDetailList = await _teamService.GetTeamDetailsAsync();
+            Dictionary<int, int> employeeIds = new Dictionary<int, int>();
+            foreach (var teamDetail in teamDetailList) employeeIds.Add(teamDetail.Employee.Id, teamDetail.Employee.Id);
+            var spec = new EmployeeWithFilterSpec();
+            var results = await _service.GetEmployeesAsync(spec);
+            var filteredResultsTwo = results.Where(employee => !employeeIds.ContainsKey(employee.Id));
+            var _emp = _mapper.Map<IReadOnlyList<Employee>, IReadOnlyList<EmployeeCommonDto>>(filteredResultsTwo.ToList());
+            return _emp;
+        }
         [HttpGet("employee/{id}")]
         public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeById(int Id)
         {
@@ -77,8 +89,8 @@ namespace API.Controllers
                 var _division = await _masterService.GetDivisionById(empDto.DivisionID);
                 var _department = await _masterService.GetDepartmentById(empDto.DepartmentID);
                 var _designation = await _masterService.GetDesignationById(empDto.DesignationID);
-                var _team = await _teamService.GetTeamById(empDto.TeamId);
-                var _teamRole = await _teamService.GetUserRoleById(empDto.TeamRoleId);
+                // var _team = await _teamService.GetTeamById(empDto.TeamId);
+                // var _teamRole = await _teamService.GetUserRoleById(empDto.TeamRoleId);
                 _emp.Branch = _branch;
                 _emp.Division = _division;
                 _emp.Department = _department;

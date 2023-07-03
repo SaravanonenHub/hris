@@ -12,5 +12,6 @@ namespace API.Dtos.EmployeeDtos
         public string EmployeeCode { get; set; }
         public string DisplayName { get; set; }
         public DepartmentDto Department { get; set; }
+        public string TeamRole { get; set; }
     }
 }

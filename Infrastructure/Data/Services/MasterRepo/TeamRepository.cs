@@ -120,7 +120,11 @@ namespace Infrastructure.Data.Services
             var spec = new TeamWithDepartmentSpec();
             return await _unitOfWork.Repository<Team>().ListAsync(spec);
         }
-
+        public async Task<IReadOnlyList<TeamDetails>> GetTeamDetailsAsync()
+        {
+            var spec = new TeamDetailWithIncludesSpec();
+            return await _unitOfWork.Repository<TeamDetails>().ListAsync(spec);
+        }
         public async Task<Team> UpdateTeam(Team Team)
         {
 

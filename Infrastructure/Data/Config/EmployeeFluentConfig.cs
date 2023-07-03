@@ -28,6 +28,7 @@ namespace Infrastructure.Data.Config
             modelBuilder.Property(c => c.EmployeeNature).IsRequired();
             // modelBuilder.Property(c => c.MartialStatus).IsRequired();
             modelBuilder.Property(c => c.BloodGroup).IsRequired();
+            modelBuilder.Property(c => c.TeamRole).IsRequired();
             modelBuilder.Property(c => c.CreatedBy).IsRequired().HasMaxLength(10);
 
             modelBuilder.HasOne<Branch>(c => c.Branch).WithMany().IsRequired();
@@ -35,7 +36,7 @@ namespace Infrastructure.Data.Config
             modelBuilder.HasOne<Department>(c => c.Department).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction); ;
             modelBuilder.HasOne<Designation>(c => c.Designation).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction); ;
             // modelBuilder.HasOne<Team>(c => c.Team).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
-            // modelBuilder.HasOne<TeamRole>(c => c.TeamRole).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.HasOne<TeamRole>(c => c.TeamRole).IsRequired();
             // modelBuilder.HasOne<EmployeeNature>(c => c.EmployeeNature).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Property(s => s.Status).IsRequired().HasMaxLength(15);
             modelBuilder.Property(s => s.MartialStatus)

@@ -44,10 +44,10 @@ namespace API.Dtos.EmployeeDtos
         public string OptionalSaturday { get; set; }
         [Required]
         public string EmployeeNature { get; set; }
-        [Required]
-        public int TeamId { get; set; }
-        [Required]
-        public int TeamRoleId { get; set; }
+        // [Required]
+        // public int TeamId { get; set; }
+        // [Required]
+        public string TeamRole { get; set; }
 
         public IFormFile EmpImage { get; set; }
     }
@@ -63,9 +63,9 @@ namespace API.Dtos.EmployeeDtos
         public int DivisionId { get; set; }
         public int DepartmentId { get; set; }
         public int DesignationId { get; set; }
-        public int TeamId { get; set; }
-        public int TeamRoleId { get; set; }
-        public int RoleId { get; set; }
+        // public int TeamId { get; set; }
+        public string TeamRole { get; set; }
+        // public int RoleId { get; set; }
         public BranchDto Branch { get; set; }
         public DivisionDto Division { get; set; }
         //public Division Division { get; set; }

@@ -24,7 +24,9 @@ namespace Core.Specifications.EmployeeSpec
         public EmployeeWithFilterSpec(EmployeeFindSpec param) : base(x =>
             (string.IsNullOrEmpty(param.EmpCode) || x.EmployeeCode == param.EmpCode)
             && (!param.Id.HasValue || param.Id == 0 || x.Id == param.Id)
-            && (!param.IdNotEqual.HasValue || x.Id != param.IdNotEqual))
+            && (!param.IdNotEqual.HasValue || x.Id != param.IdNotEqual)
+
+        )
         {
             AddInclude(x => x.Department);
             AddInclude(x => x.Designation);
@@ -38,10 +40,10 @@ namespace Core.Specifications.EmployeeSpec
         public EmployeeWithFilterSpec(EmployeeSpecParams param) : base(x =>
             (string.IsNullOrEmpty(param.Status) || x.Status == param.Status)
             && (string.IsNullOrEmpty(param.EmployeeNature) || x.EmployeeNature == param.EmployeeNature)
-        && (string.IsNullOrEmpty(param.DepartmentId) || param.DepartmentId.Contains(x.Division.Id.ToString()))
-        )
+         && (string.IsNullOrEmpty(param.Role) || x.TeamRole == param.Role)
+        && (string.IsNullOrEmpty(param.DepartmentId) || param.DepartmentId.Contains(x.Division.Id.ToString())))
         {
-
+            
             AddInclude(x => x.Department);
             AddInclude(x => x.Designation);
             AddInclude(x => x.Branch);
@@ -49,6 +51,7 @@ namespace Core.Specifications.EmployeeSpec
             // AddInclude(x => x.Team);
             // AddInclude(x => x.TeamRole);
         }
+        
     }
     public class EmployeePersonalWithFilterSpec : BaseSpecification<EmployeePersonalInfo>
     {

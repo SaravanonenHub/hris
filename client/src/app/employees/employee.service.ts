@@ -18,10 +18,10 @@ export class EmployeeService {
   roles: Role[] = [];
   teams: ITeam[] = [];
   employees: IEmployee[] = [];
-  filterParam!:EmployeeParams;
+  filterParam!: EmployeeParams;
   constructor(private http: HttpClient) { }
 
-  getEmployeesBase(param:EmployeeParams) {
+  getEmployeesBase(param: EmployeeParams) {
     let params = new HttpParams();
 
     if (param.status !== "") {
@@ -31,13 +31,19 @@ export class EmployeeService {
     if (param.nature !== "") {
       params = params.append('EmployeeNature', param.nature!.toString());
     }
-    if(param.departmentIDs.length > 0){
-      params = params.append('DepartmentId',param.departmentIDs.toString())
+    if (param.nature !== "") {
+      params = params.append('EmployeeNature', param.nature!.toString());
+    }
+    if (param.role !== "") {
+      params = params.append('Role', param.role!.toString());
+    }
+    if (param.departmentIDs.length > 0) {
+      params = params.append('DepartmentId', param.departmentIDs.toString())
       // param.departmentIDs.forEach((val) => {
       //   params = params.append('DepartmentId',val)
       // })
     }
-    return this.http.get<IEmployee[]>(this.baseUrl + 'Employee/employees',{params}).pipe(
+    return this.http.get<IEmployee[]>(this.baseUrl + 'Employee/employees', { params }).pipe(
       map(data => this.employees = data)
     );;
   }

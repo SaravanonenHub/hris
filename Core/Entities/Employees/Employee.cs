@@ -58,7 +58,7 @@ namespace Core.Entities.Employees
         public string OptionalSaturday { get; set; }
         // public int UserLevelID { get; set; }
         // public Team Team { get; set; }
-        // public TeamRole TeamRole { get; set; }
+        public string TeamRole { get; set; }
         public EmployeePersonalInfo EmployeePersonalInfo { get; set; }
         public EmployeeExperienceInfo EmployeeExperienceInfo { get; set; }
         public List<EmployeeShiftDetails> EmployeeShiftDetails { get; set; }
