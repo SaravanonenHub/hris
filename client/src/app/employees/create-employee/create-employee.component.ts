@@ -192,7 +192,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.submitted = true;
     
     let result = Object.assign({}, this.f);
-    console.log(`Result: ${result}`);
+    // console.log(`Result: ${result}`);
     //this.employeeForm.get('birthDate')?.setValue(new Date(this.datepipe.transform(this.date, "dd/MM/yyyy")))
     Object.keys(this.f).forEach((key: any) => {
       const abstractControl = this.employeeForm.get(key);

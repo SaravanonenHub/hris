@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(HRISContext))]
-    [Migration("20230701092633_AddRoleString")]
-    partial class AddRoleString
+    [Migration("20230703052434_EmployeeRoleAdded")]
+    partial class EmployeeRoleAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

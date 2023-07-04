@@ -40,8 +40,8 @@ namespace API.Controllers
             return Ok(_team);
             // return Ok(result);
         }
-        [HttpPost("team")]
-        public async Task<ActionResult<Team>> CreateShift(TeamDto teamDto)
+        [HttpPost("create")]
+        public async Task<ActionResult<Team>> CreateShift([FromBody] TeamDto teamDto)
         {
             if (ModelState.IsValid)
             {
@@ -51,17 +51,18 @@ namespace API.Controllers
                     return BadRequest(new ApiResponse(400, "Team name already exist!"));
                 }
                 var _team = _mapper.Map<TeamDto, Team>(teamDto);
-                var _department = await _service.GetDepartmentById(teamDto.DepartmentId);
-                _team.Department = _department;
                 var details = new List<TeamDetails>();
                 foreach (var detail in teamDto.TeamDetails)
                 {
-                    var _role = await _service.GetUserRoleById(detail.RoleId);
+                    var _role = await _service.GetUserRoleByName(detail.RoleName);
                     var _emp = await _empService.GetEmployeeById(detail.EmployeeId);
                     var teamDetail = new TeamDetails(0, _emp, _role);
                     details.Add(teamDetail);
 
                 }
+
+                var _department = await _service.GetDepartmentById(teamDto.DepartmentId);
+                _team.Department = _department;
                 _team.TeamDetails = details;
                 var result = await _service.CreateTeam(_team);
 

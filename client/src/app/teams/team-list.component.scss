@@ -23,6 +23,12 @@
         // opacity: 0.90;
 
         &.active {
+            width: 300px;
+            transition: max-height 0.3s ease-out;
+            transform: translateX(0);
+        }
+        &.hide {
+            width:10px;
             transform: translateX(0);
         }
     }

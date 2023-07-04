@@ -1,6 +1,8 @@
 <div class="form-wrapper">
-    <section class="form-filter">
+    <section [ngClass]="expanded?'form-filter active' : 'form-filter hide'">
         <h5>List of teams</h5>
+        
+        <i class="pi pi-angle-double-left" (click)="onFilter($event)" style="color: gray"></i>
         <div style="margin-top: 5rem;">
             <p-table [value]="teams" selectionMode="single" dataKey="code">
                 <ng-template pTemplate="caption">
@@ -34,43 +36,54 @@
             </p-table>
         </div>
     </section>
-
-    <section class="form-content">
+    <section [ngClass]="expanded?'filter-expander hide' : 'filter-expander active'">
+        <i class="pi pi-angle-double-right" (click)="onFilter($event)" style="color: gray"></i>
+    </section>
+    <form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+    <section [ngClass]="expanded?'form-content' : 'form-content full'">
         <div class="card">
-            <h5>Base Details</h5>
+            <h3>Create Team</h3>
+            <!-- <div style="height: 50px;"> -->
+                <p-messages [(value)]="messages!" [enableService]="false" [closable]="true"></p-messages>
+            <!-- </div> -->
+            
+           
+                <!-- <h5>Team Details</h5> -->
+                <p>Create team with manager, team leader & member, manager can be on multiple team, team leader <br>
+                and member should be only one team.</p>
             <div class="grid p-fluid formgrid md:ml-2">
-                <div class="field col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
+                <div class="field col-12 md:col-6 md:mb-0 lg:col-8 lg:mb-0">
                     <div class="field-flex">
-                        <div class="col-12 md:col-4 lg:col-3">
+                        <div class="col-12 md:col-4 lg:col-6">
                             <label class="required" for="username1">Team Name</label>
                         </div>
 
-                        <div class="col-12 md:col-8 lg:col-8">
-                            <input id="username1" placeholder="Team Name" pInputText />
+                        <div class="col-12 md:col-8 lg:col-6">
+                            <input id="username1" placeholder="Team Name" formControlName="teamName" pInputText />
                         </div>
 
                     </div>
 
                     <div class="field-flex">
-                        <div class="col-12 md:col-4 lg:col-3">
+                        <div class="col-12 md:col-4 lg:col-6">
                             <label class="required" for="username1">Department</label>
                         </div>
 
-                        <div class="col-12 md:col-6 lg:col-8">
-                            <app-department-ddl></app-department-ddl>
+                        <div class="col-12 md:col-6 lg:col-6">
+                            <app-department-ddl formControlName="departmentId"></app-department-ddl>
 
                         </div>
 
                     </div>
                     <div class="field-flex">
-                        <div class="col-12 md:col-4 lg:col-3">
+                        <div class="col-12 md:col-4 lg:col-6">
                             <label class="required" for="username1">Select Manager</label>
                         </div>
 
-                        <div class="col-12 md:col-6 lg:col-8">
+                        <div class="col-12 md:col-6 lg:col-6">
                             <p-dropdown [options]="manger" [filter]="true" filterBy="displayName" [showClear]="true"
                                 placeholder="Select Manager" styleClass="showAbove" appendTo="body"
-                                formControlName="managerId" optionLabel="displayName" (onChange)="addManager($event)">
+                                 optionLabel="displayName" (onChange)="addManager($event)">
                                 <ng-template pTemplate="selectedItem" let-item>
                                     <div class="country-item">
                                         <div>{{item.displayName}}</div>
@@ -87,14 +100,14 @@
 
                     </div>
                     <div class="field-flex">
-                        <div class="col-12 md:col-4 lg:col-3">
+                        <div class="col-12 md:col-4 lg:col-6">
                             <label class="required" for="username1">Select TL</label>
                         </div>
 
-                        <div class="col-12 md:col-6 lg:col-8">
+                        <div class="col-12 md:col-6 lg:col-6">
                             <p-dropdown [options]="teamLeader" [filter]="true" filterBy="displayName" [showClear]="true"
                                 placeholder="Select Manager" styleClass="showAbove" appendTo="body"
-                                formControlName="teamLeaderId" optionLabel="displayName"
+                                optionLabel="displayName"
                                 (onChange)="addTeamLeader($event)">
                                 <ng-template pTemplate="selectedItem" let-item>
                                     <div class="country-item">
@@ -112,15 +125,15 @@
 
                     </div>
                     <div class="field-flex">
-                        <div class="col-12 md:col-4 lg:col-3">
-                            <label class="required" for="username1">Select Members</label>
+                        <div class="col-12 md:col-4 lg:col-6">
+                            <label  for="username1">Select Members</label>
                         </div>
 
-                        <div class="col-12 md:col-6 lg:col-8">
+                        <div class="col-12 md:col-6 lg:col-6">
                             <p-table [value]="members" [scrollable]="true" scrollHeight="400px"
                                 [tableStyle]="{ 'min-width': '50rem' }" selectionMode="multiple"
                                 [(selection)]="selectedEmployees" styleClass="p-datatable-sm"
-                                (onRowSelect)="addMember($event)">
+                                (onRowSelect)="addMember($event)" (onRowUnselect)="addMember($event)">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>Name</th>
@@ -141,13 +154,24 @@
                         </div>
 
                     </div>
+                    <div class="field-flex">
+                        <div class="col-12 md:col-4 lg:col-6">
+                            <label class="required" for="username1">Selected Members</label>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-6">
+                            <p-listbox [options]="teamDetail" formControlName="teamDetails" [readonly]="true" optionLabel="employeeId" [style]="{'width':'15rem','height':'150px'}"></p-listbox>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-            <div class="grid p-fluid formgrid md:ml-2">
-
-            </div>
+          
+          
         </div>
 
     </section>
+    <div class="form-action">
+        <button pButton pRipple type="submit" label="Save"></button>
+    </div>
+</form>
 </div>

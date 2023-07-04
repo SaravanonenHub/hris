@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ITeam, ITeamDetails } from '../domain/models/master';
+import { ITeam, ITeamDetails, ITeamwithDetails } from '../domain/models/master';
 import { TeamService } from './team.service';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IRetryPolicy } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-team-list',
@@ -18,7 +19,8 @@ export class TeamListComponent implements OnInit {
   ngOnInit(): void {
     this.service.getTeams().subscribe((data) => {
       this.teams = data;
-      this.selectedTeam = this.teams[0];
+      console.log(this.teams);
+      this.selectedTeam = this.teams[3];
       if (this.selectedTeam != null) {
         this.service.getTeamDetailsById(this.selectedTeam.id).subscribe((details) => {
           this.selectedTeamDetails = details.teamDetails
@@ -34,5 +36,17 @@ export class TeamListComponent implements OnInit {
 
     })
   }
+  onTeamSelect(event:any)
+  {
+    console.log(event.data);
+    let team:ITeamwithDetails[] = event.data;
+    this.selectedTeamDetails = event.data.teamDetails;
+    this.selectedTeamDetails?.forEach(element => {
+      let pathStr: string[] = element.employee.imagePath?.split("\\")!;
+      let path: string = pathStr[pathStr.length - 1];
+      element.employee.imagePath = `${this.imageUrl}${path}`
+      console.log(element.employee.imagePath);
 
+    });
+  }
 }

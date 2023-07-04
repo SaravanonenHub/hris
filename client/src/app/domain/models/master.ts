@@ -75,6 +75,6 @@ export interface ITeamDetails {
 export class TeamDetails {
     departmentId: number = 0;
     employeeId: number = 0
-    role: string = "";
+    roleName: string = "";
     sort: number = 1;
 }

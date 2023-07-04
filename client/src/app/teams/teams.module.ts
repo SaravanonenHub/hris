@@ -12,6 +12,9 @@ import { TeamsRoutingModule } from './teams-routing.module';
 import { TeamListComponent } from './team-list.component';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -30,7 +33,10 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     ButtonModule,
     OverlayPanelModule,
-    DropdownModule
+    DropdownModule,
+    ListboxModule,
+    ReactiveFormsModule,
+    MessagesModule
   ]
 })
 export class TeamsModule { }

@@ -23,7 +23,8 @@ namespace API.Dtos.MasterDtos
         [Required]
         public int EmployeeId { get; set; }
         [Required]
-        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public TeamRole Role { get; set; }
     }
     public class TeamResponseDto
     {

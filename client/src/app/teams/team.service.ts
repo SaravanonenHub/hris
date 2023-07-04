@@ -26,6 +26,11 @@ export class TeamService {
     return this.http.get<IEmployee[]>(`${this.baseUrl}Employee/Unassigned`);
   }
   getTeamDetailsById(teamId: number) {
-    return this.http.get<ITeamwithDetails>(`${this.baseUrl}Team / team / ${teamId}`);
+    return this.http.get<ITeamwithDetails>(`${this.baseUrl}Team/team/ ${teamId}`);
+  }
+  create(params: any) {
+    console.log(params);
+    return this.http.post(this.baseUrl + 'Team/create', params);
+
   }
 }

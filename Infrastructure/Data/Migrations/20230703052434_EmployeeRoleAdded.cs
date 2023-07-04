@@ -4,7 +4,7 @@
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class AddRoleString : Migration
+    public partial class EmployeeRoleAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
