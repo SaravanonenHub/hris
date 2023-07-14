@@ -11,7 +11,8 @@ namespace API.Dtos.EmployeeDtos
         public int Id { get; set; }
         public string EmployeeCode { get; set; }
         public string DisplayName { get; set; }
-        public DepartmentDto Department { get; set; }
+        public DepartmentResponseDto Department { get; set; }
         public string TeamRole { get; set; }
+        public string ImagePath { get; set; }
     }
 }

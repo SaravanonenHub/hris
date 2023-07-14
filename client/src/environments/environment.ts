@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:7114/api/',
-  filesUrl: 'https://localhost:7114/Resources/Images/'
+  filesUrl: 'https://localhost:7114/Resources/Images/',
+  filesGetUrl:'https://localhost:7114/'
 };
 
 /*

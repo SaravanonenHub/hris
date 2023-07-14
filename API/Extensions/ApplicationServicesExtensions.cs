@@ -14,6 +14,7 @@ using Infrastructure.Data.Services;
 using Infrastructure.Data.Services.ActionsRepo;
 using Infrastructure.Data.Services.EntriesRepo;
 using Infrastructure.Data.Services.Master;
+using Infrastructure.Data.Services.MasterRepo;
 using Infrastructure.Data.Services.Notify;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ namespace API.Extensions
             services.AddScoped<IMasterRepository, MasterRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<ILeavePolicyRepo, LeavePolicyRepo>();
             services.AddScoped<ILeaveService, LeaveService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IActionService<LeaveAction>, ActionService<LeaveAction>>();

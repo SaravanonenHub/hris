@@ -141,7 +141,6 @@ C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.GeneratedMSBuildEdit
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.AssemblyInfoInputs.cache
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.AssemblyInfo.cs
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
-C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\staticwebassets.build.json
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\staticwebassets.development.json
@@ -229,3 +228,4 @@ D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\obj\Debug\net6.0\API.dll
 D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\obj\Debug\net6.0\ref\API.dll
 D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\obj\Debug\net6.0\API.pdb
 D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\obj\Debug\net6.0\API.genruntimeconfig.cache
+C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs

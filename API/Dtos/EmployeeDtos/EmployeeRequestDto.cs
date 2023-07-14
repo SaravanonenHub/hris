@@ -24,6 +24,7 @@ namespace API.Dtos.EmployeeDtos
         public int DepartmentID { get; set; }
         // public Department Department { get; set; }
         public int DesignationID { get; set; }
+        public int LeavePolicyID { get; set; }
         // public Designation Designation { get; set; }
         [Required]
         public string Qualification { get; set; }
@@ -72,6 +73,7 @@ namespace API.Dtos.EmployeeDtos
         public DepartmentResponseDto Department { get; set; }
         // public Department Department { get; set; }
         public DesignationDto Designation { get; set; }
+        public LeavePolicyResponseDto LeavePolicy { get; set; }
         // public Designation Designation { get; set; }
         public string Qualification { get; set; }
         public string Status { get; set; }

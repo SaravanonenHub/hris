@@ -38,7 +38,12 @@
                 <div
                     class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                     <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                        <div class="text-2xl font-bold text-900">{{selectedTeam?.teamName}}
+                        <div class="text-2xl font-bold text-900">
+                            <a routerLink="./edit-team/{{selectedTeam?.id}}">
+                                <i class="pi pi-plus" style="color: green;font-size: 1rem"></i>
+                                <span class="ml-2 font-bold">Edit</span>
+                            </a>
+                            {{selectedTeam?.teamName}}
                         </div>
                         <!-- <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
                         <div class="flex align-items-center gap-3">
@@ -50,7 +55,7 @@
                         </div>
                         <p-avatarGroup styleClass="mb-3">
                             <ng-template ngFor let-item [ngForOf]="selectedTeamDetails" let-i="index">
-                                <p-avatar [image]="item?.employee?.imagePath!" size="large" shape="circle"></p-avatar>
+                                <p-avatar [image]="this.imageUrl +item?.employee?.imagePath!" size="large" shape="circle"></p-avatar>
                             </ng-template>
 
 
@@ -75,7 +80,7 @@
                         </p-dropdown> -->
                         <div class="inline-block vertical-align-middle">
                             <!-- <img [alt]="detail?.employee.employeeCode" [src]="detail?.employee.imagePath" width="24" class="vertical-align-middle" /> -->
-                            <p-avatar [image]="detail?.employee.imagePath" styleClass="mr-2" size="xSmall"
+                            <p-avatar [image]="this.imageUrl + detail?.employee.imagePath" styleClass="mr-2" size="xSmall"
                                 class="vertical-align-middle" shape="circle"></p-avatar>
                             <span class="ml-1 mt-1">{{ detail?.employee.displayName }}</span>
                         </div>

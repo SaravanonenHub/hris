@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee, IEmployee } from '../domain/models/employee';
-import { IBranch, IDepartment, IDesignation, IDivision, ITeam, Role } from '../domain/models/master';
+import { IBranch, IDepartment, IDesignation, IDivision, ILeavePolicy, ITeam, Role } from '../domain/models/master';
 import { EmployeeParams } from '../shared/models/employeeParams';
 
 @Injectable({
@@ -14,6 +14,7 @@ export class EmployeeService {
   braches: IBranch[] = [];
   divisions: IDivision[] = [];
   departments: IDepartment[] = [];
+  leavePolicies: ILeavePolicy[] = [];
   designations: IDesignation[] = [];
   roles: Role[] = [];
   teams: ITeam[] = [];
@@ -73,6 +74,13 @@ export class EmployeeService {
     return this.http.get<IDepartment[]>(this.baseUrl + 'Master/departments').pipe(
       map(data => this.departments = data)
     );
+  }
+  getLeavePolicies(){
+    if(this.leavePolicies.length > 0) return of(this.leavePolicies);
+
+    return this.http.get<ILeavePolicy[]>(this.baseUrl+'LeavePolicy/LeavePolicies').pipe(
+      map(data => this.leavePolicies = data)
+    )
   }
   getDesignations() {
     if (this.designations.length > 0) return of(this.designations);

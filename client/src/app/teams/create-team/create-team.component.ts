@@ -5,7 +5,7 @@ import { IEmployee } from 'src/app/domain/models/employee';
 import { first, map } from 'rxjs';
 import { EmployeeService } from 'src/app/employees/employee.service';
 import { EmployeeParams } from 'src/app/shared/models/employeeParams';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Message } from 'primeng/api';
 
 @Component({
@@ -21,23 +21,21 @@ export class CreateTeamComponent implements OnInit {
   manger!: IEmployee[];
   teamLeader!: IEmployee[];
   members!: IEmployee[];
+  emptyRows!: IEmployee[];
   empParam: EmployeeParams = { search: "", status: "", nature: "", departmentIDs: [], role: Role.Manager };
   selectedEmployees!: IEmployee[];
   teamDetail: TeamDetails[] = [];
   formData = new FormData();
   teamForm = this.fb.group({
-    teamName:'',
-    departmentId:0,
+    teamName:['', [Validators.required]],
+    departmentId:[0, [Validators.required]],
     displayName:'test',
     teamDetails: new FormControl<TeamDetails[]|null>(null)
   })
   constructor(private service: TeamService,
     private empService: EmployeeService, private fb:FormBuilder) { }
   ngOnInit(): void {
-  //   this.messages = [
-  //     { severity: 'success', summary: 'Success', detail: 'Message Content' },
-  //     { severity: 'info', summary: 'Info', detail: 'Message Content' },
-  // ];
+ 
     this.service.getTeams().subscribe((data) => {
       this.teams = data;
     });
@@ -49,11 +47,14 @@ export class CreateTeamComponent implements OnInit {
 
     this.service.getUnassigned().pipe(
       map(data => {
-        this.teamLeader = data.filter(x => x.teamRole == "Team Leader");
+        console.log(data);
+        this.teamLeader = data.filter(x => x.teamRole == "TeamLeader");
         this.members = data.filter(x => x.teamRole == "Member");
 
       })
     ).subscribe();
+
+    
   }
   addManager(event: any) {
     let employee: IEmployee = event.value;
@@ -64,7 +65,8 @@ export class CreateTeamComponent implements OnInit {
       departmentId: employee.department!.id,
       roleName: Role.Manager,
       employeeId: employee.id!,
-      sort: 1
+      sort: 1,
+      displayName:employee.displayName!
     }
     this.teamDetail.push(manager);
     this.teamDetail.sort((n1, n2) => {
@@ -76,14 +78,15 @@ export class CreateTeamComponent implements OnInit {
   addTeamLeader(event: any) {
     let employee: IEmployee = event.value;
     if (this.teamDetail.length > 0) {
-      if (this.teamDetail.find(x => x.roleName == Object.keys(Role)[Object.values(Role).indexOf('Team Leader' as unknown as Role)]))
-        this.teamDetail.splice(this.teamDetail.findIndex(x => x.roleName == Object.keys(Role)[Object.values(Role).indexOf('Team Leader' as unknown as Role)]), 1);
+      if (this.teamDetail.find(x => x.roleName == Object.keys(Role)[Object.values(Role).indexOf('TeamLeader' as unknown as Role)]))
+        this.teamDetail.splice(this.teamDetail.findIndex(x => x.roleName == Object.keys(Role)[Object.values(Role).indexOf('TeamLeader' as unknown as Role)]), 1);
     }
     let teamLeader: TeamDetails = {
       departmentId: employee.department!.id,
-      roleName: Object.keys(Role)[Object.values(Role).indexOf('Team Leader' as unknown as Role)],
+      roleName: Object.keys(Role)[Object.values(Role).indexOf('TeamLeader' as unknown as Role)],
       employeeId: employee.id!,
-      sort: 2
+      sort: 2,
+      displayName:employee.displayName!
     }
     this.teamDetail.push(teamLeader);
     this.teamDetail.sort((n1, n2) => {
@@ -108,7 +111,8 @@ export class CreateTeamComponent implements OnInit {
           departmentId: emp.department!.id,
           roleName: Role.Member,
           employeeId: emp.id!,
-          sort: 2 + count
+          sort: 2 + count,
+          displayName:emp.displayName!
         }
         this.teamDetail.push(teamLeader);
       });
@@ -142,7 +146,7 @@ export class CreateTeamComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          // this.message = [ { severity: 'success', summary: 'Success', detail: 'Message Content' }],
+           this.messages = [{ severity: 'success', summary: 'Success:', detail: 'Team information saved' }];
           // this.messageService.setEmitter(this.message);
           this.teamForm.reset();
           //this.alertService.successAlert('User saved');

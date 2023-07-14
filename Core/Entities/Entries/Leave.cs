@@ -45,11 +45,5 @@ namespace Core.Entities.Entries
 
 
     }
-    [Table("T_LEAVE_TYPE")]
-    public class LeaveType : BaseInformation
-    {
-        [Required]
-        public string EntitleName { get; set; }
-
-    }
+    
 }

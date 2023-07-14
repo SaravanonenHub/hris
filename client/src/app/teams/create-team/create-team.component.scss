@@ -1,9 +1,8 @@
 .form-wrapper {
-    height: 100%;
+    //height: 40rem;
     display: flex;
     flex-direction: column;
     position: relative;
-
     .form-filter {
         position: absolute;
         left: 5px;
@@ -64,31 +63,57 @@
     }
    
     .form-content {
+        background: var(--surface-card);
+        padding: 1rem;
+        border-radius: 10px;
+        //margin-bottom: 1rem;
         margin-left: 320px;
+        background-color: white;
         // padding-top: 70px;
         padding-top: 5px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        overflow-y: scroll;
-        height: calc(100% - 30px);
+        height: 90%;
+        //height: calc(100% - 30%);
         &.full{
-            margin-left: 30px;
+            margin-left: 40px;
+            background-color: white;
         }
+        .form-element{
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 0;
+            padding-bottom: 0;
+            padding-top: 0;
+            margin-left: 0.5rem;
+            flex-direction: column;
+            overflow-y: scroll;
+        }
+        
        
     }
     .form-action{
-        top: 0;
-        bottom: 0;
-        margin: 0;
-        left: 30px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        max-height: 15vh;
-
+        // position: relative;
+        //height: 10%;
+        // top: 0;
+        // bottom: 10px;
+        // margin: 0;
+        height: 10rem;
+        padding: 10px;
+        margin-left: 320px;
+        background-color: white;
+        //box-shadow: 0 0 6px rgba(244, 229, 229, 0.16), 0 0 6px rgba(0, 0, 0, 0.23);
+        //max-height: 15vh;
+        &.full{
+            margin-left: 40px;
+            background-color: white;
+        }
+        
         >button {
             width: 7rem;
             left: 30px;
-            height: auto;
+            height: 35px;
         }
     }
     i {
@@ -96,7 +121,10 @@
         
     }
 }
-
+.field-scrollable{
+    height: 37.5rem;
+    overflow-y: scroll;
+}
 .field-flex {
     display: flex;
     flex-direction: row;
@@ -138,4 +166,27 @@
     color: #7f0303ed;
     font-weight: 600;
     // font-size: 5px;
+}
+.custom-input {
+    width: 100%; /* Adjust the width as needed */
+}
+hr{
+    //border-color: darkgrey;
+    border-width: 0.5px;
+}
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead>tr>th {
+    padding: 0;
+    font-weight: 300;
+}
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
+    padding: 0.5rem 0.5rem;
+}
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-tbody > tr > td{
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    padding: 0.10rem 0.10rem;
+}
+:host ::ng-deep .p-inline-message{
+    padding: 0;
 }

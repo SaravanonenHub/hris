@@ -14,6 +14,7 @@ namespace API.Dtos.MasterDtos
     }
     public class DepartmentResponseDto
     {
+        public int Id { get; set; }
         public string DepartmentName { get; set; }
         public string ShortName { get; set; }
         public DivisionDto division { get; set; }

@@ -21,6 +21,28 @@ export interface IRole {
     id: number;
     role: string;
 }
+export interface ILeavePolicy{
+    id:number;
+    policyName:string;
+    shortName:string;
+
+}
+export interface ILeavePolicyWithDetails{
+    id:number;
+    policyName:string;
+    shortName:string;
+    leavePolicyDetail:ILeavePolicyDetails[];
+}
+export interface ILeavePolicyDetails{
+    id:number;
+    leaveType:ILeaveType;
+    day:number;
+}
+export interface ILeaveType{
+    id:number;
+    leaveName:string;
+    shortName:string
+}
 export enum Gender {
     Male = 'Male',
     Female = 'Female'
@@ -45,7 +67,7 @@ export enum Status {
 export enum Role {
     Admin = "Admin",
     Manager = "Manager",
-    TeamLeader = "Team Leader",
+    TeamLeader = "TeamLeader",
     Member = "Member",
 }
 export enum OptionalSaturday {
@@ -56,25 +78,32 @@ export interface ITeam {
     id: number;
     department: IDepartment;
     teamName: string;
-    displayName: string
+    displayName: string;
+  
 }
 export interface ITeamwithDetails {
     id: number;
-    department: IDivision;
+    departmentId:number;
+    department: IDepartment;
     teamName: string;
     displayName: string;
-    teamDetails: ITeamDetails[]
+    teamDetails: ITeamDetails[];
+    manager:IEmployee;
+    teamLeader:IEmployee;
+    members:IEmployee[];
 }
 export interface ITeamDetails {
     id: number;
     department: IDepartment;
     team: ITeam;
     employee: IEmployee
-    role: Role
+    role: IRole
 }
 export class TeamDetails {
     departmentId: number = 0;
     employeeId: number = 0
     roleName: string = "";
     sort: number = 1;
+    displayName:string="";
+    
 }

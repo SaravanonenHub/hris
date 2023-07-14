@@ -14,7 +14,7 @@ export class TeamListComponent implements OnInit {
   teams: ITeam[] = [];
   selectedTeam?: ITeam;
   selectedTeamDetails?: ITeamDetails[];
-  imageUrl = environment.filesUrl;
+  imageUrl = environment.filesGetUrl;
   constructor(private service: TeamService) { }
   ngOnInit(): void {
     this.service.getTeams().subscribe((data) => {
@@ -24,13 +24,13 @@ export class TeamListComponent implements OnInit {
       if (this.selectedTeam != null) {
         this.service.getTeamDetailsById(this.selectedTeam.id).subscribe((details) => {
           this.selectedTeamDetails = details.teamDetails
-          this.selectedTeamDetails.forEach(element => {
-            let pathStr: string[] = element.employee.imagePath?.split("\\")!;
-            let path: string = pathStr[pathStr.length - 1];
-            element.employee.imagePath = `${this.imageUrl}${path}`
-            console.log(element.employee.imagePath);
+          // this.selectedTeamDetails.forEach(element => {
+          //   let pathStr: string[] = element.employee.imagePath?.split("\\")!;
+          //   let path: string = pathStr[pathStr.length - 1];
+          //   element.employee.imagePath = `${this.imageUrl}${path}`
+          //   console.log(element.employee.imagePath);
 
-          });
+          // });
         })
       }
 
@@ -41,12 +41,14 @@ export class TeamListComponent implements OnInit {
     console.log(event.data);
     let team:ITeamwithDetails[] = event.data;
     this.selectedTeamDetails = event.data.teamDetails;
-    this.selectedTeamDetails?.forEach(element => {
-      let pathStr: string[] = element.employee.imagePath?.split("\\")!;
-      let path: string = pathStr[pathStr.length - 1];
-      element.employee.imagePath = `${this.imageUrl}${path}`
-      console.log(element.employee.imagePath);
+    // this.selectedTeamDetails?.forEach(element => {
+    //   let pathStr: string[] = element.employee.imagePath?.split("\\")!;
+    //   let path: string = pathStr[pathStr.length - 1];
+    //   element.employee.imagePath = `${this.imageUrl}${path}`
+    //   console.log(`Path string : ${pathStr}`);
+    //   console.log(`Path: ${path}`);
+    //   console.log(`Image Path : ${element.employee.imagePath}`);
 
-    });
+    // });
   }
 }

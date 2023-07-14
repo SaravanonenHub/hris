@@ -40,6 +40,8 @@ namespace Infrastructure.Data
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<LeaveAction> LeaveActions { get; set; }
         public DbSet<NotifyProps> NotifyProps { get; set; }
+        public DbSet<LeavePolicy> LeavePolicies { get; set; }
+        public DbSet<LeavePolicyDetails> LeavePolicyDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
@@ -76,6 +78,8 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new LeaveActionConfig());
             modelBuilder.ApplyConfiguration(new NotifyConfig());
             modelBuilder.ApplyConfiguration(new TeamDetailsFluentConfig());
+            modelBuilder.ApplyConfiguration(new LeavePolicyConfig());
+            modelBuilder.ApplyConfiguration(new LeavePolicyDetailsConfig());
         }
     }
 }

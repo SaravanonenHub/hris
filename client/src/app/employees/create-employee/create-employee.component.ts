@@ -3,7 +3,7 @@ import { DatePipe, formatDate } from '@angular/common'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { first } from 'rxjs';
-import { EmployeeNature, Gender, IBranch, IDepartment, IDesignation, IDivision, ITeam, MartialStatus, OptionalSaturday, Role } from 'src/app/domain/models/master';
+import { EmployeeNature, Gender, IBranch, IDepartment, IDesignation, IDivision, ILeavePolicy, ITeam, MartialStatus, OptionalSaturday, Role } from 'src/app/domain/models/master';
 import { EmployeeService } from '../employee.service';
 import { AlertService } from 'src/app/shared/services/alertService';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,6 +33,7 @@ export class CreateEmployeeComponent implements OnInit {
   departments: IDepartment[] = [];
   designations: IDesignation[] = [];
   teams: ITeam[] = [];
+  leavePolicies: ILeavePolicy[] = [];
   imageUrl = environment.filesUrl;
   genders = Object.values(Gender).map(key => ({ label: Gender[key], value: key }));;
   martialStatuses = Object.values(MartialStatus).map(key => ({ label: MartialStatus[key], value: key }));
@@ -74,8 +75,9 @@ export class CreateEmployeeComponent implements OnInit {
     employeeNature: ['', [Validators.required]],
     optionalSaturday: ['Y', [Validators.required]],
     teamId: [0, [Validators.min(1)]],
-    teamRoleId: ['Member', [Validators.min(1)]],
+    teamRole: ['Member', [Validators.min(1)]],
     multiTeam:[false],
+    leavePolicyId:[0, [Validators.min(1)]],
     empimage: [null]
   })
   constructor(private fb: FormBuilder, private empService: EmployeeService, private datePipe: DatePipe
@@ -145,6 +147,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.control('divisionId')?.patchValue(emp.divisionId);
     this.control('departmentId')?.patchValue(emp.departmentId);
     this.control('designationId')?.patchValue(emp.designationId);
+    this.control('leavePolicyId')?.patchValue(emp.leavePolicyId);
     this.control('qualification')?.patchValue(emp.qualification);
     this.control('status')?.patchValue(emp.status);
     this.control('birthDate')?.patchValue(new Date(emp.birthDate));
@@ -185,6 +188,9 @@ export class CreateEmployeeComponent implements OnInit {
     })
     this.empService.getTeams().subscribe({
       next: orders => this.teams = orders
+    })
+    this.empService.getLeavePolicies().subscribe({
+      next: orders => this.leavePolicies = orders
     })
   }
 

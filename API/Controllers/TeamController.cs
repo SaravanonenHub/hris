@@ -31,12 +31,14 @@ namespace API.Controllers
             return results;
         }
         [HttpGet("team/{id:int}")]
-        public async Task<ActionResult<TeamDto>> GetTeamById(int id)
+        public async Task<ActionResult<TeamResponseDto>> GetTeamById(int id)
         {
             var result = await _service.GetTeamById(id);
             if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
             var _team = _mapper.Map<Team, TeamResponseDto>(result);
-
+            _team.Manager = _team.TeamDetails.Select(x => x.Employee).Where(x => x.TeamRole == "Manager").FirstOrDefault();
+            _team.TeamLeader = _team.TeamDetails.Select(x => x.Employee).Where(x => x.TeamRole == "TeamLeader").FirstOrDefault();
+            _team.Members = _team.TeamDetails.Select(x => x.Employee).Where(x => x.TeamRole == "Member").ToList();
             return Ok(_team);
             // return Ok(result);
         }

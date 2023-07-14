@@ -52,6 +52,7 @@ export class Employee implements IEmployee {
     optionalSaturday?: string;
     team?: ITeam;
     teamRole?: Role;
+    leavePolicyId:number = 0;
     fullName() {
         return this.firstName.concat(this.lastName);
     }

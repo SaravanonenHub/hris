@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos.EmployeeDtos;
 using Core.Entities.Employees;
 
 namespace API.Dtos.MasterDtos
@@ -34,6 +35,9 @@ namespace API.Dtos.MasterDtos
         public string DisplayName { get; set; }
         [Required]
         public int DepartmentId { get; set; }
+        public EmployeeCommonDto Manager { get; set; }
+        public EmployeeCommonDto TeamLeader { get; set; }
+        public IReadOnlyList<EmployeeCommonDto> Members { get; set; }
         [Required]
         public IReadOnlyList<TeamDetailsResponseDto> TeamDetails { get; set; }
     }
@@ -41,7 +45,7 @@ namespace API.Dtos.MasterDtos
     {
         public int Id { get; set; }
         [Required]
-        public Employee Employee { get; set; }
+        public EmployeeCommonDto Employee { get; set; }
         [Required]
         public TeamRole Role { get; set; }
 

@@ -27,6 +27,7 @@ namespace API.Helpers
             CreateMap<DepartmentDto, Department>();
             CreateMap<DepartmentDto, Department>().ReverseMap();
             CreateMap<Department, DepartmentResponseDto>();
+            CreateMap<Department, DepartmentResponseDto>().ReverseMap();
 
             CreateMap<DesignationDto, Designation>();
             CreateMap<Designation, DesignationDto>();
@@ -53,6 +54,13 @@ namespace API.Helpers
 
             CreateMap<TeamResponseDto, Team>().ReverseMap();
             CreateMap<TeamDetailsResponseDto, TeamDetails>().ReverseMap();
+
+            CreateMap<LeavePolicyDto, LeavePolicy>();
+            CreateMap<LeavePolicyDetailDto, LeavePolicyDetails>();
+
+            CreateMap<LeavePolicyResponseDto, LeavePolicy>().ReverseMap();
+            CreateMap<LeavePolicyDetailResponseDto, LeavePolicyDetails>().ReverseMap();
+            CreateMap<LeaveTypeResponseDto, LeaveType>().ReverseMap();
 
             CreateMap<AppUserDto, AppUser>()
                .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.EmployeeCode));

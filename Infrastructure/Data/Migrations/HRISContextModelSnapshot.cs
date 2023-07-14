@@ -558,47 +558,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("T_LEAVE", (string)null);
                 });
 
-            modelBuilder.Entity("Core.Entities.Entries.LeaveType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("EntitleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)")
-                        .HasDefaultValue("Y");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("T_LEAVE_TYPE");
-                });
-
             modelBuilder.Entity("Core.Entities.Masters.Branch", b =>
                 {
                     b.Property<int>("Id")
@@ -780,6 +739,131 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("T_DIVISION");
+                });
+
+            modelBuilder.Entity("Core.Entities.Masters.LeavePolicy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("PolicyName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("T_LEAVE_POLICY", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Masters.LeavePolicyDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LeavePolicyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LeaveTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeavePolicyId");
+
+                    b.HasIndex("LeaveTypeId");
+
+                    b.ToTable("T_LEAVE_POLICY_DETAIL", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Masters.LeaveType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("LeaveName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("T_LEAVE_TYPE");
                 });
 
             modelBuilder.Entity("Core.Entities.Masters.Shift", b =>
@@ -1152,6 +1236,25 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Division");
                 });
 
+            modelBuilder.Entity("Core.Entities.Masters.LeavePolicyDetails", b =>
+                {
+                    b.HasOne("Core.Entities.Masters.LeavePolicy", "LeavePolicy")
+                        .WithMany("LeavePolicyDetails")
+                        .HasForeignKey("LeavePolicyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Masters.LeaveType", "LeaveType")
+                        .WithMany("LeavePolicyDetails")
+                        .HasForeignKey("LeaveTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("LeavePolicy");
+
+                    b.Navigation("LeaveType");
+                });
+
             modelBuilder.Entity("Core.Entities.Notify.NotifyProps", b =>
                 {
                     b.HasOne("Core.Entities.Employees.Employee", "Employee")
@@ -1200,6 +1303,16 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
                 {
                     b.Navigation("Actions");
+                });
+
+            modelBuilder.Entity("Core.Entities.Masters.LeavePolicy", b =>
+                {
+                    b.Navigation("LeavePolicyDetails");
+                });
+
+            modelBuilder.Entity("Core.Entities.Masters.LeaveType", b =>
+                {
+                    b.Navigation("LeavePolicyDetails");
                 });
 #pragma warning restore 612, 618
         }

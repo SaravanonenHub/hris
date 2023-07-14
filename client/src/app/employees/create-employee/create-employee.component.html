@@ -73,7 +73,7 @@
 
                                 <div class="col-12 md:col-8 lg:col-9">
                                     <p-calendar [showIcon]="false" [readonlyInput]="true" inputId=" icon"
-                                        formControlName="birthDate" dateFormat="dd/mm/yy"
+                                        formControlName="birthDate" dateFormat="mm/dd/yy"
                                         dataType="string"></p-calendar>
                                 </div>
 
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="col-12 md:col-8 lg:col-9">
                                     <p-calendar [showIcon]="false" [readonlyInput]="false" inputId=" icon"
-                                        formControlName="joinDate" dateFormat="dd/mm/yy" dataType="string"></p-calendar>
+                                        formControlName="joinDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>
                                 </div>
                                 <!-- <input id="username1" class="field-flex field-input" type="username" placeholder="machine code"
                                 aria-describedby="username1-help" pInputText /> -->
@@ -252,7 +252,16 @@
 
 
                             </div>
-                            
+                            <div class="field-flex">
+                                <div class="col-12 md:col-4 lg:col-3">
+                                    <label for="username1">Blood Group</label>
+                                </div>
+                                <div class="col-12 md:col-8 lg:col-9">
+                                    <input id="username1" formControlName="bloodGroup" placeholder="Blood Group"
+                                        pInputText />
+                                </div>
+
+                            </div>
 
                         </div>
                         <div class="col-12 md:col-6 md:mb-0 lg:col-5 lg:mb-0">
@@ -264,11 +273,11 @@
                                 <div class="col-12 md:col-6 lg:col-8">
                                     <p-dropdown [options]="roles" optionLabel="label" optionValue="value"
                                         styleClass="showAbove" appendTo="body"
-                                        placeholder="Select Role" formControlName="teamRoleId"></p-dropdown>
+                                        placeholder="Select Role" formControlName="teamRole"></p-dropdown>
                                 </div>
 
                             </div>
-                            <ng-container *ngIf="employeeForm.get('teamRoleId')?.value === 'Manager'; else singleTeam">
+                            <!-- <ng-container *ngIf="employeeForm.get('teamRole')?.value === 'Manager'; else singleTeam">
                                 
                                 <div class="field-flex">
                                     <div class="col-12 md:col-6 lg:col-4">
@@ -281,8 +290,8 @@
                                         
                                     </div>
                                 </div>
-                            </ng-container>
-                            <ng-template #singleTeam>
+                            </ng-container> -->
+                            <!-- <ng-template #singleTeam>
                                 <div class="field-flex">
                                     <div class="col-12 md:col-6 lg:col-4">
                                         <label class="required" for="username1">Team</label>
@@ -304,7 +313,7 @@
                                         </p-dropdown>
                                     </div>
                                 </div>
-                            </ng-template>
+                            </ng-template> -->
                             
                             <div class="field-flex">
                                 <div class="col-12 md:col-6 lg:col-4">
@@ -338,6 +347,38 @@
                                 </div>
 
                             </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label for="username1">Martial Status</label>
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-8">
+                                    <p-dropdown [options]="martialStatuses" formControlName="martialStatus"
+                                        optionLabel="label" optionValue="value" placeholder="Select Martial status"></p-dropdown>
+                                </div>
+
+                            </div>
+                            <div class="field-flex">
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label for="username1">Leave Policy</label>
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-8">
+                                    <p-dropdown [options]="leavePolicies" [filter]="true" filterBy="policyName"
+                                    [showClear]="true" placeholder="Select Leave Policy" styleClass="showAbove" appendTo="body"
+                                    formControlName="leavePolicyId" optionLabel="policyName" optionValue="id">
+                                    <ng-template pTemplate="selectedItem" let-item>
+                                        <div class="country-item">
+                                            <div>{{item.policyName}}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-policy pTemplate="item">
+                                        <div class="country-item">
+                                            <div>{{policy.policyName}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                                </div>
+
+                            </div>
                             <!-- <div class="field-flex">
                             <label for="username1" class="field-flex field-label">Branch</label>
                             <p-dropdown styleClass='field-flex field-input' [options]="branches" formControlName="branchId"
@@ -349,34 +390,16 @@
                         </div>
                     </div>
                     <hr>
-                    <h5>Other Details</h5>
+                    <!-- <h5>Other Details</h5>
                     <div class="grid p-fluid formgrid md:ml-2">
                         <div class="col-12 md:col-6 md:mb-0 lg:col-4 lg:mb-0">
-                            <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
-                                    <label for="username1">Martial Status</label>
-                                </div>
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <p-dropdown [options]="martialStatuses" formControlName="martialStatus"
-                                        optionLabel="label" optionValue="value" placeholder="Select Martial status"></p-dropdown>
-                                </div>
-
-                            </div>
+                           
 
                         </div>
                         <div class="col-12 md:col-6 md:mb-0 lg:col-4 lg:mb-0">
-                            <div class="field-flex">
-                                <div class="col-12 md:col-4 lg:col-3">
-                                    <label for="username1">Blood Group</label>
-                                </div>
-                                <div class="col-12 md:col-8 lg:col-9">
-                                    <input id="username1" formControlName="bloodGroup" placeholder="Blood Group"
-                                        pInputText />
-                                </div>
-
-                            </div>
+                            
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="form-layout action">
                     <button pButton pRipple type="submit" label="Save"></button>

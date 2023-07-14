@@ -15,13 +15,16 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { EditTeamComponent } from './edit-team/edit-team.component';
 
 
 
 @NgModule({
   declarations: [
     TeamListComponent,
-    CreateTeamComponent
+    CreateTeamComponent,
+    EditTeamComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,8 @@ import { MessagesModule } from 'primeng/messages';
     DropdownModule,
     ListboxModule,
     ReactiveFormsModule,
-    MessagesModule
+    MessagesModule,
+    MessageModule
   ]
 })
 export class TeamsModule { }

@@ -18,12 +18,13 @@ namespace API.Controllers
         private readonly IEmployeeRepository _service;
         private readonly UserManager<AppUser> _userManager;
         private readonly IMasterRepository _masterService;
+        private readonly ILeavePolicyRepo _leavePolicyService;
         private readonly ITeamRepository _teamService;
         private readonly IMapper _mapper;
         public static IWebHostEnvironment _environment;
 
         public EmployeeController(IEmployeeRepository service, IWebHostEnvironment environment, UserManager<AppUser> userManager
-        , IMapper mapper = null, IMasterRepository masterService = null, ITeamRepository teamService = null)
+        , IMapper mapper = null, IMasterRepository masterService = null, ITeamRepository teamService = null, ILeavePolicyRepo leavePolicyService = null)
         {
             _service = service;
             _mapper = mapper;
@@ -31,6 +32,7 @@ namespace API.Controllers
             _teamService = teamService;
             _environment = environment;
             _userManager = userManager;
+            _leavePolicyService = leavePolicyService;
             // _userManager = userManager;
         }
         [HttpGet("employees")]
@@ -45,7 +47,14 @@ namespace API.Controllers
         {
             var teamDetailList = await _teamService.GetTeamDetailsAsync();
             Dictionary<int, int> employeeIds = new Dictionary<int, int>();
-            foreach (var teamDetail in teamDetailList) employeeIds.Add(teamDetail.Employee.Id, teamDetail.Employee.Id);
+            foreach (var teamDetail in teamDetailList)
+            {
+                if (!employeeIds.ContainsKey(teamDetail.Employee.Id))
+                {
+                    employeeIds.Add(teamDetail.Employee.Id, teamDetail.Employee.Id);
+                }
+            }
+
             var spec = new EmployeeWithFilterSpec();
             var results = await _service.GetEmployeesAsync(spec);
             var filteredResultsTwo = results.Where(employee => !employeeIds.ContainsKey(employee.Id));
@@ -89,12 +98,14 @@ namespace API.Controllers
                 var _division = await _masterService.GetDivisionById(empDto.DivisionID);
                 var _department = await _masterService.GetDepartmentById(empDto.DepartmentID);
                 var _designation = await _masterService.GetDesignationById(empDto.DesignationID);
+                var _leavePolicy = await _leavePolicyService.GetLeavePolicyById(empDto.LeavePolicyID);
                 // var _team = await _teamService.GetTeamById(empDto.TeamId);
                 // var _teamRole = await _teamService.GetUserRoleById(empDto.TeamRoleId);
                 _emp.Branch = _branch;
                 _emp.Division = _division;
                 _emp.Department = _department;
                 _emp.Designation = _designation;
+                _emp.LeavePolicy = _leavePolicy;
                 // _emp.Team = _team;
                 // _emp.TeamRole = _teamRole;
 
