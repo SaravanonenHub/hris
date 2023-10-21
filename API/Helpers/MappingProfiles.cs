@@ -46,6 +46,9 @@ namespace API.Helpers
             CreateMap<TeamDto, Team>();
             CreateMap<TeamDetailsDto, TeamDetails>();
 
+            CreateMap<TeamUpdateDto, Team>();
+            CreateMap<TeamDetailsUpdateDto, TeamDetails>();
+
             CreateMap<TeamDto, Team>().ReverseMap();
             CreateMap<TeamDetailsDto, TeamDetails>().ReverseMap();
 
@@ -53,6 +56,7 @@ namespace API.Helpers
             CreateMap<TeamDetailsResponseDto, TeamDetails>();
 
             CreateMap<TeamResponseDto, Team>().ReverseMap();
+            CreateMap<TeamResponseGeneralDto, Team>().ReverseMap();
             CreateMap<TeamDetailsResponseDto, TeamDetails>().ReverseMap();
 
             CreateMap<LeavePolicyDto, LeavePolicy>();

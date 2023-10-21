@@ -42,6 +42,7 @@ namespace Infrastructure.Data
         public DbSet<NotifyProps> NotifyProps { get; set; }
         public DbSet<LeavePolicy> LeavePolicies { get; set; }
         public DbSet<LeavePolicyDetails> LeavePolicyDetails { get; set; }
+        public DbSet<UserRoleMapping> UserRoleMappings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()

@@ -15,11 +15,33 @@
                 windows
                 easily that can be shared by multiple actions on the same component.</p>
             <div class="field-flex">
-
+                
+                <p-fieldset legend="Entitlement" [toggleable]="true"  (onBeforeToggle)="onBeforeToggle()">
+                    <p-table [value]="entitlement?.details!" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="caption"> {{entitlement?.policyName}} </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>Provided</th>
+                                <th>Taken</th>
+                               
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-detail>
+                            <tr>
+                                <td>{{ detail.leaveType.leaveName }}</td>
+                                <td>{{ detail.provided }}</td>
+                                <td>{{ detail.taken }}</td>
+                               
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="summary"> Footer </ng-template>
+                    </p-table>
+                </p-fieldset>
             </div>
         </div>
         <div class="flex align-items-center justify-content-start">
-
+           
 
         </div>
         <p-table #emp [value]="leaveRequests" [(selection)]="selectedRequest" selectionMode="single" dataKey="id"
@@ -60,49 +82,51 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="code" style="width:10%">Code
+                    <!-- <th pSortableColumn="code" style="width:10%">Code
                         <p-columnFilter type="text" field="employeeCode" display="menu">
-                        </p-columnFilter><p-sortIcon field="employeeCode"></p-sortIcon>
+                        </p-columnFilter>
+                        <p-sortIcon field="employeeCode"></p-sortIcon>
                     </th>
                     <th pSortableColumn="name" style="width:20%">Name
                         <p-columnFilter type="text" field="displayName" display="menu">
-                        </p-columnFilter><p-sortIcon field="displayName"></p-sortIcon>
+                        </p-columnFilter>
+                        <p-sortIcon field="displayName"></p-sortIcon>
                     </th>
                     <th pSortableColumn="department" style="width:10%">Department
                         <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
                         <p-sortIcon field="toDate"></p-sortIcon>
-                    </th>
+                    </th> -->
                     <th pSortableColumn="designation" style="width:20%">From Date
-                        <p-columnFilter type="text" field="fromDate" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="fromDate" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="fromDate"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:20%">To Date
-                        <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="toDate"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:10%">Days
-                        <p-columnFilter type="text" field="days" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="days" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="days"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:20%">Leave Type
-                        <p-columnFilter type="text" field="leaveType" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="leaveType" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="leaveType"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:10%">Session
-                        <p-columnFilter type="text" field="session" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="session" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="session"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:10%">Status
-                        <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="status" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="status"></p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-request>
                 <tr [pSelectableRow]="request">
-                    <td>{{request.employee.employeeCode}}</td>
+                    <!-- <td>{{request.employee.employeeCode}}</td>
                     <td>{{request.employee.displayName}}</td>
-                    <td>{{request.employee.department.departmentName}}</td>
+                    <td>{{request.employee.department.departmentName}}</td> -->
                     <td>{{request.fromDate}}</td>
                     <td>{{request.toDate}}</td>
                     <td>{{request.days}}</td>

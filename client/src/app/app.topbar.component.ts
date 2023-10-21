@@ -35,16 +35,23 @@ import { Role } from './domain/models/master';
                     <fa-icon [icon]="faBookmark"></fa-icon>
                 </a>
                 
-               <ng-container *ngIf="accountService.currentUser$ | async as user">
+               <!-- <ng-container *ngIf="accountService.currentUser$ | async as user">
                 <a class="menu-button" (click)="onMenuButtonClick($event)">
                         <span>{{user.displayName}}</span>
                         <fa-icon [icon]="faUser"></fa-icon>
                     </a>
-               </ng-container>
+               </ng-container> -->
                <ng-container *ngIf="accountService.currentUser$ | async as user">
-                    <a routerLink = './account/login' class="btn btn-outline-secondary me-2">
-                        LogOut
+                    <a routerLink = './account/login'  style="margin-right: 1rem;">
+                    <div class="horizontal-container">
+                         <div class="vertical-container">
+                                <span>naj2bosch.con</span>
+                                <span>{{user.displayName}}</span>
+                            </div>
+                            <p-avatar icon="pi pi-user" styleClass="mr-2" size="small"></p-avatar>
+                        </div>
                     </a>
+                    
                </ng-container>
                <ng-container *ngIf="(accountService.currentUser$ | async) === null">
                     <a (click)="accountService.logout()" class="btn btn-outline-secondary me-2">
@@ -59,7 +66,20 @@ import { Role } from './domain/models/master';
            
         </div>
     `,
-    animations: [
+    styles:[`
+    .vertical-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .horizontal-container{
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+        align-items:center;
+    }
+    .vertical-container span 
+    {color: white; margin-right: 0.5rem;}`],
+        animations: [
         trigger('overlayMenuAnimation', [
             transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' }))]),
             transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])

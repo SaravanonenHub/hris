@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
 import { ILeave } from 'src/app/domain/models/leave';
 import { EmployeeService } from 'src/app/employees/employee.service';
@@ -19,20 +20,33 @@ export class LeaveApprovalComponent {
 
     this.accountService.currentUser$.subscribe((emp) => {
       this.empService.getEmployeesBaseByCode(emp?.email!).subscribe((employee) => {
-        this.getRequests(employee?.id)
+        this.getPendingRequests(employee?.id)
       })
     });
 
   }
-  onEdit() {
+  async onEdit() {
     console.log(this.selectedRequest?.id!);
+
+   
     this.leaveService.Actioncreate(this.selectedRequest?.id!).subscribe(() => {
-      console.log('approved');
+      this.accountService.currentUser$.subscribe((emp) => {
+        this.empService.getEmployeesBaseByCode(emp?.email!).subscribe((employee) => {
+          this.getPendingRequests(employee?.id)
+        })
+      });
     });
     // this.router.navigateByUrl(`/employee/personal-edit/${this.selectedRequest?.id}`);
   }
   getRequests(empId: number | undefined) {
+    
     this.leaveService.getRequests(empId!).subscribe({
+      next: requests => this.leaveRequests = requests
+    })
+  }
+  getPendingRequests(empId: number | undefined) {
+    
+    this.leaveService.getPendingRequests(empId!).subscribe({
       next: requests => this.leaveRequests = requests
     })
   }

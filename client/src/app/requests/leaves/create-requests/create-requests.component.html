@@ -9,7 +9,7 @@
             </div>
             <span class="p-float-label">
                 <p-dropdown [options]="leaveTypes" formControlName="leaveType" placeholder="-" optionLabel="label"
-                    optionValue="label" inputId="float-label"></p-dropdown>
+                    optionValue="label" inputId="float-label" (onChange)="leaveTypeChange($event)"></p-dropdown>
                 <label for="float-label">Leave Type</label>
             </span>
             <span class="p-float-label">
@@ -17,30 +17,28 @@
                     style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
                 <label htmlFor="balance">Balance</label>
             </span>
-            <div class="flex" style="width: 100%;">
-                <span class="p-float-label" style="width: 48%;">
-                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="fromDate"
-                        dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
-                    <label for="calendar">From Date</label>
-                </span>
-                <span style="width: 4%;"></span>
-                <span class="p-float-label" style="width: 48%;">
-                    <p-calendar [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="toDate"
-                        dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
-                    <label for="calendar">To Date</label>
-                </span>
-            </div>
+            <span class="p-float-label">
+                <p-dropdown [options]="sessions" formControlName="session" placeholder="-" optionLabel="label"
+                    optionValue="label" inputId="float-label" (onChange)="onSessionChange($event)"></p-dropdown>
+                <label for="float-label">Session</label>
+            </span>
+            <span class="p-float-label" >
+                <p-calendar [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="fromDate"
+                    dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
+                <label for="calendar">From Date</label>
+            </span>
+            <span class="p-float-label" *ngIf="showToDate">
+                <p-calendar [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="toDate"
+                    dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
+                <label for="calendar">To Date</label>
+            </span>
 
             <span class="p-float-label">
                 <input pInputText id="days" formControlName="days"
                     style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
                 <label htmlFor="days">Days</label>
             </span>
-            <span class="p-float-label">
-                <p-dropdown [options]="sessions" formControlName="session" placeholder="-" optionLabel="label"
-                    optionValue="label" inputId="float-label"></p-dropdown>
-                <label for="float-label">Session</label>
-            </span>
+           
 
             <p-fileUpload mode="basic" chooseLabel="Attachment" name="demo[]"
                 url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000">

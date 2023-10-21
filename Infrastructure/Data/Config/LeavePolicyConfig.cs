@@ -1,4 +1,5 @@
-﻿using Core.Entities.Masters;
+﻿using Core.Entities.Employees;
+using Core.Entities.Masters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,6 +16,7 @@ namespace Infrastructure.Data.Config
         {
             base.Configure(modelBuilder);
             modelBuilder.ToTable("T_LEAVE_POLICY");
+            modelBuilder.HasKey(x => x.Id);
             modelBuilder.Property(x => x.PolicyName).HasMaxLength(25).IsRequired();
             modelBuilder.Property(x => x.ShortName).HasMaxLength(10).IsRequired();
             modelBuilder.HasMany<LeavePolicyDetails>(z => z.LeavePolicyDetails).WithOne(x => x.LeavePolicy).IsRequired().OnDelete(DeleteBehavior.NoAction);

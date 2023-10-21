@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from 'src/app/domain/models/employee';
-import { ILeave, Leave } from 'src/app/domain/models/leave';
+import { ILeave, ILeaveEntitlement, Leave } from 'src/app/domain/models/leave';
+import { leavePolicyParams } from 'src/app/shared/models/leavePolicyParams';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,9 +21,31 @@ export class LeaveService {
     // params = params.append('requestid', id);
     return this.http.post<ILeave>(this.baseUrl + 'Leave/approval', {}, { params });
   }
+  getEntitlement(param:leavePolicyParams)
+  {
+    let params = new HttpParams();
+
+  
+    if (param.policyName !== "") {
+      params = params.append('PolicyName', param.policyName!.toString());
+    }
+    if (param.leaveType !== "") {
+      params = params.append('LeaveType', param.leaveType!.toString());
+    }
+    if (param.empId! > 0) {
+      params = params.append('EmpId', param?.empId!.toString())
+  
+    }
+    return this.http.get<ILeaveEntitlement>(this.baseUrl + 'Leave/entitlement', { params });
+  }
   getRequests(id: number) {
     let params = new HttpParams();
     params = params.append('empid', id);
     return this.http.get<ILeave[]>(this.baseUrl + 'Leave/requests', { params });
+  }
+  getPendingRequests(id: number) {
+    let params = new HttpParams();
+    params = params.append('empid', id);
+    return this.http.get<ILeave[]>(`${this.baseUrl}Leave/pendingRequests/${id}`);
   }
 }

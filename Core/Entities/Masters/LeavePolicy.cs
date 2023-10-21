@@ -19,6 +19,7 @@ namespace Core.Entities.Masters
         public string ShortName { get; set; }
         public PolicyType Type { get; set; }
         public IReadOnlyList<LeavePolicyDetails> LeavePolicyDetails { get; set; }
+
     }
     [Table("T_LEAVE_TYPE")]
     public class LeaveType : BaseInformation

@@ -34,7 +34,7 @@ namespace Infrastructure.Data.Services.EntriesRepo
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyList<Leave>> GetReqForApproval(RequestsByTeamSpecification specification)
+        public async Task<IReadOnlyList<Leave>> MyLeaveRequests(RequestsByTeamSpecification specification)
         {
             return await _unitofWork.Repository<Leave>().ListAsync(specification);
         }
@@ -68,6 +68,11 @@ namespace Infrastructure.Data.Services.EntriesRepo
 
             // return order
             return _leave;
+        }
+
+        public Task<IReadOnlyList<Leave>> RequesttoApproval(string empId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

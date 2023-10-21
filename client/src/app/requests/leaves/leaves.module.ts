@@ -9,7 +9,7 @@ import { CreateRequestsComponent } from './create-requests/create-requests.compo
 import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
-
+import { FieldsetModule } from 'primeng/fieldset';
 @NgModule({
   declarations: [
     LeaveRequestsComponent,
@@ -25,7 +25,8 @@ import { TableModule } from 'primeng/table';
     ReactiveFormsModule,
     CalendarModule,
     FileUploadModule,
-    TableModule
+    TableModule,
+    FieldsetModule  
   ]
 })
 export class LeavesModule { }

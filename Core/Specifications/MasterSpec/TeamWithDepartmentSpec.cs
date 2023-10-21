@@ -17,8 +17,6 @@ namespace Core.Specifications.MasterSpec
             AddInclude(x => x.TeamDetails);
             AddInclude($"{nameof(Team.TeamDetails)}.{nameof(TeamDetails.Employee)}");
             AddInclude($"{nameof(Team.TeamDetails)}.{nameof(TeamDetails.Role)}");
-
-
         }
         public TeamWithDepartmentSpec() : base()
         {
@@ -27,6 +25,7 @@ namespace Core.Specifications.MasterSpec
             AddInclude($"{nameof(Team.TeamDetails)}.{nameof(TeamDetails.Employee)}");
             AddInclude($"{nameof(Team.TeamDetails)}.{nameof(TeamDetails.Role)}");
         }
+
     }
    
 }

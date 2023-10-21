@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Employees;
 using Core.Entities.Masters;
+using Core.Specifications.MasterSpec;
 
 namespace Core.Interfaces
 {
@@ -17,6 +18,7 @@ namespace Core.Interfaces
         Task<Team> GetTeamByName(string name);
         Task<Team> CheckTeamonUpdate(string name, int id);
         Task<IReadOnlyList<Team>> GetTeamesAsync();
+        Task<IReadOnlyList<TeamDetails>> GetEmployeeTeams(TeamDetailFilterSpec filter);
         Task<IReadOnlyList<TeamDetails>> GetTeamDetailsAsync();
         Task<Team> CreateTeam(Team team);
         Task<Team> UpdateTeam(Team branch);
@@ -35,6 +37,9 @@ namespace Core.Interfaces
         Task<IReadOnlyList<TeamRole>> GetUserRoleesAsync();
         Task<TeamRole> CreateUserRole(TeamRole UserRole);
         Task<TeamRole> UpdateUserRole(TeamRole userRole);
+        #endregion
+        #region RoleMappingRepo
+        Task<IReadOnlyList<UserRoleMapping>> GetRolesMapped(int id);
         #endregion
 
     }

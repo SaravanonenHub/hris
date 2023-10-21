@@ -62,9 +62,9 @@ namespace API.Controllers
             return _emp;
         }
         [HttpGet("employee/{id}")]
-        public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeById(int Id)
+        public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeById(int id)
         {
-            var result = await _service.GetEmployeeById(Id);
+            var result = await _service.GetEmployeeById(id);
 
             if (result == null) return BadRequest(new ApiResponse(400, "Id doesn't exist!"));
             var _emp = _mapper.Map<Employee, EmployeeResponseDto>(result);

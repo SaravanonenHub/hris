@@ -14,7 +14,8 @@ namespace Core.Interfaces.IEntries
         Task<bool> AlreadyExists(int empID, DateTime fDate, DateTime TDate);
         Task<Leave> SubmitLeave(Leave _leave);
         Task<Leave> UpdateLeave(Leave _leave);
-        Task<IReadOnlyList<Leave>> GetReqForApproval(RequestsByTeamSpecification specification);
+        Task<IReadOnlyList<Leave>> RequesttoApproval(string empId);
+        Task<IReadOnlyList<Leave>> MyLeaveRequests(RequestsByTeamSpecification specification);
         Task<Leave> GetRequestById(RequestsByTeamSpecification specification);
         IQueryable<Leave> GetRequestByIdNoTrack(RequestsByTeamSpecification specification);
     }

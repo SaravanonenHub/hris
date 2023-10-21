@@ -42,6 +42,7 @@ namespace Core.Entities.Employees
         // public int DesignationID { get; set; }
         public Designation Designation { get; set; }
         public LeavePolicy LeavePolicy { get; set; }
+        public int LeavePolicyId { get; set; }
         [MaxLength(30)]
         public string Qualification { get; set; }
         public string Status { get; set; } = EmployeeStatus.Live;

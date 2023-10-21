@@ -7,6 +7,7 @@ using API.Errors;
 using AutoMapper;
 using Core.Entities.Employees;
 using Core.Interfaces;
+using Core.Specifications.MasterSpec;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,10 +26,20 @@ namespace API.Controllers
             _empService = empService;
         }
         [HttpGet("teams")]
-        public async Task<IReadOnlyList<Team>> GetTeams()
+        public async Task<ActionResult<IReadOnlyList<TeamResponseDto>>> GetTeams()
         {
-            var results = await _service.GetTeamesAsync();
-            return results;
+            try
+            {
+                var results = await _service.GetTeamesAsync();
+                var teams = _mapper.Map<IReadOnlyList<Team>,IReadOnlyList<TeamResponseDto>>(results);
+                return Ok(teams);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
         [HttpGet("team/{id:int}")]
         public async Task<ActionResult<TeamResponseDto>> GetTeamById(int id)
@@ -41,6 +52,15 @@ namespace API.Controllers
             _team.Members = _team.TeamDetails.Select(x => x.Employee).Where(x => x.TeamRole == "Member").ToList();
             return Ok(_team);
             // return Ok(result);
+        }
+        [HttpGet("employeeTeam/{empId}")]
+        public async Task<ActionResult<IReadOnlyList<TeamDetailsResponseDto>>> GetTeamsByEmployee(int empId)
+        {
+
+            var teamdetailFilter = new TeamDetailFilterSpec() { EmpId = empId};
+            var teams = await _service.GetEmployeeTeams(teamdetailFilter);
+            var _teamDetail = _mapper.Map<IReadOnlyList<TeamDetails>, IReadOnlyList<TeamDetailsResponseDto>>(teams);
+            return Ok(_teamDetail);
         }
         [HttpPost("create")]
         public async Task<ActionResult<Team>> CreateShift([FromBody] TeamDto teamDto)
@@ -81,7 +101,7 @@ namespace API.Controllers
         [HttpPut("team/{Id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Team>> UpdateTeam(int Id, TeamResponseDto teamDto)
+        public async Task<ActionResult<Team>> UpdateTeam(int Id, TeamUpdateDto teamDto)
         {
             var IsExist = _service.GetTeambyNoTrack(Id).AsEnumerable().SingleOrDefault();
             if (IsExist != null)
@@ -91,14 +111,15 @@ namespace API.Controllers
                 {
                     return BadRequest(new ApiResponse(400, "Team name already exist!"));
                 }
-                var _team = _mapper.Map<TeamResponseDto, Team>(teamDto);
+                var _team = _mapper.Map<TeamUpdateDto, Team>(teamDto);
                 var _department = await _service.GetDepartmentById(teamDto.DepartmentId);
                 _team.Department = _department;
                 var details = new List<TeamDetails>();
                 foreach (var detail in teamDto.TeamDetails)
                 {
-                    var _role = await _service.GetUserRoleById(detail.Role.Id);
-                    var _emp = await _empService.GetEmployeeById(detail.Employee.Id);
+                    //var _role = await _service.GetUserRoleById(detail.Role.Id);
+                    var _role = await _service.GetUserRoleByName(detail.RoleName);
+                    var _emp = await _empService.GetEmployeeById(detail.EmployeeId);
                     var teamDetail = new TeamDetails(detail.Id, _emp, _role);
                     details.Add(teamDetail);
 

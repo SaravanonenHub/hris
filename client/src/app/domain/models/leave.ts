@@ -1,4 +1,5 @@
 import { IEmployee } from "./employee";
+import { ILeaveType } from "./master";
 
 export interface ILeave {
     id: number;
@@ -27,6 +28,17 @@ export class Leave implements ILeave {
     createDate: Date = new Date();
 
 }
+export interface ILeaveEntitlement {
+    id:Number,
+    policyName:string;
+    shortName:string;
+    details:ILeaveEntitlementDetail[]
+}
+export interface ILeaveEntitlementDetail{
+    leaveType:ILeaveType;
+    provided:number;
+    taken:number;
+}
 // export class LeaveType {
 //     id?: number;
 //     leaveType?: string;
@@ -37,7 +49,7 @@ export enum Session {
     SECONDSESSION = 'SECOND SESSION'
 }
 export enum LeaveType {
-    CASUALLEAVE = 'Casual',
-    EARNEDLEAVE = 'Earned',
-    SICKLEAVE = 'Sick'
+    CASUALLEAVE = 'Casual Leave',
+    EARNEDLEAVE = 'Earned Leave',
+    SICKLEAVE = 'Sick Leave'
 }

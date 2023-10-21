@@ -23,15 +23,16 @@ namespace Infrastructure.Data.Services
             var param = new EmployeeFindSpec();
             param.EmpCode = empCode;
             param.IdNotEqual = id;
-            var spec = new EmployeeWithFilterSpec(param);
+            var spec = new EmployeeWithFilterSpec(id,param);
             return await _unitOfWork.Repository<Employee>().GetEntityWithSpec(spec);
         }
         public async Task<Employee> GetEmployeeById(int Id, string EmpCode = null)
         {
             var param = new EmployeeFindSpec();
-            param.Id = Id;
+            //param.Id = null;
             param.EmpCode = EmpCode;
-            var spec = new EmployeeWithFilterSpec(param);
+            //param.IdNotEqual = 0;
+            var spec = new EmployeeWithFilterSpec(Id, param);
             return await _unitOfWork.Repository<Employee>().GetEntityWithSpec(spec);
         }
 
@@ -49,10 +50,7 @@ namespace Infrastructure.Data.Services
         {
             return await _unitOfWork.Repository<EmployeeNature>().ListAllAsync();
         }
-        public Task<IReadOnlyList<Employee>> GetEmployeeDetailsAsync()
-        {
-            throw new NotImplementedException();
-        }
+        
         public async Task<Employee> CreateEmployee(Employee emp)
         {
             _unitOfWork.Repository<Employee>().Add(emp);
@@ -165,6 +163,11 @@ namespace Infrastructure.Data.Services
 
             // return order
             return emp;
+        }
+
+        public Task<IReadOnlyList<Team>> GetEmployeeTeam(int id)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

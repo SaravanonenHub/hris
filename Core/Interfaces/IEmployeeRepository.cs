@@ -14,13 +14,11 @@ namespace Core.Interfaces
         IQueryable<Employee> GetEmployeeByIdNoTrack(int Id);
         Task<IReadOnlyList<Employee>> GetEmployeesAsync(EmployeeWithFilterSpec spec);
         Task<IReadOnlyList<EmployeeNature>> GetEmployeeNatureAsync();
-        Task<IReadOnlyList<Employee>> GetEmployeeDetailsAsync();
+        //Task<IReadOnlyList<Employee>> GetEmployeeDetailsAsync();
         Task<Employee> CheckEmployeeonUpdate(string name, int id);
         Task<Employee> CreateEmployee(Employee emp);
         // Task<AppUser> CreateUser(AppUser user);
         Task<Employee> UpdateEmployee(Employee emp);
-
-
         Task<EmployeePersonalInfo> GetEmployeePersonalById(int Id, string EmpCode = null);
         IQueryable<EmployeePersonalInfo> GetEmployeePersonalByIdNoTrack(int Id);
         Task<IReadOnlyList<EmployeePersonalInfo>> GetEmployeesPersonalAsync();

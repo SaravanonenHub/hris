@@ -56,3 +56,16 @@
 ::ng-deep .p-button.p-button-outlined {
     height: 2.5rem;
 }
+:host ::ng-deep .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a{
+    padding: 0.5rem;
+}
+:host ::ng-deep .p-fieldset{
+    border: 1px solid gainsboro;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0;
+}
+:host ::ng-deep .p-fieldset .p-fieldset-content{
+    padding: 0.5rem;
+}

@@ -33,8 +33,9 @@ namespace Infrastructure.Data.Config
 
             modelBuilder.HasOne<Branch>(c => c.Branch).WithMany().IsRequired();
             modelBuilder.HasOne<Division>(c => c.Division).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.HasOne<Department>(c => c.Department).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction); ;
-            modelBuilder.HasOne<Designation>(c => c.Designation).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction); ;
+            modelBuilder.HasOne<Department>(c => c.Department).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.HasOne<Designation>(c => c.Designation).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.HasOne<LeavePolicy>(c => c.LeavePolicy).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             // modelBuilder.HasOne<Team>(c => c.Team).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
             // modelBuilder.HasOne<TeamRole>(c => c.TeamRole).IsRequired();
             // modelBuilder.HasOne<EmployeeNature>(c => c.EmployeeNature).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);

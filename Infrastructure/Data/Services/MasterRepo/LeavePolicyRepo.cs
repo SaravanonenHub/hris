@@ -39,6 +39,11 @@ namespace Infrastructure.Data.Services.MasterRepo
             var spec = new LeavePolicySpec(id);
             return await _unitOfWork.Repository<LeavePolicy>().GetEntityWithSpec(spec);
         }
+        public async Task<LeavePolicy> GetLeavePolicyByIdWithFilter(LeavePolicySpec spec)
+        {
+            //var spec = new LeavePolicySpec(id);
+            return await _unitOfWork.Repository<LeavePolicy>().GetEntityWithSpec(spec);
+        }
         public async Task<LeavePolicy> GetbyName(string name)
         {
             var param = new MasterUpdateSpecParam();

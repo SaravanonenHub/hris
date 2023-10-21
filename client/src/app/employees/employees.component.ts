@@ -36,7 +36,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   getEmployee(param: EmployeeParams) {
-    // console.log(param);
+    console.log(param);
     this.employeeService.getEmployeesBase(param).subscribe({
       next: employees => {
         this.employees = employees;

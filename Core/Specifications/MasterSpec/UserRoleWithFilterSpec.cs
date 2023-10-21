@@ -16,4 +16,13 @@ namespace Core.Specifications.MasterSpec
         {
         }
     }
+    public class RoleMappingSpec : BaseSpecification<UserRoleMapping>
+    {
+        public RoleMappingSpec(int id) : base(x =>
+            (x.Role.Id == id))
+        {
+            AddInclude(x => x.Role);
+            AddInclude(x => x.ReportingRole);
+        }
+    }
 }

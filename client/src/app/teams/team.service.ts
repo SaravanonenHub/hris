@@ -33,4 +33,9 @@ export class TeamService {
     return this.http.post(this.baseUrl + 'Team/create', params);
 
   }
+  update(id:number, params: any) {
+    console.log(params);
+    return this.http.put(this.baseUrl + `Team/team/${id}`, params);
+
+  }
 }

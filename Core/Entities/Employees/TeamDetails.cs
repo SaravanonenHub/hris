@@ -44,6 +44,7 @@ namespace Core.Entities.Employees
         public Employee Employee { get; set; }
         [Required]
         public TeamRole Role { get; set; }
+        public virtual Team Team { get; set; }
 
 
     }

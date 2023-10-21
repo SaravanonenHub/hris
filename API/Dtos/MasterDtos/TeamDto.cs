@@ -19,8 +19,32 @@ namespace API.Dtos.MasterDtos
         [Required]
         public IReadOnlyList<TeamDetailsDto> TeamDetails { get; set; }
     }
+    public class TeamUpdateDto
+    {
+        [Required]
+        public int Id { get; set; }
+        [Required]
+        public string TeamName { get; set; }
+        [Required]
+        public string DisplayName { get; set; }
+        [Required]
+        public int DepartmentId { get; set; }
+        [Required]
+        public IReadOnlyList<TeamDetailsUpdateDto> TeamDetails { get; set; }
+    }
     public class TeamDetailsDto
     {
+       
+        [Required]
+        public int EmployeeId { get; set; }
+        [Required]
+        public string RoleName { get; set; }
+        public TeamRole Role { get; set; }
+    }
+    public class TeamDetailsUpdateDto
+    {
+        [Required]
+        public int Id { get; set; }
         [Required]
         public int EmployeeId { get; set; }
         [Required]
@@ -29,6 +53,8 @@ namespace API.Dtos.MasterDtos
     }
     public class TeamResponseDto
     {
+        [Required]
+        public int Id { get; set; }
         [Required]
         public string TeamName { get; set; }
         [Required]
@@ -41,6 +67,17 @@ namespace API.Dtos.MasterDtos
         [Required]
         public IReadOnlyList<TeamDetailsResponseDto> TeamDetails { get; set; }
     }
+    public class TeamResponseGeneralDto
+    {
+        public int Id { get; set; }
+        public string TeamName { get; set; }
+
+        public string DisplayName { get; set; }
+
+        public int DepartmentId { get; set; }
+        
+
+    }
     public class TeamDetailsResponseDto
     {
         public int Id { get; set; }
@@ -48,6 +85,8 @@ namespace API.Dtos.MasterDtos
         public EmployeeCommonDto Employee { get; set; }
         [Required]
         public TeamRole Role { get; set; }
+        public TeamResponseGeneralDto Team { get; set; }
+
 
 
     }

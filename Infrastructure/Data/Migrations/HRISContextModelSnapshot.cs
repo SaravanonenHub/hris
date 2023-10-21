@@ -150,6 +150,9 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("LeavePolicyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MartialStatus")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -182,6 +185,8 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("DesignationId");
 
                     b.HasIndex("DivisionId");
+
+                    b.HasIndex("LeavePolicyId");
 
                     b.ToTable("T_EMPLOYEE", (string)null);
                 });
@@ -1036,6 +1041,53 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("T_USER_ROLE");
                 });
 
+            modelBuilder.Entity("Core.Entities.Masters.UserRoleMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasDefaultValue("Y");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("ReportingRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReportingRoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("T_ROLE_MAPPING");
+                });
+
             modelBuilder.Entity("Core.Entities.Notify.NotifyProps", b =>
                 {
                     b.Property<int>("Id")
@@ -1133,6 +1185,12 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.Masters.LeavePolicy", "LeavePolicy")
+                        .WithMany()
+                        .HasForeignKey("LeavePolicyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Branch");
 
                     b.Navigation("Department");
@@ -1140,6 +1198,8 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Designation");
 
                     b.Navigation("Division");
+
+                    b.Navigation("LeavePolicy");
                 });
 
             modelBuilder.Entity("Core.Entities.Employees.EmployeeExperienceInfo", b =>
@@ -1207,13 +1267,15 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Employees.Team", null)
+                    b.HasOne("Core.Entities.Employees.Team", "Team")
                         .WithMany("TeamDetails")
                         .HasForeignKey("TeamId");
 
                     b.Navigation("Employee");
 
                     b.Navigation("Role");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
@@ -1253,6 +1315,25 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("LeavePolicy");
 
                     b.Navigation("LeaveType");
+                });
+
+            modelBuilder.Entity("Core.Entities.Masters.UserRoleMapping", b =>
+                {
+                    b.HasOne("Core.Entities.Employees.TeamRole", "ReportingRole")
+                        .WithMany()
+                        .HasForeignKey("ReportingRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Employees.TeamRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ReportingRole");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Core.Entities.Notify.NotifyProps", b =>

@@ -71,6 +71,15 @@ namespace Infrastructure.Data.Services
             return UserRole;
         }
         #endregion
+        #region RoleMappingRepo
+        public async Task<IReadOnlyList<UserRoleMapping>> GetRolesMapped(int id)
+        {
+            if (id == 0) return null;
+            var spec = new RoleMappingSpec(id);
+            var results = await _unitOfWork.Repository<UserRoleMapping>().ListAsync(spec);
+            return results;
+        }
+        #endregion
         #region TeamRepo
         public async Task<Team> CheckTeamonUpdate(string name, int id)
         {
@@ -168,7 +177,11 @@ namespace Infrastructure.Data.Services
             return Team;
         }
 
-
+        public async Task<IReadOnlyList<TeamDetails>> GetEmployeeTeams(TeamDetailFilterSpec filter)
+        {
+            var spec = new TeamDetailWithIncludesSpec(filter);
+            return await _unitOfWork.Repository<TeamDetails>().ListAsync(spec);
+        }
         #endregion
         #region  TeamDetailRepo
         public async Task<TeamDetails> GetTeamDetailById(int Id)
@@ -205,6 +218,8 @@ namespace Infrastructure.Data.Services
             if (result <= 0) return null;
             return teamDetails;
         }
+
+     
         #endregion
     }
 }

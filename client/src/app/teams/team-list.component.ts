@@ -38,7 +38,8 @@ export class TeamListComponent implements OnInit {
   }
   onTeamSelect(event:any)
   {
-    console.log(event.data);
+    //console.log(event.data);
+    console.log(this.selectedTeam);
     let team:ITeamwithDetails[] = event.data;
     this.selectedTeamDetails = event.data.teamDetails;
     // this.selectedTeamDetails?.forEach(element => {

@@ -1,3 +1,4 @@
+using Core.Entities.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Core.Specifications.EntriesSpec
         public int? RequestId { get; set; }
         public int? TeamId { get; set; }
         public int? EmpId { get; set; }
+        public ActionTaken? Status { get; set; }
         private string _search;
         public string Search
         {

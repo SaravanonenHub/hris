@@ -29,6 +29,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
+import { AvatarModule } from 'primeng/avatar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { MessageService } from 'primeng/api';
     SplitterModule,
     CoreModule,
     SharedModule,
-    ToastModule
+    ToastModule,
+    AvatarModule
   ],
   providers: [AppConfigService, EmployeeService,MessageService],
   bootstrap: [AppComponent]

@@ -167,7 +167,7 @@ export class EditTeamComponent implements OnInit {
       this.formData.append('teamDetails[1].Role', this.teamDetail[i].roleName);
     }
     // console.log(`Form Data: ${this.formData}`);
-    this.service.create(this.teamForm.value)
+    this.service.update(this.id!, this.teamForm.value)
       .pipe(first())
       .subscribe({
         next: () => {

@@ -21,12 +21,10 @@ namespace Core.Specifications.EmployeeSpec
 
         }
 
-        public EmployeeWithFilterSpec(EmployeeFindSpec param) : base(x =>
+        public EmployeeWithFilterSpec(int id, EmployeeFindSpec param) : base(x =>
             (string.IsNullOrEmpty(param.EmpCode) || x.EmployeeCode == param.EmpCode)
-            && (!param.Id.HasValue || param.Id == 0 || x.Id == param.Id)
-            && (!param.IdNotEqual.HasValue || x.Id != param.IdNotEqual)
-
-        )
+            && (!param.Id.HasValue || x.Id == param.Id)
+            && (!param.IdNotEqual.HasValue || x.Id != param.IdNotEqual))
         {
             AddInclude(x => x.Department);
             AddInclude(x => x.Designation);
