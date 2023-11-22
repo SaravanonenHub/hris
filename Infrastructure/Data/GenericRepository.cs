@@ -7,21 +7,27 @@ using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Infrastructure.Data
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly HRISContext _context;
+
         public GenericRepository(HRISContext context)
         {
             _context = context;
-        }
 
+        }
+       
         public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
-
+        public async Task<object> GetObjByIdAsync(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
             return await _context.Set<T>().ToListAsync();

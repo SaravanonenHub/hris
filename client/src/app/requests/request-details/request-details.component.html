@@ -1,0 +1,23 @@
+<section >
+ 
+    <div class="container" *ngIf="requestDetails">
+      <h2>#{{requestDetails.requestId}}</h2>
+      <p>
+        {{requestDetails.type.templateName}}
+      </p>
+      <h2>{{requestDetails.actions[requestDetails.actions.length - 1].action}}</h2>
+    </div>
+
+  </section>
+  <div style="text-align: left;">
+    <p-tabView >
+      <p-tabPanel  header="Request Journey">
+        <app-request-journey [actions]="requestDetails?.actions!"></app-request-journey>
+      </p-tabPanel>
+      <p-tabPanel  header="Request Details">
+        <app-request-summary [requestDetails]="requestDetails!"></app-request-summary>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  
+  

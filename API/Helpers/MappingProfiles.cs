@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos.ActionDtos;
 using API.Dtos.EmployeeDtos;
 using API.Dtos.EntriesDtos;
 using API.Dtos.Identity;
 using API.Dtos.MasterDtos;
 using AutoMapper;
+using Core.Entities.Actions;
 using Core.Entities.Employees;
 using Core.Entities.Entries;
 using Core.Entities.Identity;
@@ -35,6 +37,7 @@ namespace API.Helpers
             CreateMap<ShiftDto, Shift>();
 
             CreateMap<EmployeeRequestDto, Employee>();
+            CreateMap<Employee, EmployeeRequestDto>();
             CreateMap<Employee, EmployeeResponseDto>();
             CreateMap<EmployeeCommonDto, Employee>();
             CreateMap<EmployeeCommonDto, Employee>().ReverseMap();
@@ -42,6 +45,17 @@ namespace API.Helpers
             CreateMap<LeaveRequestDto, Leave>();
             CreateMap<Leave, LeaveResponseDto>();
             CreateMap<LeaveTypeResDto, LeaveType>();
+
+            //CreateMap<Request, MyRequestResponseDto>();
+            CreateMap<Request, RequestResponseDto>();
+            CreateMap<RequestResponseDto, Request>();
+
+            CreateMap<Request, RequestDto>();
+            CreateMap<RequestTemplate,RequestTemplateDto>();
+            CreateMap<Request, RequestDetailResponseDto>();
+            CreateMap<IReadOnlyList<ActionHistory>, IReadOnlyList<ActionResponseDtos>>();
+            CreateMap<ActionHistory, ActionResponseDtos>();
+            
 
             CreateMap<TeamDto, Team>();
             CreateMap<TeamDetailsDto, TeamDetails>();

@@ -52,7 +52,11 @@ export class EmployeeService {
     return this.http.get<Employee>(`${this.baseUrl}Employee/employee/${id}`);
   }
   getEmployeesBaseByCode(code: string) {
-    return this.http.get<IEmployee>(`${this.baseUrl}Employee/employeebyCode/${code}`);
+    // let params = new HttpParams();
+    // let param = new EmployeeParams();
+    // param.code = code;
+    // params = params.append('code', code)
+    return this.http.get<IEmployee>(`${this.baseUrl}Employee/employeebyCode/${code}`,);
   }
   getBranches() {
     if (this.braches.length > 0) return of(this.braches);

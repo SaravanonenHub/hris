@@ -1,0 +1,14 @@
+[
+  {
+    "DivisionId": 1,
+    "DepartmentName": "ETB55",
+    "ShortName": "NE",
+    "IsActive": "Y"
+  },
+  {
+    "DivisionId": 2,
+    "DepartmentName": "ETB61",
+    "ShortName": "XE",
+    "IsActive": "Y"
+  }
+]

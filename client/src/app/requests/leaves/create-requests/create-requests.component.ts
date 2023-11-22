@@ -1,15 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { first, firstValueFrom, map, take } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
-import { LeaveType, Session } from 'src/app/domain/models/leave';
+import { ILeaveEntitlement, Leave, LeaveType, Session } from 'src/app/domain/models/leave';
 import { LeaveService } from '../leave.service';
 import { EmployeeService } from 'src/app/employees/employee.service';
 import { Notify, NotifyType } from 'src/app/shared/models/notify';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { IEmployee } from 'src/app/domain/models/employee';
 import { leavePolicyParams } from 'src/app/shared/models/leavePolicyParams';
+import { RequestTemplate } from 'src/app/domain/models/master';
 export interface City {
   code: string;
   name: string;
@@ -33,6 +34,10 @@ export const FileType2LabelMapping: Record<FileTypesEnum, string> = {
 
 export class CreateRequestsComponent {
   cities: City[] = [];
+  showFullDescription: boolean = false;
+  entitlement?:ILeaveEntitlement;
+  customToggleIcon:string="pi pi-angle-down";
+  isExpanded:boolean=true;
   isDisabled = true;
   public FileType2LabelMapping = FileType2LabelMapping;
   public fileTypes = Object.values(FileTypesEnum);
@@ -54,8 +59,10 @@ export class CreateRequestsComponent {
     days: ['-'],
     session: [0, [Validators.min(1)]],
     reason: ['', [Validators.min(1)]],
-    status: ['Pending']
+    status: ['Created'],
+    templateId:[RequestTemplate.Leave]
   })
+  @ViewChild('myFormRef') myFormRef:any;
   constructor(private fb: FormBuilder, private service: LeaveService
     , private datePipe: DatePipe, private accountService: AccountService
     , private empService: EmployeeService, private notifyService: NotificationService) {
@@ -65,10 +72,19 @@ export class CreateRequestsComponent {
   get f() {
     return this.leaveReqForm.controls;
   }
+  onBeforeToggle(){
+    debugger;
+    this.isExpanded = !this.isExpanded;
+    this.customToggleIcon = this.isExpanded ? 'pi pi-angle-up':'pi pi-angle-down'
+  }
   onDateChange(event: any) {
     this.dateFunction();
   }
+  submitForm(){
+    this.onSubmit();
+  }
   onSubmit() {
+    debugger;
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => this.leaveReqForm.controls['employeeId'].setValue(user?.email!)
     })
@@ -109,10 +125,11 @@ export class CreateRequestsComponent {
     let days = 0;
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: async user => {
-        const employee = await firstValueFrom(this.empService.getEmployeesBaseByCode(user?.email!));
+        const employee = await firstValueFrom(this.empService.getEmployeesBaseByCode(user?.email!))
         this.leavePolicyParam.empId = employee.id;
         this.leavePolicyParam.leaveType="";
         this.leavePolicyParam.policyName="";
+        
         this.service.getEntitlement(this.leavePolicyParam!).pipe(map((ent) => {
           ent.details.forEach((detail) => {
             console.log(detail.leaveType.leaveName === ev.value)
@@ -136,7 +153,9 @@ export class CreateRequestsComponent {
     this.dateFunction();
     
   }
-
+  toggleDescription() {
+    this.showFullDescription = !this.showFullDescription;
+  }
   changeFunction(session:string)
   {
     const selectedSession = session;

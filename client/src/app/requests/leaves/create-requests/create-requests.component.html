@@ -1,4 +1,93 @@
-<div class="card-holder">
+<div class="main-wrapper">
+<div class="left-container"></div>
+<div class="container">
+    <div class="header">
+      <caption>Leave Request</caption>
+      <img src="favorite-icon.png" alt="Favorite Icon">
+    </div>
+    <hr>
+    <div class="expandable-container">
+    <div class="expandable" [class.expanded]="showFullDescription" >
+        <h4>Description</h4>
+        <p>The Leave Policy is a confidential document that outlines the policies and procedures for granting employees time off from work. This document outlines the leave categories and the number of days taken for each type. It also provides accrual, carrying over, and vacation time usage information.</p>
+        
+        <p-fieldset legend="Entitlement" [toggleable]="true"  (onBeforeToggle)="onBeforeToggle()">
+            <p-table [value]="entitlement?.details!" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="caption"> {{entitlement?.policyName}} </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Leave Type</th>
+                        <th>Provided</th>
+                        <th>Taken</th>
+                       
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-detail>
+                    <tr>
+                        <td>{{ detail.leaveType.leaveName }}</td>
+                        <td>{{ detail.provided }}</td>
+                        <td>{{ detail.taken }}</td>
+                       
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary"> Footer </ng-template>
+            </p-table>
+        </p-fieldset>
+    </div>
+    <div class="centered-button">
+        <button (click)="toggleDescription()">{{ showFullDescription ? 'View Less' : 'View More' }}</button>
+      </div>
+    </div>
+    <hr>
+    <h5>Request Details</h5>
+    <hr>
+    <form [formGroup]="leaveReqForm" #myFormRef (ngSubmit)="onSubmit()">
+    <div class="content">
+      <div class="form-controls">
+        <label for="leave-type">Leave Type:</label>
+        <p-dropdown [options]="leaveTypes" formControlName="leaveType" placeholder="-" optionLabel="label"
+                    optionValue="label" inputId="float-label" (onChange)="leaveTypeChange($event)"></p-dropdown>
+
+        <label for="balance">Balance:</label>
+        <input pInputText id="balance" formControlName="balance"
+                    style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
+        
+        <label for="session">Session</label>
+            <p-dropdown [options]="sessions" formControlName="session" placeholder="-" optionLabel="label"
+                optionValue="label" inputId="float-label" (onChange)="onSessionChange($event)"></p-dropdown>
+
+
+        <label for="from-date">From Date:</label>
+        <p-calendar  placeholder="dd/mm/yyyy" [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="fromDate"
+                    dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
+               
+
+        <label for="to-date">To Date:</label>
+        <p-calendar placeholder="dd/mm/yyyy" [showIcon]="false" [readonlyInput]="true" inputId="calendar" formControlName="toDate"
+                    dateFormat="dd/mm/yy" dataType="string" (onSelect)="onDateChange($event)"></p-calendar>
+
+        <label htmlFor="days">Days</label>           
+            <input pInputText id="days" formControlName="days"
+                style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
+                       
+
+        <label for="reason">Reason:</label>
+        <textarea pInputTextarea  id="reason" formControlName="reason"
+        style="padding-top: 20px;width: 100%;margin-bottom: 5px;" ></textarea>
+      </div>  
+    </div>
+    </form>
+
+</div>
+
+<div class="button-container">
+    <button id="request-btn" (click) = "submitForm()">Request</button>
+    <button id="cancel-btn">Cancel</button>
+</div>
+</div>
+
+
+<!-- <div class="card-holder">
     <div class="card">
         <form [formGroup]="leaveReqForm" (ngSubmit)="onSubmit()">
             <div class="flex justify-content-center align-items-center">
@@ -59,7 +148,7 @@
             </span>
 
 
-            <!-- <p-calendar formControlName="fromDate">
+            <p-calendar formControlName="fromDate">
                 <ng-template pTemplate="date">
                     <span>test</span>
                 </ng-template>
@@ -72,15 +161,7 @@
             <!-- <span class="p-float-label">
                 <input pInputText id="username" />
                 <label htmlFor="username">Username</label>
-            </span> -->
+            </span>
         </form>
-
-
-
-
-
-
-
-
     </div>
-</div>
+</div> -->

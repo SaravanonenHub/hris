@@ -1,0 +1,12 @@
+[
+  {
+    "LeaveName": "Earned Leave",
+    "ShortName": "EL",
+    "IsActive": "Y"
+  },
+  {
+    "LeaveName": "Casual Leave",
+    "ShortName": "CL",
+    "IsActive": "Y"
+  }
+]

@@ -40,7 +40,8 @@ namespace API.Extensions
             services.AddScoped<ILeavePolicyRepo, LeavePolicyRepo>();
             services.AddScoped<ILeaveService, LeaveService>();
             services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IActionService<LeaveAction>, ActionService<LeaveAction>>();
+            services.AddScoped<IRequestService, RequestService>();
+            services.AddScoped<IActionService<ActionHistory>, ActionService<ActionHistory>>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = actionContext =>

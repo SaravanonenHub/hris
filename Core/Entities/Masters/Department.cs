@@ -10,6 +10,7 @@ namespace Core.Entities.Masters
     [Table("T_DEPARTMENT")]
     public class Department : BaseInformation
     {
+        public int DivisionId { get; set; }
         [Required]
         public Division Division { get; set; }
         [Required]

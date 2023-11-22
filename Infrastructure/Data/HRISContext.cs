@@ -29,7 +29,7 @@ namespace Infrastructure.Data
         public DbSet<TeamRole> TeamRoles { get; set; }
         public DbSet<TeamDetails> TeamDetails { get; set; }
         //public DbSet<TeamEmployee> TeamEmployees { get; set; }
-        public DbSet<UserLevel> UserLevels { get; set; }
+        //public DbSet<UserLevel> UserLevels { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeShiftDetails> EmployeeShiftDetails { get; set; }
         public DbSet<EmployeePersonalInfo> EmployeePersonalInfos { get; set; }
@@ -37,12 +37,14 @@ namespace Infrastructure.Data
 
         public DbSet<LeaveType> LeaveType { get; set; }
         public DbSet<Leave> Leave { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<LeaveAction> LeaveActions { get; set; }
+        //public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<ActionHistory> LeaveActions { get; set; }
         public DbSet<NotifyProps> NotifyProps { get; set; }
         public DbSet<LeavePolicy> LeavePolicies { get; set; }
         public DbSet<LeavePolicyDetails> LeavePolicyDetails { get; set; }
         public DbSet<UserRoleMapping> UserRoleMappings { get; set; }
+        public DbSet<RequestTemplate> RequestTemplates { get; set; }
+        public DbSet<Request> Requests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
@@ -61,6 +63,7 @@ namespace Infrastructure.Data
                   .Property(nameof(BaseInformation.IsActive))
                   .HasDefaultValue("Y");
             }
+            
             // modelBuilder.ApplyConfigurationsFromAssembly(typeof(BaseInfoFluentConfig<BaseInformation>).Assembly);
             modelBuilder.Entity<EmployeeExperienceInfo>()
                         .HasOne(o => o.Employee)
@@ -73,6 +76,22 @@ namespace Infrastructure.Data
             modelBuilder.Entity<TeamRole>()
                         .Property(c => c.HasApprovalAuth).HasDefaultValue("N").HasColumnType("char(1)").IsRequired();
 
+            modelBuilder.Entity<UserRoleMapping>()
+                        .HasOne(urm => urm.Role)
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<UserRoleMapping>()
+                        .HasOne(urm => urm.ReportingRole)
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<RequestTemplate>()
+                        .HasMany(c => c.Requests)
+                        .WithOne(d => d.Type)
+                        .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.ApplyConfiguration(new EmployeeFluentConfig());
             modelBuilder.ApplyConfiguration(new ShiftFluentConfig());
             modelBuilder.ApplyConfiguration(new LeaveFluentConfig());
@@ -81,6 +100,26 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new TeamDetailsFluentConfig());
             modelBuilder.ApplyConfiguration(new LeavePolicyConfig());
             modelBuilder.ApplyConfiguration(new LeavePolicyDetailsConfig());
+            modelBuilder.ApplyConfiguration(new RequestFluentConfig());
+        }
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Added))
+            {
+                if (entry.Entity is Request entity)
+                {
+                    if (entity.Id == 0)
+                    {
+                        // Assuming you're using an identity column
+                        //Database.ExecuteSqlRaw("SET IDENTITY_INSERT Requests ON");
+                        await base.SaveChangesAsync(cancellationToken);
+                        //Database.ExecuteSqlRaw("SET IDENTITY_INSERT Requests OFF");
+                    }
+                    entity.RequestId = entity.Type.TemplatePrefix + entity.Id.ToString("D10");
+                }
+            }
+
+            return await base.SaveChangesAsync();
         }
     }
 }

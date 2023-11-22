@@ -11,4 +11,9 @@ namespace Core.Entities
         [Required]
         public int Id { get; set; }
     }
+
+    public class BaseNoIdentity
+    {
+        public int Id { get; set; }
+    }
 }

@@ -22,7 +22,7 @@ export class CreateTeamComponent implements OnInit {
   teamLeader!: IEmployee[];
   members!: IEmployee[];
   emptyRows!: IEmployee[];
-  empParam: EmployeeParams = { search: "", status: "", nature: "", departmentIDs: [], role: Role.Manager };
+  empParam: EmployeeParams = { code:"",search: "", status: "", nature: "", departmentIDs: [], role: Role.Manager };
   selectedEmployees!: IEmployee[];
   teamDetail: TeamDetails[] = [];
   formData = new FormData();

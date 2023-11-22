@@ -1,0 +1,12 @@
+[
+  {
+    "LeavePolicyId": 1,
+    "LeaveTypeId": 1,
+    "Day": 12
+  },
+  {
+    "LeavePolicyId": 1,
+    "LeaveTypeId": 2,
+    "Day": 6
+  }
+]

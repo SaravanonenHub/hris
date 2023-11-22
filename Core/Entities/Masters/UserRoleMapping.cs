@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Core.Entities.Masters
 {
     [Table("T_ROLE_MAPPING")]
-    public class UserRoleMapping:BaseInformation
+    public class UserRoleMapping: BaseInformation
     {
         [Required]
         public TeamRole Role { get; set; }

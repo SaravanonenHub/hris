@@ -1,0 +1,12 @@
+[
+  {
+    "DivisionName": "PS-NE",
+    "ShortName": "NE",
+    "IsActive": "Y"
+  },
+  {
+    "DivisionName": "PS-XE",
+    "ShortName": "XE",
+    "IsActive": "Y"
+  }
+]

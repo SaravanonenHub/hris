@@ -107,3 +107,9 @@ export class TeamDetails {
     displayName:string="";
     
 }
+export enum RequestTemplate{
+    Leave = 10,
+    OnDuty,
+    Permission
+    
+}

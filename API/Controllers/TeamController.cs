@@ -41,6 +41,7 @@ namespace API.Controllers
             }
             
         }
+        
         [HttpGet("team/{id:int}")]
         public async Task<ActionResult<TeamResponseDto>> GetTeamById(int id)
         {
@@ -53,6 +54,7 @@ namespace API.Controllers
             return Ok(_team);
             // return Ok(result);
         }
+        
         [HttpGet("employeeTeam/{empId}")]
         public async Task<ActionResult<IReadOnlyList<TeamDetailsResponseDto>>> GetTeamsByEmployee(int empId)
         {
@@ -62,6 +64,7 @@ namespace API.Controllers
             var _teamDetail = _mapper.Map<IReadOnlyList<TeamDetails>, IReadOnlyList<TeamDetailsResponseDto>>(teams);
             return Ok(_teamDetail);
         }
+        
         [HttpPost("create")]
         public async Task<ActionResult<Team>> CreateShift([FromBody] TeamDto teamDto)
         {

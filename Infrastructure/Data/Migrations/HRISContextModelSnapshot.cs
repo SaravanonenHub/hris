@@ -22,7 +22,7 @@ namespace Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Core.Entities.Actions.LeaveAction", b =>
+            modelBuilder.Entity("Core.Entities.Actions.ActionHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,8 +30,9 @@ namespace Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Action")
-                        .HasColumnType("int");
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ActionBy")
                         .IsRequired()
@@ -43,17 +44,17 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int>("LeaveId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Reason")
+                    b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RequestId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LeaveId");
+                    b.HasIndex("RequestId");
 
-                    b.ToTable("T_LEAVE_ACTIONS", (string)null);
+                    b.ToTable("T_ACTION_HISTORY", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Employees.Employee", b =>
@@ -491,10 +492,101 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("T_TEAM_ROLE");
+                    b.ToTable("T_APP_ROLE");
                 });
 
             modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LeaveType")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Session")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId")
+                        .IsUnique();
+
+                    b.ToTable("T_LEAVE", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Entries.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CancellationStatus")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(1)")
+                        .HasDefaultValue("N");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RequestDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("RequestId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestedBy")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("T_REQUEST", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Entities.Entries.RequestTemplate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -511,14 +603,8 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<int>("Days")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -535,32 +621,34 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("LeaveType")
+                    b.Property<string>("MainTableName")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Session")
+                    b.Property<string>("MethodName")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("ServiceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemplateName")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("TemplatePrefix")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("T_LEAVE", (string)null);
+                    b.ToTable("T_REQUEST_TEMPLATE");
                 });
 
             modelBuilder.Entity("Core.Entities.Masters.Branch", b =>
@@ -958,89 +1046,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("T_SHIFT");
                 });
 
-            modelBuilder.Entity("Core.Entities.Masters.UserLevel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)")
-                        .HasDefaultValue("Y");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("UserLevelName")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("T_USERLEVEL");
-                });
-
-            modelBuilder.Entity("Core.Entities.Masters.UserRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)")
-                        .HasDefaultValue("Y");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("T_USER_ROLE");
-                });
-
             modelBuilder.Entity("Core.Entities.Masters.UserRoleMapping", b =>
                 {
                     b.Property<int>("Id")
@@ -1148,15 +1153,14 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("T_NOTIFICATION", (string)null);
                 });
 
-            modelBuilder.Entity("Core.Entities.Actions.LeaveAction", b =>
+            modelBuilder.Entity("Core.Entities.Actions.ActionHistory", b =>
                 {
-                    b.HasOne("Core.Entities.Entries.Leave", "Leave")
+                    b.HasOne("Core.Entities.Entries.Request", "Request")
                         .WithMany("Actions")
-                        .HasForeignKey("LeaveId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Leave");
+                    b.Navigation("Request");
                 });
 
             modelBuilder.Entity("Core.Entities.Employees.Employee", b =>
@@ -1280,11 +1284,30 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
                 {
+                    b.HasOne("Core.Entities.Entries.Request", "Request")
+                        .WithOne()
+                        .HasForeignKey("Core.Entities.Entries.Leave", "RequestId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("Core.Entities.Entries.Request", b =>
+                {
                     b.HasOne("Core.Entities.Employees.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
 
+                    b.HasOne("Core.Entities.Entries.RequestTemplate", "Type")
+                        .WithMany("Requests")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Employee");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Core.Entities.Masters.Department", b =>
@@ -1322,7 +1345,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("Core.Entities.Employees.TeamRole", "ReportingRole")
                         .WithMany()
                         .HasForeignKey("ReportingRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Employees.TeamRole", "Role")
@@ -1381,9 +1404,14 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Notifications");
                 });
 
-            modelBuilder.Entity("Core.Entities.Entries.Leave", b =>
+            modelBuilder.Entity("Core.Entities.Entries.Request", b =>
                 {
                     b.Navigation("Actions");
+                });
+
+            modelBuilder.Entity("Core.Entities.Entries.RequestTemplate", b =>
+                {
+                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("Core.Entities.Masters.LeavePolicy", b =>

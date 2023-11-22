@@ -17,4 +17,14 @@ namespace Infrastructure.Data.Config
             modelBuilder.Property(c => c.IsActive).HasDefaultValue("Y");
         }
     }
+    public class BaseRequestFluentConfig<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseRequest
+    {
+        public virtual void Configure(EntityTypeBuilder<TEntity> modelBuilder)
+        {
+            modelBuilder.Property(c => c.RequestDate).HasDefaultValueSql("getdate()");
+            modelBuilder.Property(c => c.RequestedBy).IsRequired();
+        }
+    }
+   
+
 }

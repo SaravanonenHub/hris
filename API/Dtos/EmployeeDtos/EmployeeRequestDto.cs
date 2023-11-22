@@ -30,9 +30,9 @@ namespace API.Dtos.EmployeeDtos
         public string Qualification { get; set; }
         [Required]
         public string Status { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTimeOffset BirthDate { get; set; }
         public int Age { get; set; }
-        public DateTime JoinDate { get; set; }
+        public DateTimeOffset JoinDate { get; set; }
         [Required]
         public string EmailID { get; set; }
         [Required]

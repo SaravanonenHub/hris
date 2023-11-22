@@ -15,7 +15,7 @@ import { EmployeeParams } from '../shared/models/employeeParams';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-  empParam: EmployeeParams = { search: "", status: "", nature: "", departmentIDs: [], role: "" };
+  empParam: EmployeeParams = {code:"", search: "", status: "", nature: "", departmentIDs: [], role: "" };
   faCircleXmark = faCircleXmark; faPlusSquare = faPlusSquare;
   employees: IEmployee[] = [];
   natureOfEmployees = Object.values(EmployeeNature).map(key => ({ label: EmployeeNature[key], value: key }));;

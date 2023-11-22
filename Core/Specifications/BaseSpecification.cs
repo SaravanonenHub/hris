@@ -42,6 +42,7 @@ namespace Core.Specifications
         {
             Includes.Add(includeExpression);
         }
+       
         protected void AddInclude(string IncludeString)
         {
             IncludeStrings.Add(IncludeString);

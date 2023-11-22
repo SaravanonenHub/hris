@@ -1,0 +1,42 @@
+[
+  {
+    "TemplateName": "Leave",
+    "TemplatePrefix": "LR",
+    "Description": "The Leave Policy is a confidential document that outlines the policies and procedures for granting employees time off from work. This document outlines the leave categories and the number of days taken for each type. It also provides accrual, carrying over, and vacation time usage information.",
+    "Summary": "Your {0} leave request for {1} to {2}, has been received. The purpose of your request is noted [if applicable].",
+    "MainTableName": "T_LEAVE",
+    "ServiceName": "Leave",
+    "MethodName": "GetLeave",
+    "IsActive": "Y"
+  },
+  {
+    "TemplateName": "Permission",
+    "TemplatePrefix": "PR",
+    "Description": "The Leave Policy is a confidential document that outlines the policies and procedures for granting employees time off from work. This document outlines the leave categories and the number of days taken for each type. It also provides accrual, carrying over, and vacation time usage information.",
+    "Summary": "Your permission request for {0} to {1}, has been received. The purpose of your request is noted [if applicable].",
+    "MainTableName": "T_PERMISSION",
+    "ServiceName": "Permission",
+    "MethodName": "GetPermissions",
+    "IsActive": "Y"
+  },
+  {
+    "TemplateName": "On-duty",
+    "TemplatePrefix": "ODR",
+    "Description": "The Leave Policy is a confidential document that outlines the policies and procedures for granting employees time off from work. This document outlines the leave categories and the number of days taken for each type. It also provides accrual, carrying over, and vacation time usage information.",
+    "Summary": "Your on-duty request for {0} to {1}, has been received. The purpose of your request is noted [if applicable].",
+    "MainTableName": "T_ONDUTY",
+    "ServiceName": "OnDuty",
+    "MethodName": "GetOnDuty",
+    "IsActive": "Y"
+  },
+  {
+    "TemplateName": "Comp-off",
+    "TemplatePrefix": "COR",
+    "Description": "",
+    "Summary": "Your comp-off request for $$ to $$, has been received. The purpose of your request is noted [if applicable].",
+    "MainTableName": "T_COMPOFF",
+    "ServiceName": "Compension",
+    "MethodName": "GetCompension",
+    "IsActive": "Y"
+  }
+]

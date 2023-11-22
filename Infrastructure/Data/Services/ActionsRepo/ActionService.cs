@@ -8,7 +8,7 @@ using Core.Interfaces.IActions;
 
 namespace Infrastructure.Data.Services.ActionsRepo
 {
-    public class ActionService<T> : IActionService<LeaveAction>
+    public class ActionService<T> : IActionService<ActionHistory>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,9 +17,9 @@ namespace Infrastructure.Data.Services.ActionsRepo
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<LeaveAction> CreateAction(LeaveAction action)
+        public async Task<ActionHistory> CreateAction(ActionHistory action)
         {
-            _unitOfWork.Repository<LeaveAction>().Add(action);
+            _unitOfWork.Repository<ActionHistory>().Add(action);
             var result = await _unitOfWork.Complete();
             if (result <= 0) return null;
             return action;

@@ -1,3 +1,4 @@
+using Core.Entities.Entries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,17 @@ namespace Core.Entities
         [MaxLength(15)]
         public string LastModifiedBy { get; set; } = "admin";
     }
+
+    public class BaseRequest:BaseEntity
+    {
+
+        [MaxLength(15)]
+        public string RequestedBy { get; set; }
+        public DateTime RequestDate { get; set; }
+
+
+    }
+   
     public class ActionInformation : BaseEntity
     {
 

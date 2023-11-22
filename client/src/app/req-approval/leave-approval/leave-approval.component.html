@@ -22,14 +22,15 @@
 
 
         </div>
-        <p-table #emp [value]="leaveRequests" [(selection)]="selectedRequest" selectionMode="single" dataKey="id"
+        <p-table #emp [value]="leaveRequests" [(selection)]="multipleSelectedRequest"  dataKey="id"
             [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [paginator]="true">
             <ng-template pTemplate="caption">
                 <div class="flex">
-                    <a routerLink="./leave-add">
+                    <button (click)="onBulkApprove()">Approve</button>
+                    <!-- <a routerLink="./leave-add">
                         <i class="pi pi-plus" style="color: green;font-size: 1rem"></i>
-                        <span class="ml-2 font-bold">Create</span>
+                        <span class="ml-2 font-bold">Approve</span>
                     </a>
                     <a (click)="onEdit()"
                         [ngClass]="{disabled: selectedRequest == null || undefined, enabled:selectedRequest !== null}">
@@ -42,7 +43,7 @@
                         routerLink="./personal-add">
                         <i class="pi pi-book" style="color: dimgrey;font-size: 1rem"></i>
                         <span class="ml-2 font-bold">Detail</span>
-                    </a>
+                    </a> -->
                     <!-- <p-button (click)="onEdit()" [disabled]="selectedEmployee == null || undefined ? true : false"
                         styleClass="p-button-sm p-button-outlined">
                         <i class="pi pi-user-edit" style="width: 1.5rem"></i>
@@ -60,53 +61,57 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-
-                    <th pSortableColumn="code" style="width:10%">Code
-                        <p-columnFilter type="text" field="employeeCode" display="menu">
-                        </p-columnFilter><p-sortIcon field="employeeCode"></p-sortIcon>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="idStr" style="width:10%">RequestID
+                        
+                        <p-sortIcon field="idStr"></p-sortIcon>
                     </th>
                     <th pSortableColumn="name" style="width:20%">Name
-                        <p-columnFilter type="text" field="displayName" display="menu">
-                        </p-columnFilter><p-sortIcon field="displayName"></p-sortIcon>
+                      
+                        <!-- <p-sortIcon field="displayName"></p-sortIcon> -->
                     </th>
                     <th pSortableColumn="department" style="width:10%">Department
-                        <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
-                        <p-sortIcon field="toDate"></p-sortIcon>
+                        <!-- <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter> -->
+                        <!-- <p-sortIcon field="toDate"></p-sortIcon> -->
                     </th>
-                    <th pSortableColumn="designation" style="width:20%">From Date
-                        <p-columnFilter type="text" field="fromDate" display="menu"></p-columnFilter>
+                    <th pSortableColumn="fromDate" style="width:20%">From Date
+                        <!-- <p-columnFilter type="text" field="fromDate" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="fromDate"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="leaveType" style="width:20%">To Date
-                        <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
+                    <th pSortableColumn="toDate" style="width:20%">To Date
+                        <!-- <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="toDate"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:10%">Days
-                        <p-columnFilter type="text" field="days" display="menu"></p-columnFilter>
-                        <p-sortIcon field="days"></p-sortIcon>
+                        <!-- <p-columnFilter type="text" field="days" display="menu"></p-columnFilter> -->
+                        <!-- <p-sortIcon field="days"></p-sortIcon> -->
                     </th>
                     <th pSortableColumn="leaveType" style="width:20%">Leave Type
-                        <p-columnFilter type="text" field="leaveType" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="leaveType" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="leaveType"></p-sortIcon>
                     </th>
                     <th pSortableColumn="leaveType" style="width:10%">Session
-                        <p-columnFilter type="text" field="session" display="menu"></p-columnFilter>
-                        <p-sortIcon field="session"></p-sortIcon>
+                        <!-- <p-columnFilter type="text" field="session" display="menu"></p-columnFilter> -->
+                        <!-- <p-sortIcon field="session"></p-sortIcon> -->
                     </th>
                     <th pSortableColumn="leaveType" style="width:10%">Status
-                        <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                        <!-- <p-columnFilter type="text" field="status" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="status"></p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-request>
                 <tr [pSelectableRow]="request">
-
-                    <td>{{request.employee.employeeCode}}</td>
+                    <td>
+                        <p-tableCheckbox [value]="request"></p-tableCheckbox>
+                    </td>
+                    <td>{{request.idStr}}</td>
                     <td>{{request.employee.displayName}}</td>
                     <td>{{request.employee.department.departmentName}}</td>
-                    <td>{{request.fromDate}}</td>
-                    <td>{{request.toDate}}</td>
+                    <td>{{request.fDate}}</td>
+                    <td>{{request.tDate}}</td>
                     <td>{{request.days}}</td>
                     <td>{{request.leaveType}}</td>
                     <td>{{request.session}}</td>

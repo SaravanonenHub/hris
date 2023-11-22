@@ -1,0 +1,26 @@
+[
+  {
+    "Role": "Admin",
+    "HLevel": 1,
+    "HasApprovalAuth": "1",
+    "IsActive": "Y"
+  },
+  {
+    "Role": "Manager",
+    "HLevel": 2,
+    "HasApprovalAuth": "1",
+    "IsActive": "Y"
+  },
+  {
+    "Role": "TeamLeader",
+    "HLevel": 2,
+    "HasApprovalAuth": "1",
+    "IsActive": "Y"
+  },
+  {
+    "Role": "Member",
+    "HLevel": 3,
+    "HasApprovalAuth": "0",
+    "IsActive": "Y"
+  }
+]

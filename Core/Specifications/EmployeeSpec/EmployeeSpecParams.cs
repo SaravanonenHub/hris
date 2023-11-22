@@ -15,11 +15,14 @@ namespace Core.Specifications.EmployeeSpec
         //     get { return _pageSize; }
         //     set { _pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
 
-        // }
+        // 
+        public int? Id { get; set; }
+        public string Code {get; set; }
         public string Status { get; set; }
         public string Role { get; set; }
         public string EmployeeNature { get; set; }
         // public List<int> DepartmentIds { get; set; }
-        public string DepartmentId { get; set; }
+        public string DepartmentIds { get; set; }
+        public string DivisionIds { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace Infrastructure.Data.Config
         {
             modelBuilder.Property(c => c.ActionDate).HasDefaultValueSql("getdate()");
             modelBuilder.Property(c => c.ActionBy).IsRequired();
+
         }
     }
 }

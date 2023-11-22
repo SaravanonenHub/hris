@@ -16,5 +16,8 @@ namespace Core.Entities.Identity
         [Required]
         public string DisplayName { get; set; }
 
+        [NotMapped]
+        public string TeamRole { get; set; }
+
     }
 }

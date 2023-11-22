@@ -15,13 +15,16 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    opt.InputFormatters.Insert(0, MYJPIF.GetJsonInputFormatter());
+});
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => c.DocumentFilter<JsonPatchDocumentFilter>());
 builder.Services.AddSignalR();
 // var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 // builder.Services.AddAuthentication(opt =>
@@ -78,6 +81,9 @@ try
 {
     await context.Database.MigrateAsync();
     await identityContext.Database.MigrateAsync();
+    await HRISMasterContextSeed.SeedAsync(context);
+    await HRISDetailContextSeed.SeedAsync(context);
+    await AppIdentityDbContextSeed.SeedRolesAsync(userRole);
     await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }
 catch (Exception ex)

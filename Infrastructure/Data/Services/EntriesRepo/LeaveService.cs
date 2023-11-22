@@ -19,10 +19,14 @@ namespace Infrastructure.Data.Services.EntriesRepo
         {
             _unitofWork = unitofWork;
         }
-
+        //public string GetName(string tableName)
+        //{
+        //    return _unitofWork.GetEntityName(tableName);
+        //}
         public async Task<bool> AlreadyExists(int empID, DateTime fDate, DateTime TDate)
         {
-            var spec = new BaseSpecification<Leave>(c => c.Employee.Id == empID && c.FromDate >= fDate && c.ToDate <= TDate);
+            //var spec = new BaseSpecification<Leave>(c => c.Employee.Id == empID && c.FromDate >= fDate && c.ToDate <= TDate);
+            var spec = new BaseSpecification<Leave>(c => c.FromDate >= fDate && c.ToDate <= TDate);
             var exists = await _unitofWork.Repository<Leave>().ListAsync(spec);
             if (exists.Count == 0) return true;
             return false;
@@ -33,7 +37,8 @@ namespace Infrastructure.Data.Services.EntriesRepo
         {
             throw new NotImplementedException();
         }
-
+        
+        
         public async Task<IReadOnlyList<Leave>> MyLeaveRequests(RequestsByTeamSpecification specification)
         {
             return await _unitofWork.Repository<Leave>().ListAsync(specification);
@@ -73,6 +78,13 @@ namespace Infrastructure.Data.Services.EntriesRepo
         public Task<IReadOnlyList<Leave>> RequesttoApproval(string empId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<RequestTemplate> GetTemplatebyId(int id)
+        {
+            var result = await _unitofWork.Repository<RequestTemplate>().GetByIdAsync(id);
+            if (result == null) return null;
+            return result;
         }
     }
 }

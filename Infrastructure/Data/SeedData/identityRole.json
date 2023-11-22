@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Admin",
+    "RoleType": "Administration",
+    "NormalizedName": "ADMIN"
+
+  },
+  {
+    "Name": "Manager",
+    "RoleType": "Manager",
+    "NormalizedName": "MANAGER"
+  },
+  {
+    "Name": "TeamLeader",
+    "RoleType": "TeamLeader",
+    "NormalizedName": "TEAMLEADER"
+
+  },
+  {
+    "Name": "Member",
+    "RoleType": "Member",
+    "NormalizedName": "MEMBER"
+
+  }
+  
+]

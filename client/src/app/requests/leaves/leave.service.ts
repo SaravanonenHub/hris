@@ -21,8 +21,14 @@ export class LeaveService {
     // params = params.append('requestid', id);
     return this.http.post<ILeave>(this.baseUrl + 'Leave/approval', {}, { params });
   }
+  BulKAction(ids:string)
+  {
+    let params = new HttpParams().set('bulkIds',ids)
+    return this.http.post<ILeave>(this.baseUrl + 'Leave/bulkapporval', {}, { params });
+  }
   getEntitlement(param:leavePolicyParams)
   {
+   
     let params = new HttpParams();
 
   

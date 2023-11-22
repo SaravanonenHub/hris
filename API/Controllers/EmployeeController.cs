@@ -8,6 +8,7 @@ using Core.Interfaces;
 using Core.Interfaces.IMaster;
 using Core.Specifications.EmployeeSpec;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -61,8 +62,8 @@ namespace API.Controllers
             var _emp = _mapper.Map<IReadOnlyList<Employee>, IReadOnlyList<EmployeeCommonDto>>(filteredResultsTwo.ToList());
             return _emp;
         }
-        [HttpGet("employee/{id}")]
-        public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeById(int id)
+        [HttpGet("employee/{id:int}")]
+        public async Task<ActionResult<EmployeeResponseDto>> GetEmployee(int id)
         {
             var result = await _service.GetEmployeeById(id);
 
@@ -72,7 +73,7 @@ namespace API.Controllers
             return Ok(_emp);
         }
         [HttpGet("employeebyCode/{code}")]
-        public async Task<ActionResult<EmployeeResponseDto>> GetEmployeeByCode(string code)
+        public async Task<ActionResult<EmployeeResponseDto>> GetEmployee(string code)
         {
             var result = await _service.GetEmployeeById(0, code);
 
@@ -205,6 +206,25 @@ namespace API.Controllers
                 return BadRequest(new ApiResponse(400, "Model Invalid!"));
             }
 
+        }
+        [HttpPatch("pathch/{id}")]
+        public async Task<ActionResult<EmployeeResponseDto>> PatchEmployee(int id, [FromBody] JsonPatchDocument<EmployeeRequestDto> patchDoc)
+        {
+            if(patchDoc == null)
+            {
+                return BadRequest(new ApiResponse(400, "Model Invalid"));
+            }
+            var employee = await _service.GetEmployeeById(id);
+            var empDto = _mapper.Map<EmployeeRequestDto>(employee);
+            patchDoc.ApplyTo(empDto);
+            _mapper.Map(empDto,employee);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse(400, "Model Invalid"));
+            }
+            var result = await _service.UpdateEmployee(employee);
+            var response = _mapper.Map<Employee, EmployeeResponseDto>(result);
+            return Ok(response);
         }
     }
 }

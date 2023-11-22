@@ -1,8 +1,10 @@
+import { Validators } from "@angular/forms";
 import { IEmployee } from "./employee";
 import { ILeaveType } from "./master";
 
 export interface ILeave {
     id: number;
+    idStr?:string;
     employeeId: number;
     fromDate: Date;
     toDate: Date;
@@ -12,7 +14,9 @@ export interface ILeave {
     createDate: Date;
     reason: string;
     status: string
-    employee?: IEmployee
+    employee?: IEmployee;
+    fDate?:string;
+    tDate?:string;
 }
 export class Leave implements ILeave {
     reason: string = '';
@@ -26,7 +30,8 @@ export class Leave implements ILeave {
     leaveType: LeaveType = LeaveType.CASUALLEAVE;
     session: string = 'FULLDAY';
     createDate: Date = new Date();
-
+    templateId:number = 1;
+    
 }
 export interface ILeaveEntitlement {
     id:Number,

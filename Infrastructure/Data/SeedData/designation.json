@@ -1,0 +1,10 @@
+[
+  {
+    "DesignationName": "Engineer",
+    "IsActive": "Y"
+  },
+  {
+    "DesignationName": "Manager",
+    "IsActive": "Y"
+  }
+]

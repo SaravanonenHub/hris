@@ -11,6 +11,7 @@ namespace Core.Interfaces.IEntries
     public interface ILeaveService
     {
         Task<Employee> GetEmployees();
+        //string GetName(string tblName);
         Task<bool> AlreadyExists(int empID, DateTime fDate, DateTime TDate);
         Task<Leave> SubmitLeave(Leave _leave);
         Task<Leave> UpdateLeave(Leave _leave);
@@ -18,5 +19,6 @@ namespace Core.Interfaces.IEntries
         Task<IReadOnlyList<Leave>> MyLeaveRequests(RequestsByTeamSpecification specification);
         Task<Leave> GetRequestById(RequestsByTeamSpecification specification);
         IQueryable<Leave> GetRequestByIdNoTrack(RequestsByTeamSpecification specification);
+        Task<RequestTemplate> GetTemplatebyId(int id);
     }
 }

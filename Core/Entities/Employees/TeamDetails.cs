@@ -8,7 +8,7 @@ using Core.Entities.Notify;
 
 namespace Core.Entities.Employees
 {
-    [Table("T_TEAM_ROLE")]
+    [Table("T_APP_ROLE")]
     public class TeamRole : BaseInformation
     {
         [Required]

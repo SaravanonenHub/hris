@@ -17,48 +17,71 @@ import { Role } from './domain/models/master';
     selector: 'app-topbar',
     template: `
         <div class="layout-topbar" #containerElement>
-            <div class="flex align-items-center justify-content space-evenly">
-                <a class="menu-button" (click)="onMenuButtonClick($event)">
-                    <i class="pi pi-bars"></i>
-                </a>
-                <a [routerLink]="['/']" class="logo">
-                    <img alt="logo" [src]="'https://primefaces.org/cdn/primeng/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" height="35" />
-                </a>
+            <div class="left-boxes">
+                <div class="box">
+                    <a class="menu-button" (click)="onMenuButtonClick($event)">
+                        <i class="pi pi-bars"></i>
+                    </a>
+                </div>
+                <div class="box">
+                    <a [routerLink]="['/']" class="logo">
+                        <img alt="logo" [src]="'https://primefaces.org/cdn/primeng/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" height="35" />
+                    </a>
+                </div>
+
             </div>
-         
-            <div class="flex align-items-center justify-content space-evenly">
-                <a class="menu-button" (click)="onMenuButtonClick($event)">
-                    <fa-icon [icon]="faBell"></fa-icon>
-                    <span>{{this.notifyCount}}</span>
-                </a>
-                <a class="menu-button" (click)="onMenuButtonClick($event)">
-                    <fa-icon [icon]="faBookmark"></fa-icon>
-                </a>
-                
-               <!-- <ng-container *ngIf="accountService.currentUser$ | async as user">
-                <a class="menu-button" (click)="onMenuButtonClick($event)">
-                        <span>{{user.displayName}}</span>
-                        <fa-icon [icon]="faUser"></fa-icon>
+            <div class="right-boxes">
+                <div class="box">
+                    <a class="menu-button" (click)="onMenuButtonClick($event)">
+                        <fa-icon [icon]="faBell"></fa-icon>
+                        <span>{{this.notifyCount}}</span>
                     </a>
-               </ng-container> -->
-               <ng-container *ngIf="accountService.currentUser$ | async as user">
-                    <a routerLink = './account/login'  style="margin-right: 1rem;">
-                    <div class="horizontal-container">
-                         <div class="vertical-container">
-                                <span>naj2bosch.con</span>
-                                <span>{{user.displayName}}</span>
+                </div>
+                <div class="box">
+                    <a class="menu-button" (click)="onMenuButtonClick($event)">
+                        <fa-icon [icon]="faBookmark"></fa-icon>
+                    </a>
+                </div>
+                <div class="box">
+                    <a [routerLink] = "['request']" class="pointer custom-link">
+                    My Requests
+                    </a> 
+                </div>  
+                <div>
+                <ng-container *ngIf="accountService.currentUser$ | async as user">
+                    <div class="box">
+                        <a routerLink = './account/login'>
+                        <div class="horizontal-container">
+                            <div class="vertical-container">
+                                    <span>naj2bosch.con</span>
+                                    <span>{{user.displayName}}</span>
+                                </div>
+                                <p-avatar icon="pi pi-user" styleClass="mr-2" size="small"></p-avatar>
                             </div>
-                            <p-avatar icon="pi pi-user" styleClass="mr-2" size="small"></p-avatar>
-                        </div>
-                    </a>
-                    
-               </ng-container>
-               <ng-container *ngIf="(accountService.currentUser$ | async) === null">
-                    <a (click)="accountService.logout()" class="btn btn-outline-secondary me-2">
-                        LogIn
-                    </a>
+                        </a>
+                    </div>                            
+                </ng-container>
+                <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+                    <div class="box">             
+                        <a (click)="accountService.logout()" class="btn btn-outline-secondary me-2">
+                            LogIn
+                        </a>           
+                    </div>
                 </ng-container>
             </div>
+            <!-- <div class="flex align-items-center justify-content space-evenly">
+              
+            </div> -->
+<!--          
+           <div class="flex align-items-center justify-content space-evenly">
+               
+              
+                
+              
+               
+               
+               
+           </div> -->
             
             <!-- <div class="app-theme" [pTooltip]="config.theme!" tooltipPosition="bottom">
                 <img [src]="'https://primefaces.org/cdn/primeng/images/themes/' + logoMap[config.theme!]" />
@@ -67,6 +90,22 @@ import { Role } from './domain/models/master';
         </div>
     `,
     styles:[`
+    .left-boxes{
+        display:flex;
+        
+    }
+    .box {
+        /* width: 100px; */
+        /* height: 100px; */
+        /* background-color: #ccc; */
+        
+        margin-right: 10px;
+    }
+    .right-boxes{
+        display:flex;
+        align-items:center;
+        margin-right:0;
+    }
     .vertical-container{
         display: flex;
         flex-direction: column;
@@ -77,6 +116,17 @@ import { Role } from './domain/models/master';
         justify-content:center;
         align-items:center;
     }
+    .pointer {
+    cursor: pointer;
+}
+.custom-link {
+    color: white; /* Set the default font color to white */
+    text-decoration: none; /* Remove the underline typically associated with links */
+}
+
+.custom-link:hover {
+    color: yellow; /* Change the font color to blue on hover */
+}
     .vertical-container span 
     {color: white; margin-right: 0.5rem;}`],
         animations: [
@@ -174,7 +224,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         this.accountService.currentUser$.subscribe((emp) => {
             console.log(emp);
             this.empService.getEmployeesBaseByCode(emp?.email!).subscribe((emp) => {
-                console.log(emp.team?.teamName);
+                // debugger;
+                //console.log(emp.team?.teamName);
                 this.hubConnectionBuilder.on('BrodcastMessage', (result: Notify) => {
                     console.log(this.notifyCount);
                     console.log(`${emp.employeeCode};${emp.team?.id}: ${result.team?.teamName}`);

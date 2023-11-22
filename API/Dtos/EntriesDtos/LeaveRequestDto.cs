@@ -18,11 +18,12 @@ namespace API.Dtos.EntriesDtos
         public string Reason { get; set; }
         public string Status { get; set; }
         public string CreatedBy { get; set; }
+        public int TemplateId { get; set; }
     }
     public class LeaveResponseDto
     {
         public int Id { get; set; }
-        public EmployeeCommonDto Employee { get; set; }
+        public RequestResponseDto RequestResponse { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public string LeaveType { get; set; }
@@ -30,11 +31,7 @@ namespace API.Dtos.EntriesDtos
         public int Days { get; set; }
         public string Reason { get; set; }
         public string Status { get; set; }
-        public DateTime CreateDate { get; set; }
-        public string CreatedBy { get; set; }
-        public string IsActive { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-        public string LastModifiedBy { get; set; }
+       
     }
     public class LeaveTypeReqDto
     {

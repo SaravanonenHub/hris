@@ -44,7 +44,7 @@
            
 
         </div>
-        <p-table #emp [value]="leaveRequests" [(selection)]="selectedRequest" selectionMode="single" dataKey="id"
+        <p-table #emp *ngIf="request$ | async as request" [value]="request" [(selection)]="selectedRequest" selectionMode="single" dataKey="id"
             [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [paginator]="true">
             <ng-template pTemplate="caption">
@@ -91,20 +91,20 @@
                         <p-columnFilter type="text" field="displayName" display="menu">
                         </p-columnFilter>
                         <p-sortIcon field="displayName"></p-sortIcon>
-                    </th>
-                    <th pSortableColumn="department" style="width:10%">Department
-                        <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter>
-                        <p-sortIcon field="toDate"></p-sortIcon>
-                    </th> -->
-                    <th pSortableColumn="designation" style="width:20%">From Date
+                    </th>-->
+                    <th pSortableColumn="id" style="width:10%">Request Id
+                        <!-- <p-columnFilter type="text" field="idStr" display="menu"></p-columnFilter> -->
+                        <p-sortIcon field="id"></p-sortIcon>
+                    </th> 
+                    <th pSortableColumn="fromDate" style="width:20%">From Date
                         <!-- <p-columnFilter type="text" field="fromDate" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="fromDate"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="leaveType" style="width:20%">To Date
+                    <th pSortableColumn="toDate" style="width:20%">To Date
                         <!-- <p-columnFilter type="text" field="toDate" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="toDate"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="leaveType" style="width:10%">Days
+                    <th pSortableColumn="days" style="width:10%">Days
                         <!-- <p-columnFilter type="text" field="days" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="days"></p-sortIcon>
                     </th>
@@ -112,11 +112,11 @@
                         <!-- <p-columnFilter type="text" field="leaveType" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="leaveType"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="leaveType" style="width:10%">Session
+                    <th pSortableColumn="session" style="width:10%">Session
                         <!-- <p-columnFilter type="text" field="session" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="session"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="leaveType" style="width:10%">Status
+                    <th pSortableColumn="status" style="width:10%">Status
                         <!-- <p-columnFilter type="text" field="status" display="menu"></p-columnFilter> -->
                         <p-sortIcon field="status"></p-sortIcon>
                     </th>
@@ -125,10 +125,10 @@
             <ng-template pTemplate="body" let-request>
                 <tr [pSelectableRow]="request">
                     <!-- <td>{{request.employee.employeeCode}}</td>
-                    <td>{{request.employee.displayName}}</td>
-                    <td>{{request.employee.department.departmentName}}</td> -->
-                    <td>{{request.fromDate}}</td>
-                    <td>{{request.toDate}}</td>
+                    <td>{{request.employee.displayName}}</td>-->
+                    <td>{{request.idStr}}</td> 
+                    <td>{{request.fDate}}</td>
+                    <td>{{request.tDate}}</td>
                     <td>{{request.days}}</td>
                     <td>{{request.leaveType}}</td>
                     <td>{{request.session}}</td>
