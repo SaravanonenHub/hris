@@ -17,6 +17,7 @@ namespace API.Dtos.EntriesDtos
         public int Days { get; set; }
         public string Reason { get; set; }
         public string Status { get; set; }
+        public string CancellationStatus { get; set; }
         public string CreatedBy { get; set; }
         public int TemplateId { get; set; }
     }
@@ -31,7 +32,8 @@ namespace API.Dtos.EntriesDtos
         public int Days { get; set; }
         public string Reason { get; set; }
         public string Status { get; set; }
-       
+        public string CancellationStatus { get; set; }
+
     }
     public class LeaveTypeReqDto
     {

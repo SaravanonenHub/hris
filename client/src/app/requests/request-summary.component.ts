@@ -33,11 +33,11 @@ import { IRequestDetails } from '../domain/models/request';
         <div class="column">
             <div class="field">
                 <label for="name3">Status:</label>
-                <label for="val3">{{requestDetails.status}}</label>
+                <label for="val3">{{requestDetails.entries.status}}</label>
             </div>
             <div class="field">
                 <label for="value3">Cancellation:</label>
-                <label for="val4">{{requestDetails.cancellationStatus == "N"? "No" : "Yes"}}</label>
+                <label for="val4">{{requestDetails.entries.cancellationStatus == "N"? "No" : "Yes"}}</label>
             </div>
         </div>
     </div>

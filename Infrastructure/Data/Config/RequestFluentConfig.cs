@@ -18,8 +18,8 @@ namespace Infrastructure.Data.Config
             modelBuilder.ToTable("T_REQUEST");
             modelBuilder.HasKey(c => c.Id);
             modelBuilder.Property(c => c.RequestId).IsRequired();
-            modelBuilder.Property(c => c.Status).IsRequired();
-            modelBuilder.Property(c => c.CancellationStatus).HasDefaultValue("N").IsRequired();
+            //modelBuilder.Property(c => c.Status).IsRequired();
+            //modelBuilder.Property(c => c.CancellationStatus).HasDefaultValue("N").IsRequired();
             modelBuilder
                 .HasOne(p => p.Type)
                 .WithMany(d => d.Requests)

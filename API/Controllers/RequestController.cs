@@ -3,6 +3,7 @@ using API.Errors;
 using AutoMapper;
 using Core.Entities.Entries;
 using Core.Interfaces;
+using Core.Interfaces.IEntries;
 using Core.Specifications;
 using Core.Specifications.EntriesSpec;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +15,13 @@ namespace API.Controllers
     public class RequestController : BaseApiController
     {
         private readonly IRequestService _service;
+        private readonly ILeaveService _leaveService;
         private readonly IMapper _mapper;
-        public RequestController(IRequestService service, IMapper mapper)
+        public RequestController(IRequestService service, IMapper mapper, ILeaveService leaveService)
         {
             _service = service;
             _mapper = mapper;
+            _leaveService = leaveService;
         }
         [HttpGet("requests")]
         public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetAllRequests(
@@ -37,8 +40,25 @@ namespace API.Controllers
    
             var request = await _service.GetRequest(id);
             if (request == null) return BadRequest(new ApiResponse(400, "Request not found for given ID"));
+            var reqType = request.Type.MainTableName;
+            var response = _mapper.Map<RequestEntriesResponseDto>(request);
+            switch (reqType)
+            {
+                case "T_LEAVE":
+                    Console.WriteLine("Leave");
+                    var param = new LeaveSpecParams() { RequestId = request.Id };
+                    var spec = new LeaveSpecification(param);
+                    var leave = await _leaveService.GetLeavebyRequestId(spec);
+                    response.TypeName = response.Type.TemplateName;
+                    if(leave != null) response.Leave = _mapper.Map<LeaveResponseDto>(leave);
+                    break;
+                default:
+                    Console.WriteLine("Default");
+                    break;
+            }
+            return Ok(response);
             //var entity = _service.GetEntity(request.Type.MainTableName,id);
-            return Ok(_mapper.Map<RequestDetailResponseDto>(request));
+            
             //return Ok(_mapper.Map<RequestDetailResponseDto>(request));
         }
     }

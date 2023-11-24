@@ -146,7 +146,7 @@ namespace API.Controllers
             {
                 foreach (var req in requests)
                 {
-                    req.Status = RequestAction.Approved;
+                    req.CurrentState = ActionTaken.Closed;
                     var result = await _requestService.UpdateRequest(req);
                 }
             }

@@ -48,7 +48,10 @@ namespace Infrastructure.Data.Services.EntriesRepo
         {
             return await _unitofWork.Repository<Leave>().GetEntityWithSpec(specification);
         }
-
+        public async Task<Leave> GetLeavebyRequestId(LeaveSpecification specification)
+        {
+            return await _unitofWork.Repository<Leave>().GetEntityWithSpec(specification);
+        }
         public IQueryable<Leave> GetRequestByIdNoTrack(RequestsByTeamSpecification specification)
         {
             return _unitofWork.Repository<Leave>().GetEntityWithSpecNoTrack(specification);

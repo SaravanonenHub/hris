@@ -17,11 +17,12 @@ export interface ILeave {
     employee?: IEmployee;
     fDate?:string;
     tDate?:string;
+    cancellationStatus:string;
 }
 export class Leave implements ILeave {
     reason: string = '';
     createdBy: string = '';
-    status: string = 'PENDING';
+    status: string = 'Submitted';
     id: number = 0;
     employeeId: number = 0;
     fromDate: Date = new Date();
@@ -31,6 +32,7 @@ export class Leave implements ILeave {
     session: string = 'FULLDAY';
     createDate: Date = new Date();
     templateId:number = 1;
+    cancellationStatus:string = 'N';
     
 }
 export interface ILeaveEntitlement {

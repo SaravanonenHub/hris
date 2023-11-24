@@ -59,7 +59,8 @@ export class CreateRequestsComponent {
     days: ['-'],
     session: [0, [Validators.min(1)]],
     reason: ['', [Validators.min(1)]],
-    status: ['Created'],
+    status: ['Submitted'],
+    cancellationStatus:['N'],
     templateId:[RequestTemplate.Leave]
   })
   @ViewChild('myFormRef') myFormRef:any;

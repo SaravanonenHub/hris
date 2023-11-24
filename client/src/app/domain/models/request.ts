@@ -1,4 +1,5 @@
 import { IEmployee } from "./employee";
+import { ILeave } from "./leave";
 
 export interface IRequestTemplate{
     templateName:string,
@@ -20,7 +21,7 @@ export interface IRequest{
     cancellationStatus:string,
     requestDate:string
 }
-export interface IRequestDetails{
+export type IRequestDetails={
     id:number,
     requestId:string,
     employee:IEmployee,
@@ -28,10 +29,12 @@ export interface IRequestDetails{
     type:IRequestTemplate,
     actions:IActionHistory[],
     description:string,
-    status:string,
-    cancellationStatus:string,
     requestDate:string
-}
+} & ({
+    typeName:'Leave',
+    entries:ILeave,
+})
+
 export interface IActionHistory{
     id:number,
     request:IRequest,

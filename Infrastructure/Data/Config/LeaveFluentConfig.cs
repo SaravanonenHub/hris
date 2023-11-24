@@ -22,6 +22,8 @@ namespace Infrastructure.Data.Config
             modelBuilder.Property(c => c.Days).IsRequired();
             modelBuilder.Property(c => c.LeaveType).IsRequired().HasMaxLength(15); ;
             modelBuilder.Property(c => c.Session).IsRequired().HasMaxLength(10);
+            modelBuilder.Property(c => c.Status).IsRequired().HasMaxLength(15);
+            modelBuilder.Property(c => c.CancellationStatus).IsRequired().HasMaxLength(5);
             modelBuilder.HasOne<Request>().WithOne()
                         .HasForeignKey<Leave>(c => c.RequestId)
                         .HasPrincipalKey<Request>(c => c.Id).IsRequired();

@@ -18,6 +18,7 @@ namespace Core.Interfaces.IEntries
         Task<IReadOnlyList<Leave>> RequesttoApproval(string empId);
         Task<IReadOnlyList<Leave>> MyLeaveRequests(RequestsByTeamSpecification specification);
         Task<Leave> GetRequestById(RequestsByTeamSpecification specification);
+        Task<Leave> GetLeavebyRequestId(LeaveSpecification specification);
         IQueryable<Leave> GetRequestByIdNoTrack(RequestsByTeamSpecification specification);
         Task<RequestTemplate> GetTemplatebyId(int id);
     }

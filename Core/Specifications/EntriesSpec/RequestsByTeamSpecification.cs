@@ -10,7 +10,7 @@ namespace Core.Specifications.EntriesSpec
     public class RequestsByTeamSpecification : BaseSpecification<Leave>
     {
         public RequestsByTeamSpecification() : base(x => 
-            (x.Request.Status == RequestAction.Submitted))
+            (x.Request.CurrentState == ActionTaken.Inprogress))
         {
             AddInclude(x => x.Request.Employee);
             AddInclude(x => x.Request.Employee.Department);

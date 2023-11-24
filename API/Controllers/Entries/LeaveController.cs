@@ -80,8 +80,9 @@ namespace API.Controllers.Entries
                 var _req = new Request
                 {
                     Employee = _emp,
-                    Status = RequestAction.Submitted,
-                    CancellationStatus = 'N',
+                    //Status = RequestAction.Submitted,
+                    //CancellationStatus = 'N',
+                    CurrentState = ActionTaken.Created,
                     Type = _template,
                     RequestedBy = _emp.EmployeeCode,
                     Description = $"Leave request raised on date from {leave.FromDate} to {leave.ToDate}",
@@ -169,7 +170,7 @@ namespace API.Controllers.Entries
                     {
                         LeaveType = leaveType
                         , Provided = detail.Day
-                        , Taken = requests.Where(x => x.LeaveType == leaveType.ShortName && x.Request.Status == RequestAction.Approved).Count()
+                        , Taken = requests.Where(x => x.LeaveType == leaveType.ShortName && x.Status == RequestAction.Approved).Count()
                     };
                     enititlement.Details.Add(entDetail);
                 }

@@ -108,7 +108,7 @@ export class TeamDetails {
     
 }
 export enum RequestTemplate{
-    Leave = 10,
+    Leave = 1,
     OnDuty,
     Permission
     

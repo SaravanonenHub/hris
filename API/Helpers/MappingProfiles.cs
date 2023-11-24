@@ -49,6 +49,7 @@ namespace API.Helpers
             //CreateMap<Request, MyRequestResponseDto>();
             CreateMap<Request, RequestResponseDto>();
             CreateMap<RequestResponseDto, Request>();
+            CreateMap<Request,RequestEntriesResponseDto>();
 
             CreateMap<Request, RequestDto>();
             CreateMap<RequestTemplate,RequestTemplateDto>();

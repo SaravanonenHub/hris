@@ -17,8 +17,9 @@ namespace Core.Entities.Entries
         public int TypeId { get; set; }
         public RequestTemplate Type { get; set; }
         public string Description { get; set; }
-        public string Status { get; set; }
-        public char CancellationStatus { get; set; }
+        public string CurrentState { get; set; }
+        //public string Status { get; set; }
+        //public char CancellationStatus { get; set; }
         public ICollection<ActionHistory> Actions { get; set; }
         //List<ActionHistory> Actions { get; set; }
 

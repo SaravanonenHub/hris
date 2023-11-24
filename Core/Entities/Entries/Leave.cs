@@ -42,8 +42,8 @@ namespace Core.Entities.Entries
         public string Session { get; set; }
         public int Days { get; set; }
         public string Reason { get; set; }
-        
-        //public ActionTaken Status { get; set; }
+        public string Status { get; set; }
+        public char CancellationStatus { get; set; }
         //List<LeaveAction> Actions { get; set; }
         // public NotifyProps Notify { get; set; }
 
