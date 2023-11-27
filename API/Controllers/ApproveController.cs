@@ -108,7 +108,7 @@ namespace API.Controllers
                 new RequestSpecParams() 
                 { 
                     EmpIds=empIds,
-                    Status=RequestAction.Submitted,
+                    Status=ActionTaken.Created,
                     
                 }
             );

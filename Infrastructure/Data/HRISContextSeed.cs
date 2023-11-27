@@ -57,6 +57,7 @@ namespace Infrastructure.Data
                 var requestTemplates = JsonSerializer.Deserialize<List<RequestTemplate>>(requestTemplateData);
                 context.RequestTemplates.AddRange(requestTemplates);
             }
+            
             if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
         }
     }
@@ -85,7 +86,30 @@ namespace Infrastructure.Data
                 var employees = JsonSerializer.Deserialize<List<Employee>>(employeeData);
                 context.Employees.AddRange(employees);
             }
+            
+            
             if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
+        }
+    }
+    public class HRISDetailsChildContextSeed
+    {
+        public static async Task SeedAsync(HRISContext context)
+        {
+            if (!context.Teams.Any())
+            {
+                var teamData = File.ReadAllText("../Infrastructure/Data/SeedData/team.json");
+                var teams = JsonSerializer.Deserialize<List<Team>>(teamData);
+                await context.Teams.AddRangeAsync(teams);
+                if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
+            }
+            if (!context.TeamDetails.Any())
+            {
+                var teamDetailsData = File.ReadAllText("../Infrastructure/Data/SeedData/teamDetails.json");
+                var teamDetails = JsonSerializer.Deserialize<List<TeamDetails>>(teamDetailsData);
+                context.TeamDetails.AddRange(teamDetails);
+                if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
+            }
+            
         }
     }
 }

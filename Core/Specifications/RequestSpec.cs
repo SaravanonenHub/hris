@@ -57,7 +57,7 @@ namespace Core.Specifications
             }
             if (!string.IsNullOrEmpty(param.Status))
             {
-                var statusCondition = Expression.Equal(Expression.Property(parameterExpression, "Status"), Expression.Constant(param.Status));
+                var statusCondition = Expression.Equal(Expression.Property(parameterExpression, "CurrentState"), Expression.Constant(param.Status));
                 conditions.Add(statusCondition);
             }
 

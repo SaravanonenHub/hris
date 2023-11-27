@@ -16,6 +16,8 @@ namespace Core.Entities.Employees
         [MaxLength(15)]
         public string TeamName { get; set; }
         public string DisplayName { get; set; }
+       
+        public int DepartmentId { get; set; }
         [Required]
         public Department Department { get; set; }
         [Required]

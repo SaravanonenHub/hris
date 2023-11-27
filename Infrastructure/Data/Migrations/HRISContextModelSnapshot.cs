@@ -430,7 +430,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1276,7 +1276,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasOne("Core.Entities.Employees.Team", "Team")
                         .WithMany("TeamDetails")
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
 

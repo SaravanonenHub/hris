@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\Infrastructure.csproj": {}
+    "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Core\\Core.csproj": {
+    "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\NAJ2COB\\.nuget\\packages\\",
-        "outputPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Core\\obj\\",
+        "projectPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\NAJ2COB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,21 +64,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.320\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\Infrastructure.csproj": {
+    "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\NAJ2COB\\.nuget\\packages\\",
-        "outputPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\obj\\",
+        "projectPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\NAJ2COB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -92,8 +92,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Core\\Core.csproj": {
-                "projectPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Core\\Core.csproj"
+              "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Core\\Core.csproj": {
+                "projectPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Core\\Core.csproj"
               }
             }
           }
@@ -144,7 +144,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.320\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

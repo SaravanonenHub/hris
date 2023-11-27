@@ -40,10 +40,13 @@ namespace Core.Entities.Employees
         // [Required]
         // [MaxLength(30)]
         // public Team Team { get; set; }
+        public int EmployeeId { get; set; }
         [Required]
         public Employee Employee { get; set; }
+        public int RoleId { get; set; }
         [Required]
         public TeamRole Role { get; set; }
+        public int TeamId { get; set; }
         public virtual Team Team { get; set; }
 
 
