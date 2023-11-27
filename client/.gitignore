@@ -40,3 +40,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ignore dtbcache.v2
+dtbcache.v2
+
+# Ignore .suo file inside .vs/HRIS/v17/
+.vs/HRIS/v17/.suo
