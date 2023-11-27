@@ -11,7 +11,12 @@ import { IActionHistory } from '../domain/models/request';
     </div>
     <p-timeline [value]="actions" layout="horizontal" align="top">
     <ng-template pTemplate="content" let-event>
-        {{ event.action }}
+      <div [ngClass]="{'p-timeline-event': true, 'p-timeline-current': event.current}">
+        <div class="p-timeline-event-content">
+          {{event.action}}
+        </div>
+      </div>
+        
     </ng-template>
 </p-timeline>
   `,
@@ -26,6 +31,6 @@ import { IActionHistory } from '../domain/models/request';
   ]
 })
 export class RequestJourneyComponent {
-  @Input() actions:IActionHistory[]=[]
+  @Input() actions: IActionHistory[] = []
 
 }

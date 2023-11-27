@@ -232,3 +232,6 @@ C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\refint\API.dll
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.pdb
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 C:\Saravanan\Angular\MyGitHub\hris\API\obj\Debug\net6.0\ref\API.dll
+D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\PROJECTS\ANGULAR2\HRISGitHub\hris\API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

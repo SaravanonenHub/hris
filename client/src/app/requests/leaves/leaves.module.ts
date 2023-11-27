@@ -10,11 +10,11 @@ import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { FieldsetModule } from 'primeng/fieldset';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducer } from './store/reducers';
-import { LeaveEffect } from './store/effects';
-import { EffectsModule } from '@ngrx/effects';
+// import { StoreModule } from '@ngrx/store';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { reducer } from './store/reducers';
+// import { LeaveEffect } from './store/effects';
+// import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   declarations: [
     LeaveRequestsComponent,
@@ -32,8 +32,8 @@ import { EffectsModule } from '@ngrx/effects';
     FileUploadModule,
     TableModule,
     FieldsetModule,
-    StoreModule.forFeature('leaves',reducer),
-    EffectsModule.forFeature([LeaveEffect])
+    // StoreModule.forFeature('leaves',reducer),
+    // EffectsModule.forFeature([LeaveEffect])
   ]
 })
 export class LeavesModule { }

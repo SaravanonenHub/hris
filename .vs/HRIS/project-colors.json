@@ -15,7 +15,12 @@
       "ProjectGuid": "85637285-156f-4bca-b828-b5b651204f5d",
       "DisplayName": "Infrastructure",
       "ColorIndex": 2
+    },
+    "8a861a5b-6333-4de5-871c-f56de4f880c4": {
+      "ProjectGuid": "8a861a5b-6333-4de5-871c-f56de4f880c4",
+      "DisplayName": "ActionStateService",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }

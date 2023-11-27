@@ -8,7 +8,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { RadioButtonModule } from 'primeng/radiobutton'
 import { CalendarModule } from 'primeng/calendar'
 import { SplitterModule } from 'primeng/splitter'
-import {ToastModule} from 'primeng/toast'
+import { ToastModule } from 'primeng/toast'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,9 +30,9 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
+// import { StoreModule } from '@ngrx/store';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,18 +62,18 @@ import { EffectsModule } from '@ngrx/effects';
     SharedModule,
     ToastModule,
     AvatarModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot(),
-     StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: !isDevMode(), // Restrict extension to log-only mode
-      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
-      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
-      //connectOutsideZone: true // If set to true, the connection is established outside the Angular zone for better performance
-    }),
+    // StoreModule.forRoot({}),
+    // EffectsModule.forRoot(),
+    //  StoreDevtoolsModule.instrument({
+    //   maxAge: 25, // Retains last 25 states
+    //   logOnly: !isDevMode(), // Restrict extension to log-only mode
+    //   autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    //   trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+    //   traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+    //   //connectOutsideZone: true // If set to true, the connection is established outside the Angular zone for better performance
+    // }),
   ],
-  providers: [AppConfigService, EmployeeService,MessageService],
+  providers: [AppConfigService, EmployeeService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

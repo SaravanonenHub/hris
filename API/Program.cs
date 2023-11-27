@@ -83,6 +83,7 @@ try
     await identityContext.Database.MigrateAsync();
     await HRISMasterContextSeed.SeedAsync(context);
     await HRISDetailContextSeed.SeedAsync(context);
+    await HRISDetailsChildContextSeed.SeedAsync(context);
     await AppIdentityDbContextSeed.SeedRolesAsync(userRole);
     await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }

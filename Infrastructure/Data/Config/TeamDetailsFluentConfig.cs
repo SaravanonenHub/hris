@@ -12,6 +12,18 @@ namespace Infrastructure.Data.Config
         public override void Configure(EntityTypeBuilder<TeamDetails> modelBuilder)
         {
             base.Configure(modelBuilder);
+            //modelBuilder.HasOne(c => c.Role)
+            //    .WithMany().IsRequired().HasForeignKey(c => c.RoleId)
+            //    .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
+
+            //modelBuilder.HasOne(c => c.Employee)
+            //   .WithMany().IsRequired().HasForeignKey(c => c.EmployeeId)
+            //   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
+
+            //modelBuilder.HasOne(c => c.Team)
+            //  .WithMany().IsRequired().HasForeignKey(c => c.TeamId)
+            //  .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.NoAction);
+
         }
     }
 }
