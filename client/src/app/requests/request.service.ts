@@ -8,9 +8,13 @@ import { HttpClient } from "@angular/common/http";
 })
 export class RequestService{
     baseUrl = environment.apiUrl;
+    token= localStorage.getItem('token');
+    header = {
+        Authorization :`Bearer ${this.token}`
+    };
     constructor(private http:HttpClient){}
     getRequests(){
-        return this.http.get<IRequest[]>(`${this.baseUrl}Request/requests`);
+        return this.http.get<IRequest[]>(`${this.baseUrl}Request/requests`,{headers:this.header});
     }
     getRequestDetail(id:number){
         return this.http.get<IRequestDetails>(`${this.baseUrl}Request/request/${id}`);

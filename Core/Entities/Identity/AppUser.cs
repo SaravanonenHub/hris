@@ -19,5 +19,8 @@ namespace Core.Entities.Identity
         [NotMapped]
         public string TeamRole { get; set; }
 
+        [NotMapped]
+        public int EmployeeId { get; set; }
+
     }
 }

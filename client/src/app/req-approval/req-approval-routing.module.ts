@@ -4,7 +4,7 @@ import { AuthGuard } from '../core/guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: ''
+    path: 'Details'
     , canActivate: [AuthGuard]
     , loadChildren: () => import('./leave-approval/leave-approval.module').then(m => m.LeaveApprovalModule)
   },

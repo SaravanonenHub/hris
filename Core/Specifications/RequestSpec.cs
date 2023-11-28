@@ -60,7 +60,11 @@ namespace Core.Specifications
                 var statusCondition = Expression.Equal(Expression.Property(parameterExpression, "CurrentState"), Expression.Constant(param.Status));
                 conditions.Add(statusCondition);
             }
-
+            if (!string.IsNullOrEmpty(param.EmployeeCode))
+            {
+                var codeCondition = Expression.Equal(Expression.Property(Expression.Property(parameterExpression, "Employee"), "EmployeeCode"), Expression.Constant(param.EmployeeCode));
+                conditions.Add(codeCondition);
+            }
             if (!string.IsNullOrEmpty(param.EmpIds))
             {
                 var empIdsArray = param.EmpIds.Split(',');

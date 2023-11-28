@@ -12,8 +12,10 @@ namespace Core.Entities.Masters
     [Table("T_ROLE_MAPPING")]
     public class UserRoleMapping: BaseInformation
     {
+        public int RoleId { get; set; }
         [Required]
         public TeamRole Role { get; set; }
+        public int ReportingRoleId { get; set; }
 
         [Required]
         public TeamRole ReportingRole { get; set; }

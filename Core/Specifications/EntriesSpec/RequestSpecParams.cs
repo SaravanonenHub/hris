@@ -12,6 +12,7 @@ namespace Core.Specifications.EntriesSpec
         public int? RequestId { get; set; }
         public int? TeamId { get; set; }
         public int? EmpId { get; set; }
+        public string EmployeeCode { get; set; }
         public string Status { get; set; }
         public string EmpIds { get; set; }
         public string RequestIds { get; set; }

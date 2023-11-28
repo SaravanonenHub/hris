@@ -29,7 +29,7 @@ namespace Infrastructure.Data.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.GivenName,user.DisplayName)
+                new Claim(ClaimTypes.GivenName,user.DisplayName),
 
             };
             var roles = await _userManager.GetRolesAsync(user);
@@ -37,7 +37,7 @@ namespace Infrastructure.Data.Services
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
-
+            //claims.Add(new Claim(ClaimTypes.NameIdentifier, user.NormalizedUserName));
             return claims;
         }
         public async Task<string> CreateToken(AppUser user)

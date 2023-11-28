@@ -25,8 +25,8 @@ namespace Infrastructure.Data.Services.EntriesRepo
         //}
         public async Task<bool> AlreadyExists(int empID, DateTime fDate, DateTime TDate)
         {
-            //var spec = new BaseSpecification<Leave>(c => c.Employee.Id == empID && c.FromDate >= fDate && c.ToDate <= TDate);
-            var spec = new BaseSpecification<Leave>(c => c.FromDate >= fDate && c.ToDate <= TDate);
+            var spec = new BaseSpecification<Leave>(c => c.Request.Employee.Id == empID && c.FromDate >= fDate && c.ToDate <= TDate);
+            //var spec = new BaseSpecification<Leave>(c => c.FromDate >= fDate && c.ToDate <= TDate);
             var exists = await _unitofWork.Repository<Leave>().ListAsync(spec);
             if (exists.Count == 0) return true;
             return false;

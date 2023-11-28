@@ -20,8 +20,8 @@ namespace API.Controllers
         {
             if (user is null) return BadRequest("Invalid User");
 
-            if (user.EmployeeCode == "3434" && user.Password == "3434")
-            {
+            //if (user.EmployeeCode == "3434" && user.Password == "3434")
+            //{
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("leo is bL0ody$weet"));
                 var signInCredential = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokenOptions = new JwtSecurityToken(
@@ -34,9 +34,9 @@ namespace API.Controllers
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return Ok(new AuthResponse { Token = tokenString });
-            }
+            //}
 
-            return Unauthorized();
+           // return Unauthorized();
         }
     }
 }

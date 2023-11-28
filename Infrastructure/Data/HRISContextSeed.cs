@@ -86,8 +86,13 @@ namespace Infrastructure.Data
                 var employees = JsonSerializer.Deserialize<List<Employee>>(employeeData);
                 context.Employees.AddRange(employees);
             }
-            
-            
+            if (!context.UserRoleMappings.Any())
+            {
+                var mappingData = File.ReadAllText("../Infrastructure/Data/SeedData/roleMapping.json");
+                var roleMapping = JsonSerializer.Deserialize<List<UserRoleMapping>>(mappingData);
+                context.UserRoleMappings.AddRange(roleMapping);
+            }
+
             if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
         }
     }

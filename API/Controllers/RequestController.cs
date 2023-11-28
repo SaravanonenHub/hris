@@ -6,12 +6,14 @@ using Core.Interfaces;
 using Core.Interfaces.IEntries;
 using Core.Specifications;
 using Core.Specifications.EntriesSpec;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
-
+    [Authorize]
     public class RequestController : BaseApiController
     {
         private readonly IRequestService _service;
@@ -27,12 +29,18 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetAllRequests(
             [FromQuery] RequestSpecParams requestParams)
         {
+            var employeeId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (string.IsNullOrEmpty(employeeId))
+                return Ok(BadRequest(new ApiResponse(400, "Login Credential end!")));
+                
+            requestParams.EmployeeCode = employeeId;
+
             var spec = new RequestSpec(requestParams);
+
             var requests = await _service.GetRequests(spec);
             if (!requests.Any()) return BadRequest(new ApiResponse(400, "Request Not found"));
             var data = _mapper.Map<IReadOnlyList<RequestResponseDto>>(requests);
             return Ok(data);
-            ;
         }
         [HttpGet("request/{id:int}")]
         public async Task<ActionResult<RequestDetailResponseDto>> GetRequestById(int id)
