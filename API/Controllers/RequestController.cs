@@ -2,6 +2,7 @@
 using API.Errors;
 using AutoMapper;
 using Core.Entities.Entries;
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Core.Interfaces.IEntries;
 using Core.Specifications;
@@ -18,21 +19,23 @@ namespace API.Controllers
     {
         private readonly IRequestService _service;
         private readonly ILeaveService _leaveService;
+        private readonly IEmployeeRepository _empService;
         private readonly IMapper _mapper;
-        public RequestController(IRequestService service, IMapper mapper, ILeaveService leaveService)
+        public RequestController(IRequestService service, IMapper mapper, ILeaveService leaveService, IEmployeeRepository empService)
         {
             _service = service;
             _mapper = mapper;
             _leaveService = leaveService;
+            _empService = empService;
         }
         [HttpGet("requests")]
         public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetAllRequests(
             [FromQuery] RequestSpecParams requestParams)
         {
-            var employeeId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var employeeId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(employeeId))
                 return Ok(BadRequest(new ApiResponse(400, "Login Credential end!")));
-                
+
             requestParams.EmployeeCode = employeeId;
 
             var spec = new RequestSpec(requestParams);

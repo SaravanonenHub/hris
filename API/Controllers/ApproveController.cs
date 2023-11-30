@@ -9,12 +9,15 @@ using Core.Interfaces;
 using Core.Specifications;
 using Core.Specifications.EntriesSpec;
 using Core.Specifications.MasterSpec;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class ApproveController : BaseApiController
     {
         private readonly ITeamRepository _teamService;
@@ -55,11 +58,14 @@ namespace API.Controllers
                                 .FirstOrDefault());
             return Ok(employees);
         }
-        [HttpGet("approvals/{empId:int}")]
-        public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetSubmittersRequest(int empId)
+        [HttpGet("approvals")]
+        public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetSubmittersRequest()
         {
             //get employee teams
-            var teamdetailFilter = new TeamDetailFilterSpec() { EmpId = empId };
+            var employeeId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(employeeId))
+                return Ok(BadRequest(new ApiResponse(400, "Login Credential end!")));
+            var teamdetailFilter = new TeamDetailFilterSpec() { EmpCode = employeeId };
             var teams = await _teamService.GetEmployeeTeams(teamdetailFilter);
             var _teamDetails = new List<TeamResponseDto>();
             if (!teams.Any()) return BadRequest(new ApiResponse(400, "Team not found for emloyee"));
@@ -73,7 +79,7 @@ namespace API.Controllers
             var _teamDetail = _mapper.Map<IReadOnlyList<TeamDetails>, IReadOnlyList<TeamDetailsResponseDto>>(teams);
 
             //get role mapped to his role
-            var roleId = teams.Where(x => x.Employee.Id == empId).FirstOrDefault();
+            var roleId = teams.Where(x => x.Employee.EmployeeCode == employeeId).FirstOrDefault();
             var _rolesMapped = await _teamService.GetRolesMapped(roleId.Role.Id);
 
             //loop over team and get employees with having specific role
@@ -114,7 +120,7 @@ namespace API.Controllers
             );
             var requests = await _requestService.GetRequests(spec);
             //var employeesWithPendingLeave = requests.Where(x => employees.Contains(x.Employee.Id));
-            return Ok(_mapper.Map<RequestResponseDto>(requests));
+            return Ok(_mapper.Map<IReadOnlyList<RequestResponseDto>>(requests));
         }
 
         [HttpPatch("approval/{requestId:int}")]
