@@ -1,0 +1,7 @@
+
+    <ng-template ngFor let-request [ngForOf]="openApprovals" (click) ="onRequestSelect(request)" >
+        <app-actions [request]="request"></app-actions>
+    </ng-template>
+    <ng-template #detailContainer class="detail-container"></ng-template>
+
+<!-- <p>Details works</p> -->

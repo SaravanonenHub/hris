@@ -5,17 +5,24 @@ import { ReqApprovalRoutingModule } from './req-approval-routing.module';
 import { MyOpenApprovalComponent } from './my-open-approval.component';
 import { MyClosedApprovalComponent } from './my-closed-approval.component';
 import { MyApprovalComponent } from './my-approval/my-approval.component';
-
+import {AccordionModule} from 'primeng/accordion';
+import {TableModule} from 'primeng/table';
+import { MyApprovalDetailComponent } from './my-approval-detail/my-approval-detail.component';
+import { ActionsComponent } from './my-approval-detail/actions.component'
 
 @NgModule({
   declarations: [
     MyOpenApprovalComponent,
     MyClosedApprovalComponent,
-    MyApprovalComponent
+    MyApprovalComponent,
+    MyApprovalDetailComponent,
+    ActionsComponent
   ],
   imports: [
     CommonModule,
-    ReqApprovalRoutingModule
+    ReqApprovalRoutingModule,
+    AccordionModule,
+    TableModule
   ]
 })
 export class ReqApprovalModule { }

@@ -37,7 +37,7 @@ namespace Infrastructure.Data.Services
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
-            //claims.Add(new Claim(ClaimTypes.NameIdentifier, user.NormalizedUserName));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.NormalizedUserName));
             return claims;
         }
         public async Task<string> CreateToken(AppUser user)

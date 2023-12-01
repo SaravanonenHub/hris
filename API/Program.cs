@@ -20,6 +20,7 @@ builder.Services.AddControllers(opt =>
     opt.InputFormatters.Insert(0, MYJPIF.GetJsonInputFormatter());
 });
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddSwaggerExtension();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -13,6 +13,7 @@ namespace API.Dtos.EntriesDtos
         public RequestTemplateDto Type { get; set; }
         public EmployeeCommonDto Employee { get; set; }
         public string Description { get; set; }
+        public string CurrentState { get; set; }
         public string Status { get; set; }
         public char CancellationStatus { get; set; }
         public string RequestedBy { get; set; }

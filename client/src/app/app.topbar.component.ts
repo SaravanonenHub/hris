@@ -46,6 +46,11 @@ import { Role } from './domain/models/master';
                     <a [routerLink] = "['request']" class="pointer custom-link">
                     My Requests
                     </a> 
+                </div> 
+                <div class="box">
+                    <a [routerLink] = "['approval']" class="pointer custom-link">
+                    My Approvals
+                    </a> 
                 </div>  
                 <div>
                 <ng-container *ngIf="accountService.currentUser$ | async as user">

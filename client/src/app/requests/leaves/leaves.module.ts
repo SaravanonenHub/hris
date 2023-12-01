@@ -10,6 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { FieldsetModule } from 'primeng/fieldset';
+import { LeaveDetailsComponent } from './leave-details/leave-details.component';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { reducer } from './store/reducers';
@@ -19,6 +20,7 @@ import { FieldsetModule } from 'primeng/fieldset';
   declarations: [
     LeaveRequestsComponent,
     CreateRequestsComponent,
+    LeaveDetailsComponent,
 
   ],
   imports: [

@@ -21,6 +21,7 @@ namespace Core.Specifications.MasterSpec
         public TeamDetailWithIncludesSpec(TeamDetailFilterSpec filter) : base( x =>
              (!filter.Id.HasValue || x.Id == filter.Id)
             && (!filter.EmpId.HasValue || x.Employee.Id == filter.EmpId)
+            && (!string.IsNullOrEmpty(filter.EmpCode) || x.Employee.EmployeeCode == filter.EmpCode)
             && (!filter.RoleId.HasValue || x.Role.Id == filter.EmpId))
         {
             AddInclude(x => x.Employee);
@@ -35,5 +36,6 @@ namespace Core.Specifications.MasterSpec
         public int? Id { get; set; }
         public int? EmpId { get; set; }
         public int? RoleId { get; set; }
+        public string? EmpCode { get; set; }
     }
 }

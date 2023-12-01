@@ -19,7 +19,8 @@ export interface IRequest{
     description:string,
     status:string,
     cancellationStatus:string,
-    requestDate:string
+    requestDate:string,
+    currentState:string
 }
 export type IRequestDetails={
     id:number,
