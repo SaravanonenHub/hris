@@ -1,7 +1,26 @@
+<div class="main-wrapper">
+    <div class="action-container">
+        <ng-template ngFor let-request [ngForOf]="openApprovals" (click)="onRequestSelect(request)">
+            <app-actions (requestSelect)="onRequestSelect($event)" [request]="request"></app-actions>
+        </ng-template>
+    </div>
+    <div class="detail-container">
+        <ng-template #detailContainer>
 
-    <ng-template ngFor let-request [ngForOf]="openApprovals" (click) ="onRequestSelect(request)" >
-        <app-actions [request]="request"></app-actions>
-    </ng-template>
-    <ng-template #detailContainer class="detail-container"></ng-template>
+        </ng-template>
+        <!-- <ng-container *ngIf="selectedRequest">
+            <ng-component-outlet [ngComponentOutlet]="component"
+                [ngComponentOutletOptions]="inputs"></ng-component-outlet>
+        </ng-container> -->
+        <!-- <ng-containter [ngIf]="selectedRequest">
+            <ng-component-outlet [ngComponentOutlet]="loadComponent().component"
+                [ngComponentOutletOptions]="loadComponent().inputs" class=" detail-container">
+            </ng-component-outlet>
+        </ng-containter> -->
+
+    </div>
+</div>
+
+
 
 <!-- <p>Details works</p> -->

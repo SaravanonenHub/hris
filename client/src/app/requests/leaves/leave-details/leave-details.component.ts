@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IRequest } from 'src/app/domain/models/request';
 
 @Component({
   selector: 'app-leave-details',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./leave-details.component.scss']
 })
 export class LeaveDetailsComponent {
-
+  @Input() request!: IRequest;
 }

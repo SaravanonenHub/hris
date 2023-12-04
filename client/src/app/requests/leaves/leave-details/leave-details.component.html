@@ -1,1 +1,39 @@
-<p>leave-details works!</p>
+<section class="Info">
+    <div class="ticketNumber">
+        <div class="infoLabel">
+            <label for="ticketNo">Number</label>
+            <label>{{request.requestId}}</label>
+        </div>
+    </div>
+    <div class="infoDayStatus">
+        <div class="infoLabel">
+            <label for="created">Created</label>
+            <label>{{request.requestId}}</label>
+        </div>
+        <div class="infoLabel">
+            <label for="updated">Updated</label>
+            <label>{{request.requestId}}</label>
+        </div>
+        <div class="infoLabel">
+            <label for="state">State</label>
+            <label>{{request.requestId}}</label>
+        </div>
+    </div>
+
+</section>
+<section class="Title">
+    <header>{{request.type.templateName}}</header>
+    <div class="info">
+        <div class="infoLabel">
+            <label for="state">Leave Type</label>
+            <label>{{request.requestId}}</label>
+        </div>
+        <div class="infoLabel">
+            <label for="state">Requested for</label>
+            <label>{{request.employee.displayName}}</label>
+        </div>
+    </div>
+</section>
+<section class="Details">
+
+</section>

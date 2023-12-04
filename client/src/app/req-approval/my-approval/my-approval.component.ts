@@ -9,9 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './my-approval.component.html',
   styleUrls: ['./my-approval.component.scss']
 })
-export class MyApprovalComponent  {
-  constructor(private router:Router){}
- onRequestClick(){
-  this.router.navigate(['./approval/approve'])
- }
+export class MyApprovalComponent {
+  constructor(private router: Router) { }
+  onRequestClick(req: IRequest) {
+    this.router.navigate(['./approval/approve'], { queryParams: { 'id': req.id } })
+  }
 }
