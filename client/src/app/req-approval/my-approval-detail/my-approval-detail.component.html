@@ -1,7 +1,8 @@
 <div class="main-wrapper">
     <div class="action-container">
         <ng-template ngFor let-request [ngForOf]="openApprovals" (click)="onRequestSelect(request)">
-            <app-actions (requestSelect)="onRequestSelect($event)" [request]="request"></app-actions>
+            <app-actions (requestApprove)="onApprove($event)" (requestSelect)="onRequestSelect($event)"
+                [request]="request"></app-actions>
         </ng-template>
     </div>
     <div class="detail-container">

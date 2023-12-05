@@ -243,35 +243,51 @@ namespace API.Controllers.Entries
         //    return Ok(data);
         //}
 
-        //[HttpPost("approval")]
-        //public async Task<ActionResult<Leave>> LeaveAction([FromQuery] RequestSpecParams requestParams)
-        //{
-        //    var spec = new RequestsByTeamSpecification(requestParams);
-        //    var request = _service.GetRequestByIdNoTrack(spec).AsEnumerable().SingleOrDefault();
-        //    var action = new ActionHistory
-        //    {
-        //        Action = ActionTaken.Approved,
-        //        ActionBy = request.Request.Employee.EmployeeCode,
-        //        Leave = request,
-        //        Reason = "Action taken on Request"
-        //    };
-        //    request.Request.Status = RequestAction.Approved;
-        //    var result = await _service.UpdateLeave(request);
-        //    if (result == null) return BadRequest(new ApiResponse(400, "Problem creating Leave"));
-        //    var actionResult = await _actionService.CreateAction(action);
-        //    NotifyProps notify = new NotifyProps
-        //    {
-        //        Type = "Approval",
-        //        Message = "New Leave approval Approved",
-        //        // Team = request.Employee.Team,
-        //        // TeamRole = request.Employee.TeamRole,
-        //        Employee = null
+        [HttpPut("approval")]
+        public async Task<ActionResult<Leave>> LeaveAction([FromBody] LeavePatchModel model)
+        {
+            var spec = new RequestsByTeamSpecification(model.Id);
+            var leave = await _service.GetRequestById(spec);
+            if (leave == null) return BadRequest(new ApiResponse(400, "Leave not found"));
+            //var request = _service.GetRequestByIdNoTrack(spec).AsEnumerable().SingleOrDefault();
+            var action = new ActionHistory
+            {
+                Action = ActionTaken.Closed,
+                ActionBy = leave.Request.Employee.EmployeeCode,
+                Request = leave.Request,
+                Comment = "Action taken on Request"
+            };
+            var actionResult = await _actionService.CreateAction(action);
+            if (actionResult == null) return BadRequest(new ApiResponse(400, "Problem updating action"));
+            leave.Request.CurrentState = ActionTaken.Closed;
+            var reqResult = await _requestService.UpdateRequest(leave.Request);
+            if (reqResult == null) return BadRequest(new ApiResponse(400, "Problem updating Request"));
+            switch (model.Status)
+            {
+                case "Approved":
+                    leave.Status = RequestAction.Approved;
+                    break;
+                case "Rejected":
+                    leave.Status = RequestAction.Rejected;
+                    break;
+                default:
+                    break;
+            };
+            var result = await _service.UpdateLeave(leave);
+            if (result == null) return BadRequest(new ApiResponse(400, "Problem updating Leave"));
+            NotifyProps notify = new NotifyProps
+            {
+                Type = "Approval",
+                Message = "New Leave approval Approved",
+                // Team = request.Employee.Team,
+                // TeamRole = request.Employee.TeamRole,
+                Employee = null
 
-        //    };
-        //    var notifyResult = await _notifyservice.AddNotification(notify);
-        //    await _hubContext.Clients.All.BrodcastMessage(notify);
-        //    return Ok();
-        //}
+            };
+            var notifyResult = await _notifyservice.AddNotification(notify);
+            await _hubContext.Clients.All.BrodcastMessage(notify);
+            return Ok("Modified");
+        }
         //[HttpPost("bulkapporval")]
         //public async Task<ActionResult<Leave>> BulkAction([FromQuery] string bulkIds)
         //{

@@ -9,7 +9,7 @@ import { IRequest } from 'src/app/domain/models/request';
   <p>{{request.employee.displayName}}
   </p>
   <ng-template pTemplate="footer">
-      <p-button label="Approve" icon="pi pi-check"></p-button>
+      <p-button label="Approve" icon="pi pi-check" (click) = "onApprovalClick(request)"></p-button>
       <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
   </ng-template>
 </p-card>
@@ -28,7 +28,11 @@ import { IRequest } from 'src/app/domain/models/request';
 export class ActionsComponent {
   @Input() request!: IRequest
   @Output() requestSelect: EventEmitter<IRequest> = new EventEmitter<IRequest>();
+  @Output() requestApprove: EventEmitter<IRequest> = new EventEmitter<IRequest>();
   OnRequestClick(req: IRequest) {
     this.requestSelect.emit(req);
+  }
+  onApprovalClick(req: IRequest) {
+    this.requestApprove.emit(req);
   }
 }

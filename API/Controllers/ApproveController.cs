@@ -131,13 +131,14 @@ namespace API.Controllers
                 return BadRequest(new ApiResponse(400, "Model Invalid"));
             }
             var request = await _requestService.GetRequest(requestId);
-            var requestDto = _mapper.Map<RequestDto>(request);
-            patchDoc.ApplyTo(requestDto);
-            _mapper.Map(requestDto, request);
+            //var requestDto = _mapper.Map<RequestDto>(request);
+            //patchDoc.ApplyTo(requestDto);
+            //_mapper.Map(requestDto, request);
             if(!ModelState.IsValid)
             { 
                 return BadRequest(new ApiResponse(400, "Request not found"));
             }
+            request.CurrentState = ActionTaken.Closed;
             var result = await _requestService.UpdateRequest(request);
             return Ok(result);
         }

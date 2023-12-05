@@ -1,0 +1,60 @@
+.info {
+    display: flex;
+    flex-direction: row;
+
+    .ticketNumber {
+
+        display: flex;
+        justify-content: flex-start;
+        /* Change to flex-end to align on the right */
+
+        /* Align items to the top */
+    }
+
+    .infoDayStatus {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+
+    label {
+        display: block;
+    }
+}
+
+.info-label {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.label-key {
+    color: gray;
+    font-weight: bold;
+}
+
+.title {
+    height: 8rem;
+    border: 0.5px solid black;
+
+    header {
+        background-color: dodgerblue;
+        color: white;
+        font-size: large;
+        padding-left: 0.5rem;
+    }
+}
+
+.details {
+    margin-top: 2rem;
+    height: auto;
+    border: 0.5px solid silver;
+
+    .info-label {
+        margin-bottom: 1rem;
+    }
+
+    label {
+        display: block;
+    }
+}

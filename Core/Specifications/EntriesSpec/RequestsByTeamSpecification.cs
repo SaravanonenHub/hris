@@ -41,6 +41,8 @@ namespace Core.Specifications.EntriesSpec
             :base(x => x.Id == id)
         {
             AddInclude(x => x.Request);
+            AddInclude($"{nameof(Leave.Request)}.{nameof(Request.Employee)}");
+            AddInclude($"{nameof(Leave.Request)}.{nameof(Request.Type)}");
 
         }
 

@@ -1,7 +1,7 @@
 import { Injectable, Injector, Type } from "@angular/core";
 
 import { environment } from 'src/environments/environment';
-import { IRequest } from "../domain/models/request";
+import { IRequest, IRequestDetails } from "../domain/models/request";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { AccountService } from "../account/account.service";
 import { firstValueFrom } from "rxjs";
@@ -28,7 +28,7 @@ export class ApprovalService {
         return this.http.get<IRequest[]>(`${this.baseAPIURL}Approve/approvals`, { headers: header, params: params });
     }
     getRequestDetail(id: number) {
-        return this.http.get<IRequest>(`${this.baseAPIURL}Request/request/${id}`, { headers: this.header });
+        return this.http.get<IRequestDetails>(`${this.baseAPIURL}Request/request/${id}`, { headers: this.header });
     }
     getDetailComponent(req: IRequest): { component: Type<any>, inputs: Record<string, unknown> } {
         if (req != undefined) {
@@ -41,5 +41,12 @@ export class ApprovalService {
         }
 
         return { component: LeaveDetailsComponent, inputs: { request: req } }
+    }
+    requestApprove(id: number) {
+        // let param = new HttpParams();
+        // param = param.append('id', id);
+        // param = param.append('status', "Approved");
+        const body = { 'id': id, 'status': 'Approved' };
+        return this.http.put(this.baseAPIURL + 'Leave/approval', body);
     }
 }

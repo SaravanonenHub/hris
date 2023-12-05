@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Entries;
 using Core.Interfaces;
 using Core.Specifications;
+using Core.Specifications.EntriesSpec;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace Infrastructure.Data.Services
         }
         public async Task<Request> GetRequest(int id)
         {
-            var spec = new RequestSpec();
+            var spec = new RequestSpec(new RequestSpecParams { RequestId = id});
             return await _unitofWork.Repository<Request>().GetEntityWithSpec(spec);
         }
         //public async Task<object> GetEntity(string tableName, int id)
