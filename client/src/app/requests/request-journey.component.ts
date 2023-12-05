@@ -4,11 +4,12 @@ import { IActionHistory } from '../domain/models/request';
 @Component({
   selector: 'app-request-journey',
   template: `
-    <div class="summary-box">
+
+    <ng-container *ngIf="actions" class="summary-box">
         <h2>{{actions[actions.length - 1].action}}</h2>
         <p>{{actions[actions.length - 1].actionDate | date}}
         <p>Request was realized successfully</p>
-    </div>
+    </ng-container>
     <p-timeline [value]="actions" layout="horizontal" align="top">
     <ng-template pTemplate="content" let-event>
       <div [ngClass]="{'p-timeline-event': true, 'p-timeline-current': event.current}">

@@ -96,6 +96,7 @@ namespace Core.Specifications
             AddInclude(x => x.Employee);
             AddInclude(x => x.Employee.Department);
             AddInclude(x => x.Type);
+            AddInclude(x => x.Actions);
             // Combine conditions using OrElse
             if (!conditions.Any())
             {

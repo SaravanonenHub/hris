@@ -1,21 +1,26 @@
 <section>
-    <div class="container" *ngIf="requestDetails">
-      <h2>#{{requestDetails.requestId}}</h2>
-      <p>
-        {{requestDetails.type.templateName}}
-      </p>
+  <div class="container" *ngIf="requestDetails">
+    <h2>#{{requestDetails.requestId}}</h2>
+    <p>
+      {{requestDetails.type.templateName}}
+    </p>
+    <ng-template [ngIf]="requestDetails.actions">
       <h2>{{requestDetails.actions[requestDetails.actions.length - 1].action}}</h2>
-    </div>
-  </section>
-  <div style="text-align: left;">
-    <p-tabView >
-      <p-tabPanel  header="Request Journey">
-        <app-request-journey [actions]="requestDetails?.actions!"></app-request-journey>
-      </p-tabPanel>
-      <p-tabPanel  header="Request Details">
-        <app-request-summary [requestDetails]="requestDetails!"></app-request-summary>
-      </p-tabPanel>
-    </p-tabView>
+    </ng-template>
+
   </div>
-  
-  
+</section>
+<div style="text-align: left;">
+  <p-tabView>
+    <p-tabPanel header="Request Journey">
+      <ng-container *ngIf="requestDetails?.actions!; else noaction"></ng-container>
+      <app-request-journey [actions]="requestDetails?.actions!"></app-request-journey>
+      <ng-template #noaction>
+        <p>Till no action has been made on this request</p>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Request Details">
+      <app-request-summary [requestDetails]="requestDetails!"></app-request-summary>
+    </p-tabPanel>
+  </p-tabView>
+</div>

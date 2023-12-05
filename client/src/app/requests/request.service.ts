@@ -4,19 +4,19 @@ import { environment } from 'src/environments/environment';
 import { IRequest, IRequestDetails } from "../domain/models/request";
 import { HttpClient } from "@angular/common/http";
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
-export class RequestService{
+export class RequestService {
     baseUrl = environment.apiUrl;
-    token= localStorage.getItem('token');
+    token = localStorage.getItem('token');
     header = {
-        Authorization :`Bearer ${this.token}`
+        Authorization: `Bearer ${this.token}`
     };
-    constructor(private http:HttpClient){}
-    getRequests(){
-        return this.http.get<IRequest[]>(`${this.baseUrl}Request/requests`,{headers:this.header});
+    constructor(private http: HttpClient) { }
+    getRequests() {
+        return this.http.get<IRequest[]>(`${this.baseUrl}Request/requests`, { headers: this.header });
     }
-    getRequestDetail(id:number){
-        return this.http.get<IRequestDetails>(`${this.baseUrl}Request/request/${id}`);
+    getRequestDetail(id: number) {
+        return this.http.get<IRequestDetails>(`${this.baseUrl}Request/request/${id}`, { headers: this.header });
     }
 }

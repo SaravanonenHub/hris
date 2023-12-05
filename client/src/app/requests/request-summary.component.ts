@@ -2,68 +2,84 @@ import { Component, Input } from '@angular/core';
 import { IRequestDetails } from '../domain/models/request';
 
 @Component({
-  selector: 'app-request-summary',
-  template: `
+    selector: 'app-request-summary',
+    template: `
+    <ng-container *ngIf ="requestDetails">
     <h2>
-      Request details
-    </h2>
-    <div class="form-container">
-        <div class="column">
-            <div class="field">
-                <label for="name1">Type:</label>
-                <label for="val1">Request</label>
-            </div>
-            <div class="field">
-                <label for="value1">Request:</label>
-                <label for="val2">{{requestDetails!.type!.templateName}}</label>
-            </div>
-        </div>
+    Request details
+  </h2>
+  <div class="form-container">
+      <div class="column">
+          <div class="field">
+              <label for="name1">Type:</label>
+              <label for="val1">Request</label>
+          </div>
+          <div class="field">
+              <label>Request:</label>
+              <label >{{requestDetails.type.templateName}}</label>
+              
+          
+              
+          </div>
+      </div>
 
-        <div class="column">
-            <div class="field">
-                <label for="name2">Created:</label>
-                <label for="name2">{{requestDetails.requestDate | date}}</label>
-            </div>
-            <div class="field">
-                <label for="value2">Closed:</label>
-                <label for="name2">{{requestDetails.actions[requestDetails.actions.length-1].actionDate | date}}</label>
-            </div>
-        </div>
+      <div class="column">
+          <div class="field">
+              <label for="name2">Created:</label>
+              <label for="name2">{{requestDetails.requestDate | date}}</label>
+          </div>
+          <div class="field">
+              <label for="value2">Closed:</label>
+              <ng-container *ngIf="requestDetails?.actions!">
+                  <label for="name2">{{requestDetails.actions[requestDetails.actions.length-1].actionDate | date}}</label>
+              </ng-container>
+              <ng-template #noActionLabel>
+                  <label>No Action</label>
+              </ng-template>
+          </div>
+      </div>
 
-        <div class="column">
-            <div class="field">
-                <label for="name3">Status:</label>
-                <label for="val3">{{requestDetails.entries.status}}</label>
-            </div>
-            <div class="field">
-                <label for="value3">Cancellation:</label>
-                <label for="val4">{{requestDetails.entries.cancellationStatus == "N"? "No" : "Yes"}}</label>
-            </div>
-        </div>
-    </div>
-    <h3>
-      Summary
-    </h3>
-    <div class="summary-box">
-        <div class="description">
-            <strong>Overview</strong>
-            <!-- Bind your description data here -->
-            <p>{{requestDetails.description}}</p>
-        </div>
+      <div class="column">
+          <div class="field">
+              <label for="name3">Status:</label>
+              <label for="val3">{{requestDetails.entries.status}}</label>
+          </div>
+          <div class="field">
+              <label for="value3">Cancellation:</label>
+              <label for="val4">{{requestDetails.entries.cancellationStatus == "N"? "No" : "Yes"}}</label>
+          </div>
+      </div>
+  </div>
+  <h3>
+    Summary
+  </h3>
+  <div class="summary-box">
+      <div class="description">
+          <strong>Overview</strong>
+          <!-- Bind your description data here -->
+          <p>{{requestDetails.description}}</p>
+      </div>
 
-        <div class="actions-summary">
-          <strong>actions:</strong>
+      <div class="actions-summary">
+        <strong>actions:</strong>
+        <ng-container *ngIf="requestDetails!.actions; else noAction">
           <ng-template ngFor let-item [ngForOf]= requestDetails!.actions>
-            <li>{{item.summary}}</li>
+          <li>{{item.summary}}</li>
           </ng-template>
-            <!-- Bind your actions summary list here -->
-            <!-- <ul *ngFor="let item in requestDetails!.actions">
-                <li></li>
-            </ul> -->
-        </div>
-    </div>
+        </ng-container>
+        <ng-template #noAction>
+          <p>Till no action has been made on this request</p>
+        </ng-template>
+          <!-- Bind your actions summary list here -->
+          <!-- <ul *ngFor="let item in requestDetails!.actions">
+              <li></li>
+          </ul> -->
+      </div>
+  </div>
+    </ng-container>
+    
   `,
-  styles: [`
+    styles: [`
 .form-container {
     display: flex;
     justify-content: space-around;
@@ -135,8 +151,8 @@ import { IRequestDetails } from '../domain/models/request';
     }
 }
   `
-  ]
+    ]
 })
 export class RequestSummaryComponent {
-  @Input() requestDetails!:IRequestDetails
+    @Input() requestDetails!: IRequestDetails
 }
