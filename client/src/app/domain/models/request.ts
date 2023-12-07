@@ -20,7 +20,8 @@ export interface IRequest {
     status: string,
     cancellationStatus: string,
     requestDate: string,
-    currentState: string
+    currentState: string,
+    IsRemoving:boolean;
 }
 export type IRequestDetails = {
     id: number,

@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Services
         }
         public async Task<Request> GetRequest(int id)
         {
-            var spec = new RequestSpec(new RequestSpecParams { RequestId = id});
+            var spec = new RequestSpec(new RequestSpecParams { RequestId = id, Status = "Created"});
             return await _unitofWork.Repository<Request>().GetEntityWithSpec(spec);
         }
         //public async Task<object> GetEntity(string tableName, int id)

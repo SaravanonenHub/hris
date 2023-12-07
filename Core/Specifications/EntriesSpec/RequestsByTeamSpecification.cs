@@ -21,7 +21,7 @@ namespace Core.Specifications.EntriesSpec
                     //(string.IsNullOrEmpty(param.Search) || x.Request.Employee.DisplayName.ToLower().Contains(param.Search)) &&
                     // (!param.TeamId.HasValue || x.Employee.Team.Id == param.TeamId) &&
                     //(!param.EmpId.HasValue || x.Request.Employee.Id == param.EmpId) &&
-                   // (!string.IsNullOrEmpty(param.Status) || x.Request.Status == param.Status) &&
+                    (!string.IsNullOrEmpty(param.Status) || x.Request.CurrentState == param.Status) &&
                     (!param.RequestId.HasValue || x.Id == param.RequestId))
         {
             AddInclude(x => x.Request);

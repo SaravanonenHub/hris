@@ -7,10 +7,12 @@ import { LeavesRoutingModule } from './leaves-routing.module';
 import { LeaveRequestsComponent } from './leave-requests.component';
 import { CreateRequestsComponent } from './create-requests/create-requests.component';
 import { CalendarModule } from 'primeng/calendar';
+import {ColorPickerModule} from 'primeng/colorpicker'
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 import { FieldsetModule } from 'primeng/fieldset';
 import { LeaveDetailsComponent } from './leave-details/leave-details.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { reducer } from './store/reducers';
@@ -34,6 +36,7 @@ import { LeaveDetailsComponent } from './leave-details/leave-details.component';
     FileUploadModule,
     TableModule,
     FieldsetModule,
+    RadioButtonModule
     // StoreModule.forFeature('leaves',reducer),
     // EffectsModule.forFeature([LeaveEffect])
   ]

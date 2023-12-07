@@ -244,9 +244,9 @@ namespace API.Controllers.Entries
         //}
 
         [HttpPut("approval")]
-        public async Task<ActionResult<Leave>> LeaveAction([FromBody] LeavePatchModel model)
+        public async Task<ActionResult<Leave>> LeaveAction([FromBody] RequestSpecParams model)
         {
-            var spec = new RequestsByTeamSpecification(model.Id);
+            var spec = new RequestsByTeamSpecification(model);
             var leave = await _service.GetRequestById(spec);
             if (leave == null) return BadRequest(new ApiResponse(400, "Leave not found"));
             //var request = _service.GetRequestByIdNoTrack(spec).AsEnumerable().SingleOrDefault();
@@ -286,7 +286,7 @@ namespace API.Controllers.Entries
             };
             var notifyResult = await _notifyservice.AddNotification(notify);
             await _hubContext.Clients.All.BrodcastMessage(notify);
-            return Ok("Modified");
+            return Ok();
         }
         //[HttpPost("bulkapporval")]
         //public async Task<ActionResult<Leave>> BulkAction([FromQuery] string bulkIds)

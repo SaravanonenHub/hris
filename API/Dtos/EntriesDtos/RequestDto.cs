@@ -13,4 +13,9 @@ namespace API.Dtos.EntriesDtos
         public char CancellationStatus { get; set; }
 
     }
+    public class RequestPatchModel
+    {
+        public int RequestId { get; set; }
+        public string Status { get; set; }
+    }
 }

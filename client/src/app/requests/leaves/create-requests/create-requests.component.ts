@@ -61,7 +61,8 @@ export class CreateRequestsComponent {
     reason: ['', [Validators.min(1)]],
     status: ['Submitted'],
     cancellationStatus:['N'],
-    templateId:[RequestTemplate.Leave]
+    templateId:[RequestTemplate.Leave],
+    dayType:[]
   })
   @ViewChild('myFormRef') myFormRef:any;
   constructor(private fb: FormBuilder, private service: LeaveService

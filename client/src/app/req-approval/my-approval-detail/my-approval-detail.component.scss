@@ -118,7 +118,10 @@ button:hover {
   background-color: #d9534f;
   /* Adjust as needed */
 }
-
+.remove-animation {
+  /* Define your animation properties here, e.g., opacity, transform, etc. */
+  transition: opacity 0.5s ease-in-out;
+}
 /* Media query for larger screens (laptops and desktops) */
 @media (min-width: 768px) {
 

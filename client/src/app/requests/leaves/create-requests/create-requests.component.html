@@ -11,6 +11,7 @@
         <h4>Description</h4>
         <p>The Leave Policy is a confidential document that outlines the policies and procedures for granting employees time off from work. This document outlines the leave categories and the number of days taken for each type. It also provides accrual, carrying over, and vacation time usage information.</p>
         
+
         <p-fieldset legend="Entitlement" [toggleable]="true"  (onBeforeToggle)="onBeforeToggle()">
             <p-table [value]="entitlement?.details!" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption"> {{entitlement?.policyName}} </ng-template>
@@ -51,7 +52,19 @@
         <label for="balance">Balance:</label>
         <input pInputText id="balance" formControlName="balance"
                     style="padding-top: 20px;width: 100%;margin-bottom: 5px;" />
-        
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <p-radioButton name="pizza" value="Cheese" formControlName="dayType" inputId="ingredient1"></p-radioButton>
+                <label for="ingredient1" class="ml-2">One day</label>
+            </div>
+            
+            <div class="flex align-items-center">
+                <p-radioButton name="pizza" value="Mushroom" formControlName="dayType" inputId="ingredient2"></p-radioButton>
+                <label for="ingredient2" class="ml-2">more than one day</label>
+            </div>
+            
+        </div>
+
         <label for="session">Session</label>
             <p-dropdown [options]="sessions" formControlName="session" placeholder="-" optionLabel="label"
                 optionValue="label" inputId="float-label" (onChange)="onSessionChange($event)"></p-dropdown>

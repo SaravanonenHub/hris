@@ -43,7 +43,7 @@ export class MyClosedApprovalComponent {
   constructor(private service:ApprovalService){}
   ngOnInit(): void {
     debugger;
-   this.service.getOpenApproval().then((val) => {
+   this.service.getClosedApproval().then((val) => {
     val.subscribe((data) => this.closedApprovals = data);
    });
     

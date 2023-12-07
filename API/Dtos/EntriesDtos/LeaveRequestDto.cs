@@ -35,11 +35,7 @@ namespace API.Dtos.EntriesDtos
         public string CancellationStatus { get; set; }
 
     }
-    public class LeavePatchModel
-    {
-        public int Id { get; set; }
-        public string Status { get; set; }
-    }
+    
     public class LeaveTypeReqDto
     {
         public string EntitleName { get; set; }

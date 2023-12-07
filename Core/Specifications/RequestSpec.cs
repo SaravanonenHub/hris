@@ -45,6 +45,7 @@ namespace Core.Specifications
         {
             // Access 'x' using the parameterExpression
             var conditions = new List<Expression>();
+            var andConditions = new List<Expression>();
             if (param.RequestId.HasValue)
             {
                 var idCondition = Expression.Equal(Expression.Property(parameterExpression, "Id"), Expression.Constant(param.RequestId));
@@ -58,7 +59,7 @@ namespace Core.Specifications
             if (!string.IsNullOrEmpty(param.Status))
             {
                 var statusCondition = Expression.Equal(Expression.Property(parameterExpression, "CurrentState"), Expression.Constant(param.Status));
-                conditions.Add(statusCondition);
+                andConditions.Add(statusCondition);
             }
             if (!string.IsNullOrEmpty(param.EmployeeCode))
             {
@@ -102,10 +103,13 @@ namespace Core.Specifications
             {
                 return null;
             }
-            var combinedConditions = conditions
+            var orCombinedConditions = conditions
                 .Aggregate((accumulatedCondition, nextCondition) =>
                     Expression.OrElse(accumulatedCondition, nextCondition));
+            var andCombinedConditions = andConditions.Aggregate((acc,nxt) => 
+                    Expression.AndAlso(acc, nxt)); 
 
+            var combinedConditions = Expression.AndAlso(orCombinedConditions,andCombinedConditions);
             // Create the final lambda expression
             var lambda = Expression.Lambda<Func<Request, bool>>(combinedConditions, parameterExpression);
 

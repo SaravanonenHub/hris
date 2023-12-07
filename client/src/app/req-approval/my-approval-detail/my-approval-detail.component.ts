@@ -61,9 +61,12 @@ export class MyApprovalDetailComponent {
   }
   onApprove(req: IRequest) {
 
-    this.service.requestApprove(req.id).subscribe(() => {
+    this.service.requestApprove(req).subscribe(() => {
       const index = this.openApprovals.findIndex(item => item.id === req.id);
-      this.openApprovals.splice(index);
+      this.openApprovals[index].IsRemoving = true;
+      setTimeout(() => {
+        this.openApprovals.splice(index, 1);
+      }, 500);
       console.log("Approved");
     })
   }
