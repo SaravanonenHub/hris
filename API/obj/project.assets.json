@@ -4267,19 +4267,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\NAJ2COB\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\API\\API.csproj",
+      "projectUniqueName": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\NAJ2COB\\.nuget\\packages\\",
-      "outputPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\API\\obj\\",
+      "projectPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\NAJ2COB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4293,8 +4293,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Saravanan\\Angular\\MyGitHub\\hris\\Infrastructure\\Infrastructure.csproj"
+            "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "D:\\PROJECTS\\ANGULAR2\\HRISGitHub\\hris\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -4354,7 +4354,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.320\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

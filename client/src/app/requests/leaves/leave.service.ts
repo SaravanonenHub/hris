@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from 'src/app/domain/models/employee';
-import { ILeave, ILeaveEntitlement, Leave } from 'src/app/domain/models/leave';
+import { ILeave, ILeaveEntitlement, ILeaveRequest, Leave } from 'src/app/domain/models/leave';
 import { leavePolicyParams } from 'src/app/shared/models/leavePolicyParams';
 import { environment } from 'src/environments/environment';
 
@@ -13,7 +13,7 @@ export class LeaveService {
   constructor(private http: HttpClient) { }
   create(params: any) {
     console.log(params);
-    return this.http.post<ILeave>(this.baseUrl + 'Leave/create', params);
+    return this.http.post<ILeaveRequest>(this.baseUrl + 'Leave/create', params);
   }
   Actioncreate(id: number) {
     let params = new HttpParams().set('requestid', id);
@@ -21,17 +21,15 @@ export class LeaveService {
     // params = params.append('requestid', id);
     return this.http.post<ILeave>(this.baseUrl + 'Leave/approval', {}, { params });
   }
-  BulKAction(ids:string)
-  {
-    let params = new HttpParams().set('bulkIds',ids)
+  BulKAction(ids: string) {
+    let params = new HttpParams().set('bulkIds', ids)
     return this.http.post<ILeave>(this.baseUrl + 'Leave/bulkapporval', {}, { params });
   }
-  getEntitlement(param:leavePolicyParams)
-  {
-   
+  getEntitlement(param: leavePolicyParams) {
+
     let params = new HttpParams();
 
-  
+
     if (param.policyName !== "") {
       params = params.append('PolicyName', param.policyName!.toString());
     }
@@ -40,7 +38,7 @@ export class LeaveService {
     }
     if (param.empId! > 0) {
       params = params.append('EmpId', param?.empId!.toString())
-  
+
     }
     return this.http.get<ILeaveEntitlement>(this.baseUrl + 'Leave/entitlement', { params });
   }

@@ -1,5 +1,6 @@
 ﻿using API.Dtos.EntriesDtos;
 using API.Errors;
+using API.Extensions;
 using AutoMapper;
 using Core.Entities.Entries;
 using Core.Entities.Identity;
@@ -48,9 +49,13 @@ namespace API.Controllers
         [HttpGet("request/{id:int}")]
         public async Task<ActionResult<RequestDetailResponseDto>> GetRequestById(int id)
         {
-   
+
+            var emp = HttpContext.User.RetriveUserFromPrincipal();
+            var empRole = HttpContext.User.RetriveUserRoleFromPrincipal();
             var request = await _service.GetRequest(id);
             if (request == null) return BadRequest(new ApiResponse(400, "Request not found for given ID"));
+            if (emp != request.Employee.EmployeeCode && empRole != "Admin")
+                return BadRequest(new ApiResponse(401, "You are not authorized to view this detail"));
             var reqType = request.Type.MainTableName;
             var response = _mapper.Map<RequestEntriesResponseDto>(request);
             switch (reqType)

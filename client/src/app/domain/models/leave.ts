@@ -1,10 +1,11 @@
 import { Validators } from "@angular/forms";
 import { IEmployee } from "./employee";
 import { ILeaveType } from "./master";
+import { IRequest, IRequestDetails } from "./request";
 
 export interface ILeave {
     id: number;
-    idStr?:string;
+    idStr?: string;
     employeeId: number;
     fromDate: Date;
     toDate: Date;
@@ -15,9 +16,12 @@ export interface ILeave {
     reason: string;
     status: string
     employee?: IEmployee;
-    fDate?:string;
-    tDate?:string;
-    cancellationStatus:string;
+    fDate?: string;
+    tDate?: string;
+    cancellationStatus: string;
+}
+export interface ILeaveRequest extends ILeave {
+    request: IRequestDetails
 }
 export class Leave implements ILeave {
     reason: string = '';
@@ -31,20 +35,20 @@ export class Leave implements ILeave {
     leaveType: LeaveType = LeaveType.CASUALLEAVE;
     session: string = 'FULLDAY';
     createDate: Date = new Date();
-    templateId:number = 1;
-    cancellationStatus:string = 'N';
-    
+    templateId: number = 1;
+    cancellationStatus: string = 'N';
+
 }
 export interface ILeaveEntitlement {
-    id:Number,
-    policyName:string;
-    shortName:string;
-    details:ILeaveEntitlementDetail[]
+    id: Number,
+    policyName: string;
+    shortName: string;
+    details: ILeaveEntitlementDetail[]
 }
-export interface ILeaveEntitlementDetail{
-    leaveType:ILeaveType;
-    provided:number;
-    taken:number;
+export interface ILeaveEntitlementDetail {
+    leaveType: ILeaveType;
+    provided: number;
+    taken: number;
 }
 // export class LeaveType {
 //     id?: number;

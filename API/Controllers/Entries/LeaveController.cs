@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using API.Dtos.EntriesDtos;
 using API.Dtos.MasterDtos;
 using API.Errors;
+using API.Extensions;
 using AutoMapper;
 using Core.Entities;
 using Core.Entities.Actions;
@@ -22,11 +23,12 @@ using Core.Specifications.EntriesSpec;
 using Core.Specifications.MasterSpec;
 using Infrastructure.Data;
 using Infrastructure.Data.Services.Notify;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 namespace API.Controllers.Entries
 {
-
+    [Authorize]
     public class LeaveController : BaseApiController
     {
         private readonly ILeaveService _service;
@@ -60,6 +62,7 @@ namespace API.Controllers.Entries
         {
             if (ModelState.IsValid)
             {
+                var empId = HttpContext.User.RetriveUserFromPrincipal();
                 var _emp = await _empservice.GetEmployeeById(0, leave.EmployeeId);
                 var _template = await _service.GetTemplatebyId(leave.TemplateId);
                 DateTime fdate = DateTime.MinValue;
@@ -127,8 +130,11 @@ namespace API.Controllers.Entries
         public async Task<IActionResult> LeaveRequestById(int id)
         {
             //var param = new RequestSpecParams() { RequestId = id };
+            var emp = HttpContext.User.RetriveUserFromPrincipal();
+            var empRole = HttpContext.User.RetriveUserRoleFromPrincipal();
             var spec = new RequestsByTeamSpecification(id);
             var requests = await _service.GetRequestById(spec);
+            
             if (requests == null) return NotFound(new ApiResponse(404));
             return Ok(_mapper.Map<Leave, LeaveResponseDto>(requests));
 
@@ -156,7 +162,7 @@ namespace API.Controllers.Entries
 
 
             //get all leave taken by corresponding person in this academic year
-            var param = new RequestSpecParams { EmpId = filter.EmpId };
+            var param = new LeaveSpecParams { EmpId = filter.EmpId };
             var spec = new RequestsByTeamSpecification(param);
             var requests = await _service.MyLeaveRequests(spec);
             var enititlement = new LeaveEntitlement { Id = _policy.Id, PolicyName = _policy.PolicyName, ShortName = _policy.ShortName };
@@ -170,7 +176,8 @@ namespace API.Controllers.Entries
                     {
                         LeaveType = leaveType
                         , Provided = detail.Day
-                        , Taken = requests.Where(x => x.LeaveType == leaveType.ShortName && x.Status == RequestAction.Approved).Count()
+                        , Taken = requests.Where(x => x.LeaveType == leaveType.LeaveName && (x.Status == RequestAction.Submitted
+                                                || x.Status== RequestAction.Approved)).Count()
                     };
                     enititlement.Details.Add(entDetail);
                 }

@@ -1,74 +1,23 @@
-<section class="info">
-    <div class="ticketNumber">
-        <div class="info-label">
-            <label class="label-key">Number</label>
-            <label>{{request.requestId}}</label>
-        </div>
-    </div>
-    <div class="infoDayStatus">
-        <div class="info-label">
-            <label class="label-key">Created</label>
-            <label>{{request.requestDate}}</label>
-        </div>
-        <div class="info-label">
-            <label class="label-key">Updated</label>
-            <label>{{request.requestDate}}</label>
-        </div>
-        <div class="info-label">
-            <label class="label-key">State</label>
-            <label>{{request.currentState}}</label>
-        </div>
-    </div>
+<div class="main-wrapper">
+    <div class="left-container"></div>
+    <div class="container">
+        <div class="note">
+            <header>Note</header>
+            <p>Hello User!, you have the flexibility to edit or change the details of your leave request as long as the
+                request is in
+                the "In Approval" state <br> Once your leave request moves to the "In Progress" state, modifications or
+                edits are temporarily restricted.
+                <br>This is to ensure a smooth and organized workflow during the processing of your request.
+            </p>
 
-</section>
-<section class="title">
-    <header>{{request.type.templateName}}</header>
-    <div class="info">
-        <div class="info-label">
-            <label class="label-key">Leave ID</label>
-            <label>{{request.requestId}}</label>
         </div>
-        <div class="info-label">
-            <label class="label-key">Requested for</label>
-            <label>{{request.employee.displayName}}</label>
+        <div class="action">
+            <a router-link="['requests']">Back to my requests</a>
+            <button id="cancel-btn">Cancel</button>
         </div>
+        <ng-container *ngIf="request$">
+            <app-leave-detail-info [request$]="request$"></app-leave-detail-info>
+        </ng-container>
+
     </div>
-</section>
-<section class="details">
-    <div class="info-label">
-        <label class="label-key">Requested for</label>
-        <label>{{request.employee.displayName}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">Leave Type</label>
-        <label>{{request.entries.leaveType}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">Applied days</label>
-        <label>{{request.entries.days}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">From Date</label>
-        <label>{{request.entries.fromDate}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">To Date</label>
-        <label>{{request.entries.toDate}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">Session</label>
-        <label>{{request.entries.session}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">Status</label>
-        <label>{{request.entries.status}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">Cancell Status</label>
-        <label>{{request.entries.cancellationStatus}}</label>
-    </div>
-    <div class="info-label">
-        <label class="label-key">Reason</label>
-        <label>{{request.entries.reason}}</label>
-    </div>
-</section>
+</div>

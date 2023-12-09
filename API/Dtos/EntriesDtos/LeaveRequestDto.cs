@@ -14,7 +14,7 @@ namespace API.Dtos.EntriesDtos
         public string ToDate { get; set; }
         public string LeaveType { get; set; }
         public string Session { get; set; }
-        public int Days { get; set; }
+        public float Days { get; set; }
         public string Reason { get; set; }
         public string Status { get; set; }
         public string CancellationStatus { get; set; }
@@ -24,7 +24,7 @@ namespace API.Dtos.EntriesDtos
     public class LeaveResponseDto
     {
         public int Id { get; set; }
-        public RequestResponseDto RequestResponse { get; set; }
+        public RequestResponseDto Request { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public string LeaveType { get; set; }

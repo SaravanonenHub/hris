@@ -7,7 +7,7 @@ import { LeaveDetailsComponent } from './leave-details/leave-details.component';
 const routes: Routes = [{
   path: '', component: LeaveRequestsComponent
 },
-{path:'details/:id',component:LeaveDetailsComponent},
+{ path: 'leaveDetails', component: LeaveDetailsComponent },
 { path: 'leave-add', component: CreateRequestsComponent },];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { TableModule } from 'primeng/table';
 import { FieldsetModule } from 'primeng/fieldset';
 import { LeaveDetailsComponent } from './leave-details/leave-details.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { LeaveDetailInfoComponent } from './leave-detail-info.component';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { reducer } from './store/reducers';
@@ -23,6 +24,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     LeaveRequestsComponent,
     CreateRequestsComponent,
     LeaveDetailsComponent,
+    LeaveDetailInfoComponent,
 
   ],
   imports: [

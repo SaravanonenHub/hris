@@ -15,13 +15,19 @@ namespace Core.Specifications.EntriesSpec
             AddInclude(x => x.Request.Employee);
             AddInclude(x => x.Request.Employee.Department);
         }
-
+        public RequestsByTeamSpecification(LeaveSpecParams param) : base(x =>
+            (!param.EmpId.HasValue || x.Request.Employee.Id == param.EmpId))
+        {
+            AddInclude(x => x.Request);
+            AddInclude(x => x.Request.Employee);
+            AddInclude(x => x.Request.Employee.Department);
+        }
         public RequestsByTeamSpecification(RequestSpecParams param)
                 : base(x =>
                     //(string.IsNullOrEmpty(param.Search) || x.Request.Employee.DisplayName.ToLower().Contains(param.Search)) &&
                     // (!param.TeamId.HasValue || x.Employee.Team.Id == param.TeamId) &&
-                    //(!param.EmpId.HasValue || x.Request.Employee.Id == param.EmpId) &&
-                    (!string.IsNullOrEmpty(param.Status) || x.Request.CurrentState == param.Status) &&
+                    (!param.EmpId.HasValue || x.Request.Employee.Id == param.EmpId) &&
+                    (!string.IsNullOrEmpty(param.Status) || x.Status == param.Status) &&
                     (!param.RequestId.HasValue || x.Id == param.RequestId))
         {
             AddInclude(x => x.Request);

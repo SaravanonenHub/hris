@@ -20,7 +20,7 @@ import { AppTopBarComponent } from './app.topbar.component';
 import { AppConfigService } from './service/appconfigservice';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { InputTextModule } from 'primeng/inputtext';
 
 import { CommonModule } from '@angular/common';
@@ -30,6 +30,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
+import { UserInterceptor } from './core/interceptors/user-interceptor.service';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { EffectsModule } from '@ngrx/effects';
@@ -73,7 +74,8 @@ import { AvatarModule } from 'primeng/avatar';
     //   //connectOutsideZone: true // If set to true, the connection is established outside the Angular zone for better performance
     // }),
   ],
-  providers: [AppConfigService, EmployeeService, MessageService],
+  providers: [AppConfigService, EmployeeService, MessageService
+    , { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

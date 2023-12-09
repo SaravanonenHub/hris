@@ -24,7 +24,8 @@ namespace Core.Specifications.EntriesSpec
     {
         public int? Id { get; set; }
         public int? RequestId { get; set; }
-        public string Status { get; set; }
-        public char CancellationStatus { get; set; }
+        public string? Status { get; set; }
+        public char? CancellationStatus { get; set; }
+        public int? EmpId { get; set; }
     }
 }
