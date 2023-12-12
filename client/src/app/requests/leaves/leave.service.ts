@@ -47,6 +47,11 @@ export class LeaveService {
     params = params.append('empid', id);
     return this.http.get<ILeave[]>(this.baseUrl + 'Leave/requests', { params });
   }
+  getRequest(id: number) {
+    let params = new HttpParams();
+    params = params.append('id', id);
+    return this.http.get<ILeaveRequest>(`${this.baseUrl}Leave/request/${id}`);
+  }
   getPendingRequests(id: number) {
     let params = new HttpParams();
     params = params.append('empid', id);

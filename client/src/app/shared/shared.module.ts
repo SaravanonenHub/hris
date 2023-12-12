@@ -6,6 +6,7 @@ import {DropdownModule} from 'primeng/dropdown'
 import { DepartmentDDLComponent } from './dropdowns/department-ddl/department-ddl.component';
 import { DesignationDDLComponent } from './dropdowns/designation-ddl/designation-ddl.component';
 import { DivisionDDLComponent } from './dropdowns/division-ddl/division-ddl.component';
+import { CusInputComponent } from './custom-controll/cus-input.component';
 
 
 
@@ -14,7 +15,8 @@ import { DivisionDDLComponent } from './dropdowns/division-ddl/division-ddl.comp
     AlertComponent,
     DepartmentDDLComponent,
     DesignationDDLComponent,
-    DivisionDDLComponent
+    DivisionDDLComponent,
+    CusInputComponent
   ],
   imports: [
     CommonModule,

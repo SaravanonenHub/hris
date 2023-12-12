@@ -14,6 +14,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { LeaveDetailsComponent } from './leave-details/leave-details.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { LeaveDetailInfoComponent } from './leave-detail-info.component';
+import { EditRequestsComponent } from './edit-requests/edit-requests.component';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { reducer } from './store/reducers';
@@ -25,6 +26,7 @@ import { LeaveDetailInfoComponent } from './leave-detail-info.component';
     CreateRequestsComponent,
     LeaveDetailsComponent,
     LeaveDetailInfoComponent,
+    EditRequestsComponent,
 
   ],
   imports: [

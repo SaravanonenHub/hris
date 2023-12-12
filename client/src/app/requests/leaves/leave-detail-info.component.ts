@@ -10,7 +10,11 @@ import { IRequestDetails } from 'src/app/domain/models/request';
       <div class="ticketNumber">
           <div class="info-label">
               <label class="label-key">Number</label>
+              <span>
               <label>{{request.requestId}}</label>
+              <a [routerLink]="['../leave-edit']" [queryParams]="{ requestId: request.id }">edit</a>
+              </span>
+              
           </div>
       </div>
       <div class="infoDayStatus">
@@ -105,6 +109,12 @@ import { IRequestDetails } from 'src/app/domain/models/request';
     label {
         display: block;
     }
+    a {
+            cursor: pointer;
+            color: dodgerblue;
+            font-style: italic;
+            margin-right: 20px;
+        }
 }
 
 .info-label {

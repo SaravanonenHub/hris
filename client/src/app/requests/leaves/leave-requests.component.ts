@@ -101,4 +101,5 @@ export class LeaveRequestsComponent implements OnInit {
       next: requests => this.leaveRequests = requests
     })
   }
+
 }

@@ -21,7 +21,8 @@ export interface ILeave {
     cancellationStatus: string;
 }
 export interface ILeaveRequest extends ILeave {
-    request: IRequestDetails
+    request: IRequestDetails,
+    entitlement:ILeaveEntitlement
 }
 export class Leave implements ILeave {
     reason: string = '';

@@ -127,16 +127,44 @@ namespace API.Controllers.Entries
         [HttpGet("request/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(LeaveResponseDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> LeaveRequestById(int id)
+        public async Task<IActionResult> LeaveRequestById(int Id)
         {
             //var param = new RequestSpecParams() { RequestId = id };
             var emp = HttpContext.User.RetriveUserFromPrincipal();
             var empRole = HttpContext.User.RetriveUserRoleFromPrincipal();
-            var spec = new RequestsByTeamSpecification(id);
-            var requests = await _service.GetRequestById(spec);
-            
-            if (requests == null) return NotFound(new ApiResponse(404));
-            return Ok(_mapper.Map<Leave, LeaveResponseDto>(requests));
+            var spec = new RequestsByTeamSpecification(Id);
+            var request = await _service.GetRequestById(spec);            
+            if (request == null) return NotFound(new ApiResponse(404));
+
+            var policySpec = new LeavePolicySpec(request.Request.Employee.LeavePolicyId, new LeavePolicyFilterParams { EmpId=request.Request.Employee.Id});
+            var _policy = await _policyService.GetLeavePolicyByIdWithFilter(policySpec);
+            if (_policy == null) return BadRequest(new ApiResponse(400, "Policy Not found"));
+
+            var reqparam = new LeaveSpecParams { EmpId = request.Request.Employee.Id };
+            var reqspec = new RequestsByTeamSpecification(reqparam);
+            var requests = await _service.MyLeaveRequests(reqspec);
+            var enititlement = new LeaveEntitlement { Id = _policy.Id, PolicyName = _policy.PolicyName, ShortName = _policy.ShortName };
+            //iterate over leave policy detail, and update leave taken property based of leaves received
+            foreach (var detail in _policy.LeavePolicyDetails)
+            {
+                if (enititlement != null)
+                {
+                    var leaveType = _mapper.Map<LeaveType, LeaveTypeResponseDto>(detail.LeaveType);
+                    var entDetail = new LeaveEntitlementDetail
+                    {
+                        LeaveType = leaveType
+                        ,
+                        Provided = detail.Day
+                        ,
+                        Taken = requests.Where(x => x.LeaveType == leaveType.LeaveName && x.Id != request.Id && (x.Status == RequestAction.Submitted
+                                                || x.Status == RequestAction.Approved)).Count()
+                    };
+                    enititlement.Details.Add(entDetail);
+                }
+            }
+            var response = _mapper.Map<Leave, LeaveResponseDto>(request);
+            response.Entitlement = enititlement;
+            return Ok(response);
 
         }
        

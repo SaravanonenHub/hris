@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos.EmployeeDtos;
+using API.Dtos.MasterDtos;
 using Core.Entities.Masters;
 
 namespace API.Dtos.EntriesDtos
@@ -33,6 +34,7 @@ namespace API.Dtos.EntriesDtos
         public string Reason { get; set; }
         public string Status { get; set; }
         public string CancellationStatus { get; set; }
+        public LeaveEntitlement Entitlement { get; set; }
 
     }
     
