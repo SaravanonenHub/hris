@@ -17,8 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     </div>
   `,
   styles: [
-    `
-      .loading-input-container {
+    `.loading-input-container {
         position: relative;
       }
 

@@ -123,6 +123,21 @@ namespace API.Controllers.Entries
                 return BadRequest(new ApiResponse(400, "Model Invalid!"));
             }
          }
+        [HttpPut("cancel")]
+        public async Task<ActionResult<LeaveResponseDto>> LeaveCancel(int id)
+        {
+            var spec = new RequestsByTeamSpecification(id);
+            var request = await _service.GetRequestById(spec);
+            if (request == null) return BadRequest(new ApiResponse(400, "Request not found"));
+            request.CancellationStatus = 'Y';
+            request.Request.CurrentState = RequestAction.Cancelled;
+            var reqResult = await _requestService.UpdateRequest(request.Request);
+            if (reqResult == null) return BadRequest(new ApiResponse(400, "Error on updating request"));
+            var result = await _service.UpdateLeave(request);
+            if (result == null) return BadRequest(new ApiResponse(400, "Error on updating leave"));
+            return Ok(_mapper.Map<LeaveResponseDto>(result));
+
+        }
         
         [HttpGet("request/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(LeaveResponseDto))]

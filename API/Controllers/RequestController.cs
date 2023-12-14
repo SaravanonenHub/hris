@@ -30,13 +30,12 @@ namespace API.Controllers
             _empService = empService;
         }
         [HttpGet("requests")]
-        public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetAllRequests(
-            [FromQuery] RequestSpecParams requestParams)
+        public async Task<ActionResult<IReadOnlyList<RequestResponseDto>>> GetAllRequests()
         {
             var employeeId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(employeeId))
                 return Ok(BadRequest(new ApiResponse(400, "Login Credential end!")));
-
+            RequestSpecParams requestParams = new RequestSpecParams() { EmployeeCode = employeeId };
             requestParams.EmployeeCode = employeeId;
 
             var spec = new RequestSpec(requestParams);

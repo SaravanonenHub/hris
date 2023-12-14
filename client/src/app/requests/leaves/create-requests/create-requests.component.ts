@@ -258,6 +258,9 @@ export class CreateRequestsComponent implements OnInit {
       console.log("More than one day");
     } else { this.morethanOneDay = false; }
   }
+  handleIconClick(){
+    console.log("Icon clicked");
+  }
   sqlDateFormatValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const inputValue = control.value;

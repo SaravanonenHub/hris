@@ -15,6 +15,10 @@ import { LeaveDetailsComponent } from './leave-details/leave-details.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { LeaveDetailInfoComponent } from './leave-detail-info.component';
 import { EditRequestsComponent } from './edit-requests/edit-requests.component';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { reducer } from './store/reducers';
@@ -40,9 +44,12 @@ import { EditRequestsComponent } from './edit-requests/edit-requests.component';
     FileUploadModule,
     TableModule,
     FieldsetModule,
-    RadioButtonModule
+    RadioButtonModule,
+    FontAwesomeModule,
     // StoreModule.forFeature('leaves',reducer),
     // EffectsModule.forFeature([LeaveEffect])
   ]
 })
-export class LeavesModule { }
+export class LeavesModule {
+
+ }

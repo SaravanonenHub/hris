@@ -99,17 +99,22 @@ namespace Core.Specifications
             AddInclude(x => x.Type);
             AddInclude(x => x.Actions);
             // Combine conditions using OrElse
-            if (!conditions.Any())
-            {
-                return null;
-            }
+            
             var orCombinedConditions = conditions
                 .Aggregate((accumulatedCondition, nextCondition) =>
                     Expression.OrElse(accumulatedCondition, nextCondition));
-            var andCombinedConditions = andConditions.Aggregate((acc,nxt) => 
-                    Expression.AndAlso(acc, nxt)); 
-
-            var combinedConditions = Expression.AndAlso(orCombinedConditions,andCombinedConditions);
+            var andCombinedConditions = andConditions.Any() ? andConditions.Aggregate((acc,nxt) => 
+                    Expression.AndAlso(acc, nxt)) : null;
+            Expression combinedConditions;
+            if (orCombinedConditions == null && andCombinedConditions == null)
+            {
+                return null;
+            }
+            if(andCombinedConditions == null) 
+            { combinedConditions = orCombinedConditions; }
+            else if (andCombinedConditions == null) { combinedConditions = andCombinedConditions; }
+            else { combinedConditions = Expression.AndAlso(orCombinedConditions, andCombinedConditions); }
+             
             // Create the final lambda expression
             var lambda = Expression.Lambda<Func<Request, bool>>(combinedConditions, parameterExpression);
 

@@ -47,3 +47,10 @@ export interface IActionHistory {
     actionBy: string,
     summary: string
 }
+
+export enum RequestActions{
+    Created = 'Created',
+    Inapproval = 'In Approval',
+    Inprogress = 'In Progress',
+    Closed ='Closed'
+}

@@ -15,6 +15,10 @@ export class LeaveService {
     console.log(params);
     return this.http.post<ILeaveRequest>(this.baseUrl + 'Leave/create', params);
   }
+  cancelRequest(id: number,params:any) {
+    console.log(params);
+    return this.http.put<ILeaveRequest>(`${this.baseUrl}Leave/cancel/${id}`,params);
+  }
   Actioncreate(id: number) {
     let params = new HttpParams().set('requestid', id);
     console.log(`Selected Id is ${id}`);

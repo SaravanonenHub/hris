@@ -22,7 +22,7 @@ import { leavePolicyParams } from 'src/app/shared/models/leavePolicyParams';
 
 })
 export class EditRequestsComponent implements OnInit{
-  leave$!:Observable<ILeave>;
+  leave!:ILeave;
   entitlement!: ILeaveEntitlement;
   isExpanded: boolean = true;
   isDisabled = true;
@@ -69,6 +69,7 @@ export class EditRequestsComponent implements OnInit{
 
       this.service.getRequest(requestId).subscribe((leaveData) => {
         console.log(leaveData);
+        this.leave = leaveData;
         this.leavePolicyParam.empId = leaveData.request.employee.id;
         this.leavePolicyParam.leaveType = "";
         this.leavePolicyParam.policyName = "";
@@ -200,6 +201,11 @@ export class EditRequestsComponent implements OnInit{
     console.log(this.f?.fromDate?.value!);
 
     return new Date(fromDate!);
+  }
+  onCancel(){
+    this.service.cancelRequest(this.leave.id,this.leave).subscribe((res) => {
+      console.log("Cancelled Request successfully");
+    });
   }
   onSubmit() {
     // of(10).subscribe(() => {

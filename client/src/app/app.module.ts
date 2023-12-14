@@ -19,7 +19,6 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppTopBarComponent } from './app.topbar.component';
 import { AppConfigService } from './service/appconfigservice';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -31,6 +30,9 @@ import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { UserInterceptor } from './core/interceptors/user-interceptor.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
 // import { StoreModule } from '@ngrx/store';
 // import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { EffectsModule } from '@ngrx/effects';
@@ -78,4 +80,9 @@ import { UserInterceptor } from './core/interceptors/user-interceptor.service';
     , { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    // Add the icons you want to use to the library
+    library.add(faHeart);
+  }
+ }

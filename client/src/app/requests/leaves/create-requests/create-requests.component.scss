@@ -24,6 +24,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
   }
   
   .header caption {
@@ -31,10 +32,16 @@
     font-size: x-large;
   }
   
-  .header img {
-    width: 30px;
-    height: 30px;
-  }
+  .header img.heart-icon {
+    width: 41px;
+    height: 20px;
+    cursor: pointer; /* Add cursor style for indicating clickable */
+    transition: background-color 0.3s ease; /* Add transition for a smooth color change */
+}
+
+.header img.heart-icon:hover {
+    background-color: #e0e0e0; /* Change background color on hover */
+}
   
   hr {
     margin-top: 5px;

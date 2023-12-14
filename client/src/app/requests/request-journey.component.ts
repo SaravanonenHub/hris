@@ -1,23 +1,21 @@
 import { Component, Input } from '@angular/core';
-import { IActionHistory } from '../domain/models/request';
+import { IActionHistory, RequestActions } from '../domain/models/request';
 
 @Component({
   selector: 'app-request-journey',
   template: `
-
     <ng-container *ngIf="actions" class="summary-box">
         <h2>{{actions[actions.length - 1].action}}</h2>
         <p>{{actions[actions.length - 1].actionDate | date}}
         <p>Request was realized successfully</p>
     </ng-container>
-    <p-timeline [value]="actions" layout="horizontal" align="top">
+    <p-timeline [value]="requestAction" layout="horizontal" align="top">
     <ng-template pTemplate="content" let-event>
-      <div [ngClass]="{'p-timeline-event': true, 'p-timeline-current': event.current}">
+      <div [ngClass]="{'p-timeline-event': true, 'p-timeline-current': event}">
         <div class="p-timeline-event-content">
-          {{event.action}}
+          {{event}}
         </div>
-      </div>
-        
+      </div>    
     </ng-template>
 </p-timeline>
   `,
@@ -33,5 +31,5 @@ import { IActionHistory } from '../domain/models/request';
 })
 export class RequestJourneyComponent {
   @Input() actions: IActionHistory[] = []
-
+  requestAction=Object.values(RequestActions);
 }
