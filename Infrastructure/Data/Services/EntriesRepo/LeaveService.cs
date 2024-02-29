@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Core.Entities;
 using Core.Entities.Employees;
 using Core.Entities.Entries;
 using Core.Interfaces;
 using Core.Interfaces.IEntries;
 using Core.Specifications;
 using Core.Specifications.EntriesSpec;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Services.EntriesRepo
 {
@@ -23,12 +26,23 @@ namespace Infrastructure.Data.Services.EntriesRepo
         //{
         //    return _unitofWork.GetEntityName(tableName);
         //}
-        public async Task<bool> AlreadyExists(int empID, DateTime fDate, DateTime TDate)
+        public async Task<bool> AlreadyExists(int id,int empID, DateTime fDate, DateTime TDate)
         {
-            var spec = new BaseSpecification<Leave>(c => c.Request.Employee.Id == empID && c.FromDate >= fDate && c.ToDate <= TDate);
-            //var spec = new BaseSpecification<Leave>(c => c.FromDate >= fDate && c.ToDate <= TDate);
-            var exists = await _unitofWork.Repository<Leave>().ListAsync(spec);
-            if (exists.Count == 0) return true;
+            if(id == 0)
+            {
+                var spec = new BaseSpecification<Leave>(c => c.Request.Employee.Id == empID && c.FromDate >= fDate && c.ToDate <= TDate);
+                //var spec = new BaseSpecification<Leave>(c => c.FromDate >= fDate && c.ToDate <= TDate);
+                var exists = await _unitofWork.Repository<Leave>().ListAsync(spec);
+                if (exists.Count == 0) return true;
+            }
+            else
+            {
+                var spec = new BaseSpecification<Leave>(c => c.Request.Employee.Id == empID && c.Id != id && c.FromDate >= fDate && c.ToDate <= TDate);
+                //var spec = new BaseSpecification<Leave>(c => c.FromDate >= fDate && c.ToDate <= TDate);
+                var exists = await _unitofWork.Repository<Leave>().ListAsync(spec);
+                if (exists.Count == 0) return true;
+            }
+           
             return false;
 
         }
@@ -88,6 +102,16 @@ namespace Infrastructure.Data.Services.EntriesRepo
             var result = await _unitofWork.Repository<RequestTemplate>().GetByIdAsync(id);
             if (result == null) return null;
             return result;
+        }
+
+        public Leave GetLeaveById<T>(int id) where T : BaseEntity
+        {
+            var query =  _unitofWork.Repository<Leave>().GetQueryByIdTrack(id, e => e.Request);
+            query = query.Include(x => x.Request).AsNoTracking();
+            //query = query.Include(_ => _.Request).ThenInclude(x => x.Employee).AsNoTracking();
+            var leave =  query.FirstOrDefault(x => x.Id == id);
+            if(leave == null) return null;
+            return leave;
         }
     }
 }

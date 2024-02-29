@@ -21,8 +21,8 @@ import { leavePolicyParams } from 'src/app/shared/models/leavePolicyParams';
   providers: [DatePipe]
 
 })
-export class EditRequestsComponent implements OnInit{
-  leave!:ILeave;
+export class EditRequestsComponent implements OnInit {
+  leave!: ILeave;
   entitlement!: ILeaveEntitlement;
   isExpanded: boolean = true;
   isDisabled = true;
@@ -52,18 +52,18 @@ export class EditRequestsComponent implements OnInit{
     dayType: ['One', [Validators.required]]
   });
 
-  constructor(private service:LeaveService
-    , private fb:FormBuilder
+  constructor(private service: LeaveService
+    , private fb: FormBuilder
     , private datePipe: DatePipe
-    , private route:ActivatedRoute
+    , private route: ActivatedRoute
     , private accountService: AccountService
     , private router: Router
     , private messageService: PgmessageService
     , private empService: EmployeeService
-    , private notifyService: NotificationService){}
+    , private notifyService: NotificationService) { }
   ngOnInit(): void {
-   
-    
+
+
     this.route.queryParams.subscribe((params) => {
       const requestId = params['requestId'];
 
@@ -77,15 +77,16 @@ export class EditRequestsComponent implements OnInit{
         console.log(leaveData.entitlement);
         const leaveProvided = this.entitlement.details.find(x => x.leaveType.leaveName == leaveData.leaveType)?.provided
         const leaveTaken = leaveData.entitlement.details.find(x => x.leaveType.leaveName == leaveData.leaveType)?.taken;
-        const bal:Number = leaveProvided! - leaveTaken!;
+        const bal: Number = leaveProvided! - leaveTaken!;
         this.onRadioDaytypeClick(leaveData.days == 1 ? 'One' : 'Multi');
         this.leaveReqForm.patchValue({
           employeeId: leaveData.request.employee.id!.toString(),
           leaveType: leaveData.leaveType,
           fromDate: this.datePipe.transform(leaveData.fromDate, 'dd/MM/yyyy'),
-          toDate: this.datePipe.transform(leaveData.tDate, 'dd/MM/yyyy'),
+          toDate: leaveData.days == 1 ? this.datePipe.transform(leaveData.fromDate, 'dd/MM/yyyy')
+            : this.datePipe.transform(leaveData.toDate, 'dd/MM/yyyy'),
           days: leaveData.days.toString(),
-          session:leaveData.session,
+          session: leaveData.session,
           reason: leaveData.reason,
           status: leaveData.status,
           cancellationStatus: leaveData.cancellationStatus,
@@ -96,8 +97,8 @@ export class EditRequestsComponent implements OnInit{
       });
       // Use the requestId as needed
     });
-    
-    
+
+
   }
   public control(name: string): AbstractControl | null {
     return this.leaveReqForm.get(name);
@@ -202,8 +203,8 @@ export class EditRequestsComponent implements OnInit{
 
     return new Date(fromDate!);
   }
-  onCancel(){
-    this.service.cancelRequest(this.leave.id,this.leave).subscribe((res) => {
+  onCancel() {
+    this.service.cancelRequest(this.leave.id, this.leave).subscribe((res) => {
       console.log("Cancelled Request successfully");
     });
   }
@@ -226,7 +227,7 @@ export class EditRequestsComponent implements OnInit{
     });
 
 
-    this.service.create(this.formData).subscribe({
+    this.service.update(this.leave.id, this.formData).subscribe({
       next: (res) => {
         debugger;
         console.log(res);

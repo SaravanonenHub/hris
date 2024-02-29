@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Specifications;
@@ -11,6 +12,7 @@ namespace Core.Interfaces
     {
         Task<T> GetByIdAsync(int id);
         Task<object> GetObjByIdAsync(int id);
+        IQueryable<T> GetQueryByIdTrack(int id, params Expression<Func<T, object>>[] includes);
         IQueryable<T> GetByIdWithoutTrack(int id);
         IQueryable<T> GetEntityWithSpecNoTrack(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAllAsync();

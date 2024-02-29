@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -90,6 +87,11 @@ namespace Infrastructure.Data
             return _context.Set<T>()?.Where(o => o.Id == id).AsNoTracking().AsQueryable();
         }
 
-
+        public  IQueryable<T> GetQueryByIdTrack(int id, params Expression<Func<T, object>>[] includes)
+        {
+            var query =  _context.Set<T>().AsQueryable().AsNoTracking();
+          
+            return query.Where(e => e.Id == id);
+        }
     }
 }

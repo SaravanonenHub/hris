@@ -73,11 +73,12 @@ namespace API.Controllers.Entries
                    return BadRequest(new ApiResponse(400, "Invalid To date!"));
                 leave.FromDate = fdate.ToString();
                 leave.ToDate = tdate.ToString();
-                var alreadyExist = await _service.AlreadyExists(_emp.Id, fdate, tdate);
+                var alreadyExist = await _service.AlreadyExists(0,_emp.Id, fdate, tdate);
 
                 if (!alreadyExist) return BadRequest(new ApiResponse(400, "Leave already exist!"));
 
                 var _leave = _mapper.Map<LeaveRequestDto, Leave>(leave);
+                
                 //_leave.Employee = _emp;
                 int numericLength = 10;
                 var _req = new Request
@@ -123,6 +124,53 @@ namespace API.Controllers.Entries
                 return BadRequest(new ApiResponse(400, "Model Invalid!"));
             }
          }
+        [HttpPut("edit/{id}")]
+        public async Task<ActionResult<LeaveResponseDto>> LeaveOnEditSubmit(int id, [FromForm] LeaveRequestDto leave)
+        {
+            if (ModelState.IsValid)
+            {
+                var empId = HttpContext.User.RetriveUserFromPrincipal();
+                var _emp = await _empservice.GetEmployeeById(0, leave.EmployeeId);
+                var _template = await _service.GetTemplatebyId(leave.TemplateId);
+                DateTime fdate = DateTime.MinValue;
+                DateTime tdate = DateTime.MinValue;
+                if (!DateTime.TryParseExact(leave.FromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fdate) && fdate == DateTime.MinValue)
+                    return BadRequest(new ApiResponse(400, "Invalid From date!"));
+                if (!DateTime.TryParseExact(leave.ToDate, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out tdate) && tdate == DateTime.MinValue)
+                    return BadRequest(new ApiResponse(400, "Invalid To date!"));
+                leave.FromDate = fdate.ToString();
+                leave.ToDate = tdate.ToString();
+                var alreadyExist = await _service.AlreadyExists(id,_emp.Id, fdate, tdate);
+
+                if (!alreadyExist) return BadRequest(new ApiResponse(400, "Leave already exist!"));
+
+                var _leave = _mapper.Map<LeaveRequestDto, Leave>(leave);
+
+                var _actualLeave =  _service.GetLeaveById<Leave>(id);
+                if (_actualLeave == null) return BadRequest(new ApiResponse(400, $"Leave with {id} not exist!"));
+                //_leave.Employee = _emp;
+                int numericLength = 10;
+                _leave.Request = _actualLeave.Request;
+                _leave.Id = _actualLeave.Id;
+                _leave.RequestId = _actualLeave.Request.Id;
+                _leave.Request.Employee = _emp;
+                var result = await _service.UpdateLeave(_leave);
+                if (result == null) return BadRequest(new ApiResponse(400, "Problem creating Leave"));
+                var action = new ActionHistory
+                {
+                    Action = ActionTaken.Created,
+                    ActionBy = result.Request.Employee.EmployeeCode,
+                    Request = _leave.Request,
+                    //Reason = "Submit Request"
+                };
+                
+                return Ok(_mapper.Map<Leave, LeaveResponseDto>(_leave));
+            }
+            else
+            {
+                return BadRequest(new ApiResponse(400, "Model Invalid!"));
+            }
+        }
         [HttpPut("cancel")]
         public async Task<ActionResult<LeaveResponseDto>> LeaveCancel(int id)
         {
